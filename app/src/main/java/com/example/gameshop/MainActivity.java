@@ -3,9 +3,11 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,30 +39,28 @@ public class MainActivity extends AppCompatActivity {
         r = findViewById(R.id.reg);
         context = this;
 
-        r.setVisibility(View.GONE);
 
-        sing.setOnClickListener(new View.OnClickListener() {
+        final View.OnClickListener logining = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String l = login.getText().toString();
-                String p = psw.getText().toString();
-                if(p.length() > 3 && l.length() > 3) {
-                    SingIN in = new SingIN(context);
-                    if(in.CheckUser(l, p) == true) Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
-                    else Toast.makeText(context,"Wrong login or password", Toast.LENGTH_LONG).show();
-                }
-                else Toast.makeText(context, "Fill the fields", Toast.LENGTH_LONG).show();
+                Logining(view);
             }
-        });
+        };
 
+        sing.setOnClickListener(logining);
 
         final View.OnClickListener reg = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String l = login.getText().toString();
+                String l = login.getText().toString().toLowerCase();
                 String p = psw.getText().toString();
                 if(isValidEmail(l) && isValidPassword(p)){
-                    Toast.makeText(context, "You have register", Toast.LENGTH_LONG).show();
+                    SingIN in = new SingIN(context);
+                    if(!in.AddUser(l, p)) Toast.makeText(context, "This mail has been already registrated", Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(context, "You have register", Toast.LENGTH_LONG).show();
+                        setContentView(R.layout.activity_main);
+                    }
                 }
                 else  if(p.length() < 8) {
                     Toast.makeText(context,"Password must be at least 8 characters", Toast.LENGTH_LONG).show();
@@ -106,5 +106,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void Logining(View view){
+        String l = login.getText().toString().toLowerCase();
+        String p = psw.getText().toString();
+        System.out.println(l);
+        System.out.println(p);
+        login.setText(l);
+        psw.setText(p);
+        if(p.length() > 3 && l.length() > 3) {
+            SingIN in = new SingIN(context);
+            if(in.CheckUser(l, p)) {
+                System.out.println("in");
+                Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(), ShopActivity.class);
+                intent.putExtra("user", l);
+                startActivity(intent);
+            }
+            else Toast.makeText(context,"Wrong login or password", Toast.LENGTH_LONG).show();
+        }
+        else Toast.makeText(context, "Fill the fields", Toast.LENGTH_LONG).show();
+    }
 }

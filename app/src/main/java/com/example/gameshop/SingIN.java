@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,13 +23,13 @@ public class SingIN {
     }
 
     public boolean CheckUser(String user, String password){
-        if(users.containsKey(user) && users.get(user) == password) return true;
-        else return false;
+        return users.containsKey(user) && users.get(user).equals(password);
     }
 
-    public boolean AddUser(String login, String password, String mail){
+    public boolean AddUser(String login, String password){
         if(!users.containsKey(login)) {
             users.put(login, password);
+            SaveUsers();
             return true;
         }
         else return false;
@@ -39,7 +38,7 @@ public class SingIN {
     private void SaveUsers(){
         String jsonString = new Gson().toJson(users);
         try{
-            String filePath = context.getFilesDir().getPath().toString() + "users.txt";
+            String filePath = context.getFilesDir().getPath() + "users.txt";
             FileWriter file = new FileWriter(filePath);
             file.write(jsonString);
             file.close();
@@ -50,18 +49,16 @@ public class SingIN {
 
     private void LoadUsers(){
         try{
-            String filePath = context.getFilesDir().getPath().toString() + "users.txt";
+            String filePath = context.getFilesDir().getPath() + "users.txt";
             File f = new File(filePath);
             if(!f.exists()) return ;
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String line;
-            StringBuffer stringBuffer = new StringBuffer();
+            StringBuilder stringBuffer = new StringBuilder();
             while ((line = br.readLine()) != null) {
                 stringBuffer.append(line);
             }
             users = new Gson().fromJson(stringBuffer.toString(), users.getClass());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
