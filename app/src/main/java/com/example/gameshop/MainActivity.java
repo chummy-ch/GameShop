@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         r = findViewById(R.id.reg);
         context = this;
 
+        Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getBaseContext(), ShopActivity.class);
+        intent.putExtra("user", "jaja@gmail.com");
+        startActivity(intent);
+
 
         final View.OnClickListener logining = new View.OnClickListener() {
             @Override
@@ -120,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         if(p.length() > 3 && l.length() > 3) {
             SingIN in = new SingIN(context);
             if(in.CheckUser(l, p)) {
-                System.out.println("in");
                 Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getBaseContext(), ShopActivity.class);
                 intent.putExtra("user", l);
