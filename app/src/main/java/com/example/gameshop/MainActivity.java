@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public Context context;
     public TextView singup;
     public TextView r;
+    private View.OnClickListener reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         sing.setOnClickListener(logining);
 
-        final View.OnClickListener reg = new View.OnClickListener() {
+         reg = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String l = login.getText().toString().toLowerCase();
@@ -74,23 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
-        singup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                vib.vibrate(100);
-                login.setHint("Put here your mail adress");
-                psw.setHint("Create your password");
-                singup.setVisibility(View.GONE);
-                r.setVisibility(View.VISIBLE);
-                LinearLayout l = (LinearLayout) r.getParent();
-                l.setBackgroundResource(R.drawable.round_view);
-                sing.setText("Register");
-                sing.setOnClickListener(reg);
-            }
-        });
-
     }
 
     public boolean isValidPassword(CharSequence target){
@@ -104,6 +88,26 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    public void Reg(View view){
+        System.out.println(1);
+        Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vib.vibrate(100);
+        login.setHint("Put here your mail adress");
+        psw.setHint("Create your password");
+        singup.setText("Sing in");
+        singup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_main);
+            }
+        });
+        r.setVisibility(View.VISIBLE);
+        LinearLayout l = (LinearLayout) r.getParent();
+        l.setBackgroundResource(R.drawable.round_view);
+        sing.setText("Register");
+        sing.setOnClickListener(reg);
     }
 
     public void Logining(View view){
