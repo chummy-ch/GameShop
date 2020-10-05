@@ -63,6 +63,15 @@
             android:hint="Sale"
             android:layout_weight="0.1"/>
 
+        <Button
+            android:id="@+id/saveGame"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_weight="0"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

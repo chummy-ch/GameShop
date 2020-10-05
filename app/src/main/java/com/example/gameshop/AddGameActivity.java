@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class AddGameActivity extends AppCompatActivity {
@@ -14,6 +16,7 @@ public class AddGameActivity extends AppCompatActivity {
     private EditText desc;
     private EditText genres;
     private EditText sale;
+    private Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,15 @@ public class AddGameActivity extends AppCompatActivity {
         desc = findViewById(R.id.desc);
         genres = findViewById(R.id.genres);
         sale = findViewById(R.id.sale);
+        save = findViewById(R.id.saveGame);
 
-        AddGame();
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddGame();
+            }
+        });
+
     }
 
     private void AddGame(){
@@ -36,5 +46,8 @@ public class AddGameActivity extends AppCompatActivity {
         SQLiteDatabase db = addGame.getWritableDatabase();
         cv.put("name", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
+        db.insert("games", null, cv);
+        addGame.close();
+        finish();
     }
 }
