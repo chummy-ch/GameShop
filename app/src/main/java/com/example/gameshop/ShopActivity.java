@@ -3,6 +3,7 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -72,5 +73,8 @@ public class ShopActivity extends AppCompatActivity {
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
         }
+    }
+
+    public void RecLoad(){
     }
 }
