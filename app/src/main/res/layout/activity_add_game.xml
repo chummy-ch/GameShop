@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddGameActivity">
+    tools:context=".DBHelperActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
             android:id="@+id/gameName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:hint="Game name"
             android:layout_weight="0.1"/>
 
@@ -29,6 +30,7 @@
         <EditText
             android:id="@+id/price"
             android:layout_width="250dp"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:hint="Price"
             android:layout_weight="0.1"/>
@@ -36,6 +38,7 @@
         <EditText
             android:id="@+id/desc"
             android:layout_width="250dp"
+            android:inputType="text"
             android:layout_height="wrap_content"
             android:hint="Description"
             android:layout_weight="0.1"/>
@@ -43,25 +46,27 @@
         <EditText
             android:id="@+id/genres"
             android:layout_width="250dp"
+            android:inputType="text"
             android:layout_height="wrap_content"
             android:hint="Genres"
             android:layout_weight="0.1"/>
 
-        <CheckBox
-            android:id="@+id/ageLimit"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="0.1"
-            android:text="Age Limit" />
-
         <EditText
             android:id="@+id/sale"
             android:layout_width="250dp"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:hint="Sale"
             android:layout_weight="0.1"/>
+
+        <CheckBox
+        android:id="@+id/ageLimit"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="80dp"
+        android:layout_weight="0.1"
+        android:text="Age Limit" />
 
         <Button
             android:id="@+id/saveGame"

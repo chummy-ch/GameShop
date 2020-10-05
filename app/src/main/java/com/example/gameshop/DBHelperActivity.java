@@ -3,14 +3,16 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class AddGameActivity extends AppCompatActivity {
+public class DBHelperActivity extends AppCompatActivity {
     private EditText name;
     private EditText price;
     private EditText image;
@@ -19,12 +21,14 @@ public class AddGameActivity extends AppCompatActivity {
     private EditText genres;
     private EditText sale;
     private Button save;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_game);
 
+        context = this;
         name = findViewById(R.id.gameName);
         price = findViewById(R.id.price);
         image = findViewById(R.id.image);
@@ -44,6 +48,13 @@ public class AddGameActivity extends AppCompatActivity {
     }
 
     private void AddGame(){
+        EditText[] arr = new EditText[]{name, price, image, desc, genres, sale};
+        for (EditText et : arr) {
+            if(et.getText().toString().trim().length() < 1) {
+                Toast.makeText(context, "Fill all the fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         ContentValues cv = new ContentValues();
         AddGame addGame = new AddGame(this, this);
         SQLiteDatabase db = addGame.getWritableDatabase();
