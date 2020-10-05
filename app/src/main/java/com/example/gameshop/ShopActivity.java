@@ -41,7 +41,6 @@ public class ShopActivity extends AppCompatActivity {
     }
 
     public void LoadDB(){
-        String LOG_TAG = "";
         AddGame addGame = new AddGame(this, this);
         ContentValues cv = new ContentValues();
         SQLiteDatabase db = addGame.getWritableDatabase();
