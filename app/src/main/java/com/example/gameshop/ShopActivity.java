@@ -50,6 +50,12 @@ public class ShopActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        LoadDB();
+    }
+
     public void LoadDB(){
         AddGame addGame = new AddGame(this, this);
         ContentValues cv = new ContentValues();
