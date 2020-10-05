@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.internal.$Gson$Preconditions;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.AdapterViewHolder> {
-    private GameCard games;
+    private ArrayList<GameCard> games;
     private Context context;
 
-    public CardViewAdapter(GameCard games, Context context){
+    public CardViewAdapter(ArrayList games, Context context){
         this.context = context;
         this.games = games;
     }
@@ -31,14 +34,15 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
 
     @Override
     public void onBindViewHolder(@NonNull AdapterViewHolder holder, int position) {
-        holder.name.setText(games.name);
-        holder.genres.setText(games.genres.toString());
-        holder.price.setText(String.valueOf(games.price) + "$");
+        if(games.size() == 0) return;
+        holder.name.setText(games.get(position).name);
+        holder.genres.setText(games.get(position).genres.toString());
+        holder.price.setText(String.valueOf(games.get(position).price) + "$");
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return games.size();
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder{

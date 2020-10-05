@@ -13,8 +13,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
@@ -32,7 +37,8 @@ public class ShopActivity extends AppCompatActivity {
         context = this;
         text = findViewById(R.id.text);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
+        ArrayList<GameCard> ar = new ArrayList<>();
+        recyclerView.setAdapter(new CardViewAdapter(ar, context));
         LoadDB();
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -60,11 +66,11 @@ public class ShopActivity extends AppCompatActivity {
             int saleColIndex = c.getColumnIndex("sale");
             int ageColIndex = c.getColumnIndex("AgeLimit");
 
-
+            ArrayList<GameCard> cardsList = new ArrayList<>();
 
             do {
                 String name = c.getString(nameColIndex);
-                String price = c.getString(priceColIndex);
+                int price = c.getInt(priceColIndex);
                 String image = c.getString(imageColIndex);
                 String desc = c.getString(descColIndex);
                 String genres = c.getString(genColIndex);
@@ -73,10 +79,9 @@ public class ShopActivity extends AppCompatActivity {
                 GameCard card = new GameCard();
                 card.name = name;
                 card.disc = desc;
-                card.price = 10;
-                card.genres = "all";
-                CardViewAdapter adapter = new CardViewAdapter(card, context);
-                recyclerView.setAdapter(adapter);
+                card.price = price;
+                card.genres = genres;
+                cardsList.add(card);
                 // получаем значения по номерам столбцов и пишем все в лог
 /*
                 text.setText(text.getText().toString() + name + " PRICE " + price + " DESC "+ desc + " GENRES "  + genres + " IMAGE " + image + " SALE "    +  sale + " age = "  + age + "\n");
@@ -84,6 +89,9 @@ public class ShopActivity extends AppCompatActivity {
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
+            System.out.println(cardsList.size());
+            CardViewAdapter adapter = new CardViewAdapter(cardsList, context);
+            recyclerView.setAdapter(adapter);
         }
     }
 
