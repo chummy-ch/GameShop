@@ -1,6 +1,7 @@
 package com.example.gameshop;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class ShopActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addNewGame);
         context = this;
         text = findViewById(R.id.text);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         LoadDB();
 
@@ -67,8 +70,17 @@ public class ShopActivity extends AppCompatActivity {
                 String genres = c.getString(genColIndex);
                 String sale = c.getString(saleColIndex);
                 String age = c.getString(ageColIndex);
+                GameCard card = new GameCard();
+                card.name = name;
+                card.disc = desc;
+                card.price = 10;
+                card.genres = "all";
+                CardViewAdapter adapter = new CardViewAdapter(card, context);
+                recyclerView.setAdapter(adapter);
                 // получаем значения по номерам столбцов и пишем все в лог
+/*
                 text.setText(text.getText().toString() + name + " PRICE " + price + " DESC "+ desc + " GENRES "  + genres + " IMAGE " + image + " SALE "    +  sale + " age = "  + age + "\n");
+*/
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
