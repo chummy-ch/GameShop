@@ -53,18 +53,24 @@ public class ShopActivity extends AppCompatActivity {
             // определяем номера столбцов по имени в выборке
             int nameColIndex = c.getColumnIndex("name");
             int priceColIndex = c.getColumnIndex("price");
+            int imageColIndex = c.getColumnIndex("image");
+            int descColIndex = c.getColumnIndex("description");
+            int genColIndex = c.getColumnIndex("genres");
+            int saleColIndex = c.getColumnIndex("sale");
+            int ageColIndex = c.getColumnIndex("AgeLimit");
 
 
 
             do {
                 String name = c.getString(nameColIndex);
                 String price = c.getString(priceColIndex);
+                String image = c.getString(imageColIndex);
+                String desc = c.getString(descColIndex);
+                String genres = c.getString(genColIndex);
+                String sale = c.getString(saleColIndex);
+                String age = c.getString(ageColIndex);
                 // получаем значения по номерам столбцов и пишем все в лог
-                Log.d(LOG_TAG,
-                        "ID = " + c.getString(nameColIndex) +
-                                ", name = " + c.getString(priceColIndex));
-
-                text.setText(text.getText().toString() + name + " = " + price + "\n");
+                text.setText(text.getText().toString() + name + " PRICE " + price + " DESC "+ desc + " GENRES "  + genres + " IMAGE " + image + " SALE "    +  sale + " age = "  + age + "\n");
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());

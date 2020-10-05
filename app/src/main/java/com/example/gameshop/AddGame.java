@@ -33,9 +33,8 @@ public class AddGame extends SQLiteOpenHelper {
                 + "name text,"
                 + "image int,"
                 + "price int,"
-                + "descriprion text,"
-                + "geres text,"
-                + "Onsale binary,"
+                + "description text,"
+                + "genres text,"
                 + "sale int,"
                 + "AgeLimit binary"
                 + ");");
