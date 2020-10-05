@@ -51,18 +51,18 @@ public class ShopActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
 
             // определяем номера столбцов по имени в выборке
-            int idColIndex = c.getColumnIndex("name");
-            int nameColIndex = c.getColumnIndex("price");
+            int nameColIndex = c.getColumnIndex("name");
+            int priceColIndex = c.getColumnIndex("price");
 
 
 
             do {
-                String name = c.getString(idColIndex);
-                String price = c.getString(nameColIndex);
+                String name = c.getString(nameColIndex);
+                String price = c.getString(priceColIndex);
                 // получаем значения по номерам столбцов и пишем все в лог
                 Log.d(LOG_TAG,
-                        "ID = " + c.getString(idColIndex) +
-                                ", name = " + c.getString(nameColIndex));
+                        "ID = " + c.getString(nameColIndex) +
+                                ", name = " + c.getString(priceColIndex));
 
                 text.setText(text.getText().toString() + name + " = " + price + "\n");
                 // переход на следующую строку
