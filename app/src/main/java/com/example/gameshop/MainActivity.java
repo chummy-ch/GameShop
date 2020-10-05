@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getBaseContext(), ShopActivity.class);
         intent.putExtra("user", "jaja@gmail.com");
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
 
 
         final View.OnClickListener logining = new View.OnClickListener() {
