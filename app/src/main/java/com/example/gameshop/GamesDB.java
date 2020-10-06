@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.EditText;
 
-public class AddGame extends SQLiteOpenHelper {
+public class GamesDB extends SQLiteOpenHelper {
     private Activity activity;
     private EditText name;
     private EditText price;
@@ -17,13 +17,9 @@ public class AddGame extends SQLiteOpenHelper {
     private EditText sale;
     private Context context;
 
-    public AddGame(Context context, Activity activity){
+    public GamesDB(Context context, Activity activity){
         super(context, "GameList", null, 1);
         this.activity = activity;
-
-    }
-
-    public void  AddGame(){
 
     }
 

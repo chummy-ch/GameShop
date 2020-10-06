@@ -1,28 +1,20 @@
 package com.example.gameshop;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
@@ -60,9 +52,9 @@ public class ShopActivity extends AppCompatActivity {
     }
 
     public void LoadDB(){
-        AddGame addGame = new AddGame(this, this);
+        GamesDB gamesDB = new GamesDB(this, this);
         ContentValues cv = new ContentValues();
-        SQLiteDatabase db = addGame.getWritableDatabase();
+        SQLiteDatabase db = gamesDB.getWritableDatabase();
         Cursor c = db.query("games", null, null, null, null, null, null);
         if (c.moveToFirst()) {
 
@@ -92,16 +84,9 @@ public class ShopActivity extends AppCompatActivity {
                 card.price = price;
                 card.genres = genres;
                 cardsList.add(card);
-                // получаем значения по номерам столбцов и пишем все в лог
-
-                // переход на следующую строку
-                // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
             CardViewAdapter adapter = new CardViewAdapter(cardsList, context);
             recyclerView.setAdapter(adapter);
         }
-    }
-
-    public void RecLoad(){
     }
 }

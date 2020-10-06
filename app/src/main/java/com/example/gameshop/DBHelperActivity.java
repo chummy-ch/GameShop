@@ -6,12 +6,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,14 +19,9 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 public class DBHelperActivity extends AppCompatActivity {
     private EditText name;
@@ -92,7 +83,6 @@ public class DBHelperActivity extends AppCompatActivity {
                     String src1 = (new File(src, files[i]).getPath());
                     String dst1 = dst.getPath();
                     copyFileOrDirectory(src1, dst1);
-
                 }
             } else {
                 copyFile(src, dst);
@@ -159,8 +149,8 @@ public class DBHelperActivity extends AppCompatActivity {
         copyFileOrDirectory(imagePath, folder.getPath());
         String imageName = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         ContentValues cv = new ContentValues();
-        AddGame addGame = new AddGame(this, this);
-        SQLiteDatabase db = addGame.getWritableDatabase();
+        GamesDB gamesDB = new GamesDB(this, this);
+        SQLiteDatabase db = gamesDB.getWritableDatabase();
         cv.put("name", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", imageName);
@@ -169,7 +159,7 @@ public class DBHelperActivity extends AppCompatActivity {
         cv.put("sale", sale.getText().toString());
         cv.put("AgeLimit", age.isChecked());
         db.insert("games", null, cv);
-        addGame.close();
+        gamesDB.close();
         finish();
     }
 }
