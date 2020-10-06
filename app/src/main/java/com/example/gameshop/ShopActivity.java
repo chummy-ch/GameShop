@@ -33,9 +33,9 @@ public class ShopActivity extends AppCompatActivity {
         text = findViewById(R.id.text);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<GameCard> ar = new ArrayList<>();
-        recyclerView.setAdapter(new CardViewAdapter(ar, context));
+        recyclerView.setAdapter(new CardViewAdapter(ar, context, recyclerView));
         LoadDB();
-
+        setContentView(R.layout.game_layout);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +85,7 @@ public class ShopActivity extends AppCompatActivity {
                 card.genres = genres;
                 cardsList.add(card);
             } while (c.moveToNext());
-            CardViewAdapter adapter = new CardViewAdapter(cardsList, context);
+            CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView);
             recyclerView.setAdapter(adapter);
         }
     }

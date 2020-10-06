@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,17 +20,29 @@ import java.util.ArrayList;
 public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.AdapterViewHolder> {
     private ArrayList<GameCard> games;
     private Context context;
+    private RecyclerView rec;
 
-    public CardViewAdapter(ArrayList games, Context context){
+    public CardViewAdapter(ArrayList games, Context context, RecyclerView rec){
         this.context = context;
         this.games = games;
+        this.rec = rec;
     }
+
+    View.OnClickListener openCard = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int pos = rec.getChildLayoutPosition(view);
+            GameCard game = games.get(pos);
+            Toast.makeText(context, game.name, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @NonNull
     @Override
     public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.cardview, parent, false);
+        view.setOnClickListener(openCard);
         return new AdapterViewHolder(view);
     }
 
