@@ -30,7 +30,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
-        android:layout_height="175dp">
+        android:layout_height="200dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp">
 
         <Button
@@ -68,7 +69,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#3EB71D"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_weight="0.1"
             android:text="10$"/>
