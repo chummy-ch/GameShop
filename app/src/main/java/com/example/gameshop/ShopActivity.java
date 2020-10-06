@@ -35,7 +35,6 @@ public class ShopActivity extends AppCompatActivity {
         ArrayList<GameCard> ar = new ArrayList<>();
         recyclerView.setAdapter(new CardViewAdapter(ar, context, recyclerView));
         LoadDB();
-        setContentView(R.layout.game_layout);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

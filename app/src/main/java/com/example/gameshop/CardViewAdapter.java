@@ -1,6 +1,7 @@
 package com.example.gameshop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,8 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         public void onClick(View view) {
             int pos = rec.getChildLayoutPosition(view);
             GameCard game = games.get(pos);
-            Toast.makeText(context, game.name, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, GameActivity.class);
+            context.startActivity(intent);
         }
     };
 
