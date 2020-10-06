@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +28,7 @@ import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class DBHelperActivity extends AppCompatActivity {
     private EditText name;
@@ -61,6 +63,7 @@ public class DBHelperActivity extends AppCompatActivity {
                 AddGame();
             }
         });
+
 
     }
 
@@ -136,14 +139,16 @@ public class DBHelperActivity extends AppCompatActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         System.out.println("P is " + imageUri.getPath());
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        String folderPath = context.getFilesDir().getPath().toString() + "/gamesimages";
-                        if(!Files.exists(Paths.get(folderPath))){
-                            File file = new File(folderPath);
-                            file.mkdir();
+                        String folderPath = context.getFilesDir().getPath().toString();
+                        File folder = context.getExternalFilesDir("images");
+                        if(!folder.exists()){
+                            folder.mkdir();
                         }
-                        if(Files.exists(Paths.get(folderPath))) System.out.println("YESS");
-                        System.out.println("Folder path " + folderPath);
-                        copyFileOrDirectory("storage/emulated/0/DCIM/Camera/IMG_20201003_220838.jpg", folderPath + name.getText().toString());
+                        System.out.println(imageUri.getPath());
+                        String imagePath = imageUri.getPath().substring(imageUri.getPath().indexOf("storage"));
+                        System.out.println(imagePath);
+                        copyFileOrDirectory(imagePath, folder.getPath());
+                        /*Bitmap map = BitmapFactory.decodeFile(folderPath + name.getText().toString());*/
                         image.setImageBitmap(selectedImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
