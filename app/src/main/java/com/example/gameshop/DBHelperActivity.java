@@ -4,23 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DBHelperActivity extends AppCompatActivity {
     private EditText name;
     private EditText price;
-    private EditText image;
+    private ImageView image;
     private CheckBox age;
     private EditText desc;
     private EditText genres;
     private EditText sale;
     private Button save;
+    private final int Pick_image = 1;
     private Context context;
 
     @Override
@@ -47,8 +64,96 @@ public class DBHelperActivity extends AppCompatActivity {
 
     }
 
+    public void ChooseImage(View view){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        //Тип получаемых объектов - image:
+        photoPickerIntent.setType("image/*");
+        //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
+        startActivityForResult(photoPickerIntent, Pick_image);
+    }
+
+    public static void copyFileOrDirectory(String srcDir, String dstDir) {
+
+        try {
+            File src = new File(srcDir);
+            File dst = new File(dstDir, src.getName());
+
+            if (src.isDirectory()) {
+
+                String files[] = src.list();
+                int filesLength = files.length;
+                for (int i = 0; i < filesLength; i++) {
+                    String src1 = (new File(src, files[i]).getPath());
+                    String dst1 = dst.getPath();
+                    copyFileOrDirectory(src1, dst1);
+
+                }
+            } else {
+                copyFile(src, dst);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs();
+
+        if (!destFile.exists()) {
+            destFile.createNewFile();
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+
+        try {
+            source = new FileInputStream(sourceFile).getChannel();
+            destination = new FileOutputStream(destFile).getChannel();
+            destination.transferFrom(source, 0, source.size());
+        } finally {
+            if (source != null) {
+                source.close();
+            }
+            if (destination != null) {
+                destination.close();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch (requestCode) {
+            case Pick_image:
+                if (resultCode == RESULT_OK) {
+                    try {
+
+                        //Получаем URI изображения, преобразуем его в Bitmap
+                        //объект и отображаем в элементе ImageView нашего интерфейса:
+                        final Uri imageUri = imageReturnedIntent.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        System.out.println("P is " + imageUri.getPath());
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        String folderPath = context.getFilesDir().getPath().toString() + "/gamesimages";
+                        if(!Files.exists(Paths.get(folderPath))){
+                            File file = new File(folderPath);
+                            file.mkdir();
+                        }
+                        if(Files.exists(Paths.get(folderPath))) System.out.println("YESS");
+                        System.out.println("Folder path " + folderPath);
+                        copyFileOrDirectory("storage/emulated/0/DCIM/Camera/IMG_20201003_220838.jpg", folderPath + name.getText().toString());
+                        image.setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+        }
+    }
+
     private void AddGame(){
-        EditText[] arr = new EditText[]{name, price, image, desc, genres, sale};
+        EditText[] arr = new EditText[]{name, price, desc, genres, sale};
         for (EditText et : arr) {
             if(et.getText().toString().trim().length() < 1) {
                 Toast.makeText(context, "Fill all the fields", Toast.LENGTH_SHORT).show();
