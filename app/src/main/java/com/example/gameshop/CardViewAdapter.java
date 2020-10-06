@@ -1,6 +1,8 @@
 package com.example.gameshop;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.internal.$Gson$Preconditions;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -38,6 +41,13 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         holder.name.setText(games.get(position).name);
         holder.genres.setText(games.get(position).genres.toString());
         holder.price.setText(String.valueOf(games.get(position).price) + "$");
+        File folder = context.getExternalFilesDir("images");
+        String img = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
+        File image = new File(folder.getPath() + "/" + img);
+        if(image.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+            holder.image.setImageBitmap(myBitmap);
+        }
     }
 
     @Override

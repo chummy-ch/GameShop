@@ -31,7 +31,7 @@ public class AddGame extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table games ("
                 + "name text,"
-                + "image int,"
+                + "image text,"
                 + "price int,"
                 + "description text,"
                 + "genres text,"

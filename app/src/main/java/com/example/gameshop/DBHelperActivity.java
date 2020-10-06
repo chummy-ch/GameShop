@@ -38,6 +38,7 @@ public class DBHelperActivity extends AppCompatActivity {
     private EditText desc;
     private EditText genres;
     private EditText sale;
+    private String imageUri;
     private Button save;
     private final int Pick_image = 1;
     private Context context;
@@ -132,23 +133,12 @@ public class DBHelperActivity extends AppCompatActivity {
             case Pick_image:
                 if (resultCode == RESULT_OK) {
                     try {
-
                         //Получаем URI изображения, преобразуем его в Bitmap
                         //объект и отображаем в элементе ImageView нашего интерфейса:
                         final Uri imageUri = imageReturnedIntent.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        System.out.println("P is " + imageUri.getPath());
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        String folderPath = context.getFilesDir().getPath().toString();
-                        File folder = context.getExternalFilesDir("images");
-                        if(!folder.exists()){
-                            folder.mkdir();
-                        }
-                        System.out.println(imageUri.getPath());
-                        String imagePath = imageUri.getPath().substring(imageUri.getPath().indexOf("storage"));
-                        System.out.println(imagePath);
-                        copyFileOrDirectory(imagePath, folder.getPath());
-                        /*Bitmap map = BitmapFactory.decodeFile(folderPath + name.getText().toString());*/
+                        this.imageUri = imageUri.getPath();
                         image.setImageBitmap(selectedImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -165,12 +155,19 @@ public class DBHelperActivity extends AppCompatActivity {
                 return;
             }
         }
+        File folder = context.getExternalFilesDir("images");
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+        String imagePath = imageUri.substring(imageUri.indexOf("storage"));
+        copyFileOrDirectory(imagePath, folder.getPath());
+        String imageName = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         ContentValues cv = new ContentValues();
         AddGame addGame = new AddGame(this, this);
         SQLiteDatabase db = addGame.getWritableDatabase();
         cv.put("name", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
-        cv.put("image", 0);
+        cv.put("image", imageName);
         cv.put("description", desc.getText().toString());
         cv.put("genres", genres.getText().toString());
         cv.put("sale", sale.getText().toString());

@@ -87,18 +87,16 @@ public class ShopActivity extends AppCompatActivity {
                 String age = c.getString(ageColIndex);
                 GameCard card = new GameCard();
                 card.name = name;
+                card.image = image;
                 card.disc = desc;
                 card.price = price;
                 card.genres = genres;
                 cardsList.add(card);
                 // получаем значения по номерам столбцов и пишем все в лог
-/*
-                text.setText(text.getText().toString() + name + " PRICE " + price + " DESC "+ desc + " GENRES "  + genres + " IMAGE " + image + " SALE "    +  sale + " age = "  + age + "\n");
-*/
+
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
-            System.out.println(cardsList.size());
             CardViewAdapter adapter = new CardViewAdapter(cardsList, context);
             recyclerView.setAdapter(adapter);
         }
