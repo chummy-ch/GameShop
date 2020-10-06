@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.internal.$Gson$Preconditions;
 
 import java.io.File;
@@ -45,8 +46,7 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         String img = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
         File image = new File(folder.getPath() + "/" + img);
         if(image.exists()){
-            Bitmap myBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
-            holder.image.setImageBitmap(myBitmap);
+            Glide.with(context).load(image).into(holder.image);
         }
     }
 

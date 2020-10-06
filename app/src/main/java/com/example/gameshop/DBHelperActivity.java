@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -132,17 +134,11 @@ public class DBHelperActivity extends AppCompatActivity {
         switch (requestCode) {
             case Pick_image:
                 if (resultCode == RESULT_OK) {
-                    try {
-                        //Получаем URI изображения, преобразуем его в Bitmap
-                        //объект и отображаем в элементе ImageView нашего интерфейса:
-                        final Uri imageUri = imageReturnedIntent.getData();
-                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        this.imageUri = imageUri.getPath();
-                        image.setImageBitmap(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    //Получаем URI изображения, преобразуем его в Bitmap
+                    //объект и отображаем в элементе ImageView нашего интерфейса:
+                    final Uri imageUri = imageReturnedIntent.getData();
+                    this.imageUri = imageUri.getPath();
+                    Glide.with(context).load(imageUri).into(image);
                 }
         }
     }
