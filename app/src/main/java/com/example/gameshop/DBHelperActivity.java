@@ -24,15 +24,10 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 public class DBHelperActivity extends AppCompatActivity {
-    private EditText name;
-    private EditText price;
+    private EditText name, price, desc, genres, sale;
     private ImageView image;
     private CheckBox age;
-    private EditText desc;
-    private EditText genres;
-    private EditText sale;
     private String imageUri;
-    private Button save;
     private final int Pick_image = 1;
     private Context context;
 
@@ -49,7 +44,7 @@ public class DBHelperActivity extends AppCompatActivity {
         age = findViewById(R.id.ageLimit);
         genres = findViewById(R.id.genres);
         sale = findViewById(R.id.sale);
-        save = findViewById(R.id.saveGame);
+        Button save = findViewById(R.id.saveGame);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +52,6 @@ public class DBHelperActivity extends AppCompatActivity {
                 AddGame();
             }
         });
-
 
     }
 
@@ -76,11 +70,8 @@ public class DBHelperActivity extends AppCompatActivity {
             File dst = new File(dstDir, src.getName());
 
             if (src.isDirectory()) {
-
-                String files[] = src.list();
-                int filesLength = files.length;
-                for (int i = 0; i < filesLength; i++) {
-                    String src1 = (new File(src, files[i]).getPath());
+                for (String file : src.list()) {
+                    String src1 = (new File(src, file).getPath());
                     String dst1 = dst.getPath();
                     copyFileOrDirectory(src1, dst1);
                 }
@@ -121,15 +112,12 @@ public class DBHelperActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
-        switch (requestCode) {
-            case Pick_image:
-                if (resultCode == RESULT_OK) {
-                    //Получаем URI изображения, преобразуем его в Bitmap
-                    //объект и отображаем в элементе ImageView нашего интерфейса:
-                    final Uri imageUri = imageReturnedIntent.getData();
-                    this.imageUri = imageUri.getPath();
-                    Glide.with(context).load(imageUri).into(image);
-                }
+        if (requestCode == Pick_image) {
+            if (resultCode == RESULT_OK) {
+                final Uri imageUri = imageReturnedIntent.getData();
+                this.imageUri = imageUri.getPath();
+                Glide.with(context).load(imageUri).into(image);
+            }
         }
     }
 
@@ -137,9 +125,13 @@ public class DBHelperActivity extends AppCompatActivity {
         EditText[] arr = new EditText[]{name, price, desc, genres, sale};
         for (EditText et : arr) {
             if(et.getText().toString().trim().length() < 1) {
-                Toast.makeText(context, "Fill all the fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Fill the '" + et.getHint().toString() + "' field", Toast.LENGTH_SHORT).show();
                 return;
             }
+        }
+        if(imageUri == null){
+            Toast.makeText(context, "Choose an image for  the game", Toast.LENGTH_SHORT).show();
+            return;
         }
         File folder = context.getExternalFilesDir("images");
         if(!folder.exists()){
@@ -151,6 +143,7 @@ public class DBHelperActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
+
         cv.put("name", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", imageName);
@@ -158,6 +151,7 @@ public class DBHelperActivity extends AppCompatActivity {
         cv.put("genres", genres.getText().toString());
         cv.put("sale", sale.getText().toString());
         cv.put("AgeLimit", age.isChecked());
+
         db.insert("games", null, cv);
         gamesDB.close();
         finish();
