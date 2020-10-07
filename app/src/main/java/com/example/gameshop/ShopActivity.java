@@ -21,6 +21,7 @@ public class ShopActivity extends AppCompatActivity {
     public Context context;
     public Button addButton;
     public TextView text;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

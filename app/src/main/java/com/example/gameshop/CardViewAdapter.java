@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
             int pos = rec.getChildLayoutPosition(view);
             GameCard game = games.get(pos);
             Intent intent = new Intent(context, GameActivity.class);
+            String jsonGame = new Gson().toJson(game);
+            intent.putExtra("game", jsonGame);
             context.startActivity(intent);
         }
     };
