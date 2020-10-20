@@ -47,7 +47,7 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
     @Override
     public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview, parent, false);
+        View view = inflater.inflate(R.layout.card, parent, false);
         view.setOnClickListener(openCard);
         return new AdapterViewHolder(view);
     }
@@ -61,9 +61,9 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         File folder = context.getExternalFilesDir("images");
         String img = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
         File image = new File(folder.getPath() + "/" + img);
-        if(image.exists()){
-            Glide.with(context).load(image).into(holder.image);
-        }
+            if(image.exists()){
+                Glide.with(context).load(image).into(holder.image);
+            }
     }
 
     @Override
