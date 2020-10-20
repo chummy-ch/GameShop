@@ -59,6 +59,38 @@
             android:background="@drawable/round_view"
             android:inputType="textPassword"/>
 
+        <LinearLayout
+            android:id="@+id/additionalinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/ageTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Age"
+                android:layout_weight="0.15"/>
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    android:id="@+id/ageET"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.3"
+                    android:inputType="number"
+                    app:allowed_chars="1234567890"
+                    app:mask="##/##/####"
+                    android:hint="DDMMYYYY"
+                    app:keep_hint="true"
+                    android:background="@drawable/round_view"/>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/sing_in"
             android:layout_width="wrap_content"

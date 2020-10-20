@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-public class DBHelperActivity extends AppCompatActivity {
+public class GamesDBHelperActivity extends AppCompatActivity {
     private EditText name, price, desc, genres, sale;
     private ImageView image;
     private CheckBox age;

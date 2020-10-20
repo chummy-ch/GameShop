@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.TooManyListenersException;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         r = findViewById(R.id.reg);
         context = this;
 
-        Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
+        /*Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getBaseContext(), ShopActivity.class);
         intent.putExtra("user", "jaja@gmail.com");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
+        finish();*/
 
 
         final View.OnClickListener logining = new View.OnClickListener() {
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String l = login.getText().toString().toLowerCase();
                 String p = psw.getText().toString();
+                EditText date = findViewById(R.id.ageET);
+                String d = date.getText().toString();
                 if(isValidEmail(l) && isValidPassword(p)){
                     SingIN in = new SingIN(context);
                     if(!in.AddUser(l, p)) Toast.makeText(context, "This mail has been already registrated", Toast.LENGTH_LONG).show();
@@ -72,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else  if(p.length() < 8) {
                     Toast.makeText(context,"Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+                    Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                    vib.vibrate(100);
+                }
+                else if(d.length() != 10) {
+                    Toast.makeText(context, "Put in your birthday", Toast.LENGTH_SHORT).show();
                     Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                     vib.vibrate(100);
                 }
@@ -98,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Reg(View view){
-        System.out.println(1);
         Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vib.vibrate(100);
         login.setHint("Put here your mail adress");
         psw.setHint("Create your password");
         singup.setText("Sing in");
+        findViewById(R.id.additionalinfo).setVisibility(View.VISIBLE);
         singup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

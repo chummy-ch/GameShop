@@ -28,7 +28,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    compile 'ru.egslava:MaskedEditText:1.0.5'
     compile 'com.androidessence:recyclerviewcursoradapter:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
