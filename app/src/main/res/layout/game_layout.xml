@@ -10,7 +10,7 @@
         android:id="@+id/game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textColor="#000000"
         android:textStyle="bold"
         android:text="DOTA 2"
@@ -23,20 +23,20 @@
         android:layout_height="wrap_content"
         android:textColor="#ABA4A2"
         android:text="RPG ONLINE"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
         android:layout_gravity="center"/>
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="300dp"
-        android:layout_height="250dp"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="10dp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
-        android:layout_height="200dp">
+        android:layout_height="325dp">
 
         <TextView
             android:id="@+id/desc"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:layout_marginTop="10dp"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:text="Значимость этих проблем настолько очевидна, что повышение уровня гражданского сознания позволяет выполнить важнейшие задания по разработке системы масштабного изменения ряда параметров. Повседневная практика показывает, что курс на социально-ориентированный национальный проект влечет за собой процесс внедрения и модернизации существующих финансовых и административных условий. С другой стороны дальнейшее развитие различных форм деятельности в значительной степени обуславливает создание модели развития?
 
 Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет выполнить важнейшие задания по разработке дальнейших направлений развитая системы массового участия. Практический опыт показывает, что курс на социально-ориентированный национальный проект играет важную роль в формировании соответствующих условий активизации! Разнообразный и богатый опыт реализация намеченного плана развития играет важную роль в формировании ключевых компонентов планируемого обновления? Соображения высшего порядка, а также дальнейшее развитие различных форм деятельности способствует подготовке и реализации модели развития.
