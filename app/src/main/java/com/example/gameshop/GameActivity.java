@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ import java.io.FileReader;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
-    private TextView name, genres, price, desc;
+    private TextView name, genres, price, desc, age;
     private ImageView img;
     private Context context;
 
@@ -26,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
         name = findViewById(R.id.game);
         genres = findViewById(R.id.genres);
         price = findViewById(R.id.price);
+        age = findViewById(R.id.age);
         desc = findViewById(R.id.desc);
         img = findViewById(R.id.img);
         context = this;
@@ -36,7 +38,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void Filler(){
+        System.out.println(game.ageLimit);
         name.setText(game.name);
+        age.setText(String.valueOf(game.ageLimit));
         genres.setText(game.genres);
         price.setText(String.valueOf(game.price) + "$");
         desc.setText(game.disc);

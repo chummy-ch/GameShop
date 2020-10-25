@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public Context context;
     public TextView singup;
     public TextView r;
-    private View.OnClickListener reg;
+    public EditText age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         sing = findViewById(R.id.sing_in);
         singup = findViewById(R.id.sing_up);
         r = findViewById(R.id.reg);
+        age = findViewById(R.id.ageET);
         context = this;
 
         Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
@@ -50,16 +51,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
 
-        final View.OnClickListener logining = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Logining(view);
-            }
-        };
-
-        sing.setOnClickListener(logining);
-
-         reg = new View.OnClickListener() {
+        /* reg = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String l = login.getText().toString().toLowerCase();
@@ -67,12 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText date = findViewById(R.id.ageET);
                 String d = date.getText().toString();
                 if(isValidEmail(l) && isValidPassword(p)){
-                    SingIN in = new SingIN(context);
-                    if(!in.AddUser(l, p)) Toast.makeText(context, "This mail has been already registrated", Toast.LENGTH_LONG).show();
-                    else {
-                        Toast.makeText(context, "You have register", Toast.LENGTH_LONG).show();
-                        setContentView(R.layout.activity_main);
-                    }
+
                 }
                 else  if(p.length() < 8) {
                     Toast.makeText(context,"Password must be at least 8 characters", Toast.LENGTH_LONG).show();
@@ -90,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     vib.vibrate(100);
                 }
             }
-        };
+        };*/
     }
 
     public boolean isValidPassword(CharSequence target){
@@ -106,43 +93,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Reg(View view){
-        Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        vib.vibrate(100);
-        login.setHint("Put here your mail adress");
-        psw.setHint("Create your password");
-        singup.setText("Sing in");
-        findViewById(R.id.additionalinfo).setVisibility(View.VISIBLE);
-        singup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setContentView(R.layout.activity_main);
-            }
-        });
-        r.setVisibility(View.VISIBLE);
-        LinearLayout l = (LinearLayout) r.getParent();
-        l.setBackgroundResource(R.drawable.round_view);
-        sing.setText("Register");
-        sing.setOnClickListener(reg);
-    }
-
-    public void Logining(View view){
-        String l = login.getText().toString().toLowerCase();
-        String p = psw.getText().toString();
-        System.out.println(l);
-        System.out.println(p);
-        login.setText(l);
-        psw.setText(p);
-        if(p.length() > 3 && l.length() > 3) {
-            SingIN in = new SingIN(context);
-            if(in.CheckUser(l, p)) {
-                Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getBaseContext(), ShopActivity.class);
-                intent.putExtra("user", l);
-                startActivity(intent);
-            }
-            else Toast.makeText(context,"Wrong login or password", Toast.LENGTH_LONG).show();
-        }
-        else Toast.makeText(context, "Fill the fields", Toast.LENGTH_LONG).show();
+    public void Registration(View view){
+        SingIN in = new SingIN(this, this);
+        in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString());
     }
 }

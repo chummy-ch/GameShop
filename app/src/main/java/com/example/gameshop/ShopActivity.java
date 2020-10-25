@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ShopActivity extends AppCompatActivity {
@@ -53,13 +55,12 @@ public class ShopActivity extends AppCompatActivity {
 
     public void LoadDB(){
         GamesDB gamesDB = new GamesDB(this, this);
-        ContentValues cv = new ContentValues();
         SQLiteDatabase db = gamesDB.getWritableDatabase();
         Cursor c = db.query("games", null, null, null, null, null, null);
         if (c.moveToFirst()) {
 
             // определяем номера столбцов по имени в выборке
-            int nameColIndex = c.getColumnIndex("name");
+            int nameColIndex = c.getColumnIndex("game");
             int priceColIndex = c.getColumnIndex("price");
             int imageColIndex = c.getColumnIndex("image");
             int descColIndex = c.getColumnIndex("description");
@@ -75,9 +76,11 @@ public class ShopActivity extends AppCompatActivity {
                 String image = c.getString(imageColIndex);
                 String desc = c.getString(descColIndex);
                 String genres = c.getString(genColIndex);
-                String sale = c.getString(saleColIndex);
-                String age = c.getString(ageColIndex);
-                GameCard card = new GameCard();
+                int sale = c.getInt(saleColIndex);
+                int age = c.getInt(ageColIndex);
+                GameCard card = new GameCard();{}
+                card.ageLimit = age;
+                card.sale = sale;
                 card.name = name;
                 card.image = image;
                 card.disc = desc;
@@ -85,6 +88,7 @@ public class ShopActivity extends AppCompatActivity {
                 card.genres = genres;
                 cardsList.add(card);
             } while (c.moveToNext());
+            c.close();
             CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView);
             recyclerView.setAdapter(adapter);
         }

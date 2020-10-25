@@ -14,13 +14,13 @@ public class GamesDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table games ("
-                + "name text,"
+                + "game text PRIMARY KEY,"
                 + "image text,"
                 + "price int,"
                 + "description text,"
                 + "genres text,"
                 + "sale int,"
-                + "AgeLimit binary"
+                + "AgeLimit int"
                 + ");");
     }
 

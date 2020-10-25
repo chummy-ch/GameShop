@@ -26,7 +26,7 @@ import java.nio.channels.FileChannel;
 public class GamesDBHelperActivity extends AppCompatActivity {
     private EditText name, price, desc, genres, sale;
     private ImageView image;
-    private CheckBox age;
+    private EditText age;
     private String imageUri;
     private final int Pick_image = 1;
     private Context context;
@@ -144,13 +144,14 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
 
-        cv.put("name", name.getText().toString());
+
+        cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", imageName);
         cv.put("description", desc.getText().toString());
         cv.put("genres", genres.getText().toString());
         cv.put("sale", sale.getText().toString());
-        cv.put("AgeLimit", age.isChecked());
+        cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
 
         db.insert("games", null, cv);
         gamesDB.close();
