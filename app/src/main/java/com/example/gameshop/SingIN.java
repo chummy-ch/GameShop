@@ -25,20 +25,28 @@ public class SingIN {
         this.activity = activity;
     }
 
-    public void Logining(String mail, String psw){
-        ContentValues cv = new ContentValues();
-        UsersDB usersDB = new UsersDB(context, activity);
-        SQLiteDatabase db = usersDB.getWritableDatabase();
+    private boolean Check(SQLiteDatabase db, String key, String column){
+        Cursor c = db.query("users", null, null, null, null, null, null);
 
-        if(cv.containsKey(mail)) System.out.println(cv.getAsString(mail));
-        usersDB.close();
+        if(!c.moveToFirst()) return false;
+        int columnIndex = c.getColumnIndex(column);
+        do{
+            if(c.getString(columnIndex).equals(key)) return true;
+        }while (c.moveToNext());
+        return false;
     }
 
-    public void AddUser(String mail, String psw, String brth){
+    public boolean Logining(String mail, String psw){
+        UsersDB usersDB = new UsersDB(context, activity);
+        SQLiteDatabase db = usersDB.getWritableDatabase();
+        return Check(db, mail, "mail") && Check(db, psw, "password");
+    }
+
+    public boolean AddUser(String mail, String psw, String brth){
         ContentValues cv = new ContentValues();
         UsersDB usersDB = new UsersDB(context, activity);
         SQLiteDatabase db = usersDB.getWritableDatabase();
-        Cursor c = db.query("users", null, null, null, null, null, null);
+        if(Check(db, mail, "mail")) return false;
 
         cv.put("mail", mail);
         cv.put("age", brth);
@@ -46,5 +54,6 @@ public class SingIN {
 
         db.insert("users", null, cv);
         usersDB.close();
+        return true;
     }
 }

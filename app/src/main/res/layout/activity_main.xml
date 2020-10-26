@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/parentPanel"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -95,6 +96,7 @@
             android:id="@+id/sing_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="Logining"
             android:layout_marginTop="20dp"
             android:text="Sing in"/>
 
@@ -103,8 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sing up"
+            android:onClick="LoginToReg"
             android:clickable="true"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:textColor="#3883A5"/>
 
     </LinearLayout>

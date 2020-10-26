@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
         name.setText(game.name);
         age.setText(String.valueOf(game.ageLimit));
         genres.setText(game.genres);
-        price.setText(String.valueOf(game.price) + "$");
+        price.setText(String.valueOf(game.price - game.sale) + "$");
         desc.setText(game.disc);
         File folder = context.getExternalFilesDir("images");
         File imageFile = new File(folder.getPath() + "/" + game.image);
