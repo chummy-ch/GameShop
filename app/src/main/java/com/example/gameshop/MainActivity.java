@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isValidBirthday(String b){
         if(b.contains("D") || b.contains("Y") || b.contains("M")) return false;
+        if(Integer.parseInt(b.substring(0, 2)) > 12 || Integer.parseInt(b.substring(3,5)) > 12) return false;
         return Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(b.substring(6)) >= 6;
     }
 
