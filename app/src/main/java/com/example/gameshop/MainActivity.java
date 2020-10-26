@@ -3,6 +3,7 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     public EditText login;
@@ -37,43 +37,6 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
-
-        /*Toast.makeText(context, "You are in",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getBaseContext(), ShopActivity.class);
-        intent.putExtra("user", "jaja@gmail.com");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        */
-
-
-        /* reg = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String l = login.getText().toString().toLowerCase();
-                String p = psw.getText().toString();
-                EditText date = findViewById(R.id.ageET);
-                String d = date.getText().toString();
-                if(isValidEmail(l) && isValidPassword(p)){
-
-                }
-                else  if(p.length() < 8) {
-                    Toast.makeText(context,"Password must be at least 8 characters", Toast.LENGTH_LONG).show();
-                    Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                    vib.vibrate(100);
-                }
-                else if(d.length() != 10) {
-                    Toast.makeText(context, "Put in your birthday", Toast.LENGTH_SHORT).show();
-                    Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                    vib.vibrate(100);
-                }
-                else{
-                    Toast.makeText(context, "Invalid login", Toast.LENGTH_LONG).show();
-                    Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                    vib.vibrate(100);
-                }
-            }
-        };*/
     }
 
     public void RegToLogin(View view){
@@ -121,22 +84,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            System.out.println("MAIL");
-            return false;
-        } else {
+        if (target == null)  return false;
+         else
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
     }
 
     private boolean isValidBirthday(String b){
         if(b.contains("D") || b.contains("Y") || b.contains("M")) return false;
-        if(Integer.parseInt(b.substring(0, 2)) > 12 || Integer.parseInt(b.substring(3,5)) > 12) return false;
+        if(Integer.parseInt(b.substring(0, 2)) > 31 || Integer.parseInt(b.substring(3,5)) > 12) return false;
         return Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(b.substring(6)) >= 6;
     }
 
     public void Logining(View view){
-        Toast.makeText(context, "Logining....", Toast.LENGTH_LONG).show();
+        SingIN in = new SingIN(this, this);
+        if(in.Logining(login.getText().toString(), psw.getText().toString())) {
+            Toast.makeText(context, "You are in", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getBaseContext(), ShopActivity.class);
+            intent.putExtra("user", login.getText().toString());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+        else Toast.makeText(context, "Wrong login or passwrod", Toast.LENGTH_LONG).show();
     }
 
     public void Registration(View view){
@@ -153,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "Invalid birthday", Toast.LENGTH_LONG).show();
             return;
         }
-        /*if(!in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString())){
+        if(!in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString())){
             Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_LONG).show();
             return;
-        }*/
+        }
         Toast.makeText(context, "You have been registrated", Toast.LENGTH_LONG).show();
         RegToLogin(singup);
     }

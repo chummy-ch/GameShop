@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.Settings;
 
 import com.google.gson.Gson;
 
@@ -25,6 +26,21 @@ public class SingIN {
         this.activity = activity;
     }
 
+    private boolean CheckUser(SQLiteDatabase db, String key, String psw){
+        Cursor c = db.query("users", null, null, null, null, null, null);
+
+        if(!c.moveToFirst()) return false;
+        int keyIndex = c.getColumnIndex("mail");
+        int index = 0;
+        do{
+            if(c.getString(keyIndex).equals(key)) break;
+            index++;
+        }while (c.moveToNext());
+        if(index >= c.getCount()) return false;
+        c.moveToPosition(index);
+        return c.getString(c.getColumnIndex("password")).equals(psw);
+    }
+
     private boolean Check(SQLiteDatabase db, String key, String column){
         Cursor c = db.query("users", null, null, null, null, null, null);
 
@@ -39,7 +55,7 @@ public class SingIN {
     public boolean Logining(String mail, String psw){
         UsersDB usersDB = new UsersDB(context, activity);
         SQLiteDatabase db = usersDB.getWritableDatabase();
-        return Check(db, mail, "mail") && Check(db, psw, "password");
+        return CheckUser(db, mail, psw);
     }
 
     public boolean AddUser(String mail, String psw, String brth){
