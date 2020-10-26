@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     public EditText login;
     public EditText psw;
@@ -113,16 +116,22 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.parentPanel).setBackgroundResource(R.drawable.round_view);
     }
 
-    public boolean isValidPassword(CharSequence target){
+    private boolean isValidPassword(CharSequence target){
         return target.length() >= 8;
     }
 
-    public  boolean isValidEmail(CharSequence target) {
+    private boolean isValidEmail(CharSequence target) {
         if (target == null) {
+            System.out.println("MAIL");
             return false;
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    private boolean isValidBirthday(String b){
+        if(b.contains("D") || b.contains("Y") || b.contains("M")) return false;
+        return Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(b.substring(6)) >= 6;
     }
 
     public void Logining(View view){
@@ -131,14 +140,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void Registration(View view){
         SingIN in = new SingIN(this, this);
-        if(!isValidEmail(login.getText()) || !isValidPassword(psw.getText())) {
-            Toast.makeText(context, "Incorrect login or password", Toast.LENGTH_LONG).show();
+        if(!isValidEmail(login.getText())){
+            Toast.makeText(context, "Invalid mail", Toast.LENGTH_LONG).show();
             return;
         }
-        if(!in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString())){
+        else if(!isValidPassword(psw.getText())){
+            Toast.makeText(context, "Invalid password", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if(!isValidBirthday(age.getText().toString())){
+            Toast.makeText(context, "Invalid birthday", Toast.LENGTH_LONG).show();
+            return;
+        }
+        /*if(!in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString())){
             Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
         Toast.makeText(context, "You have been registrated", Toast.LENGTH_LONG).show();
         RegToLogin(singup);
     }
