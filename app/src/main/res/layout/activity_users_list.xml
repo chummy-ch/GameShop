@@ -4,7 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".UsersListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="130dp"
+            android:text="User"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_weight="0.1"
+            android:layout_marginStart="7dp"/>
+
+        <TextView
+            android:text="Games"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:text="A"
+            android:layout_width="50dp"
+            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.6"/>
+
+        <TextView
+            android:text="Age"
+            android:layout_width="75dp"
+            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:text="Psw"
+            android:layout_width="75dp"
+            android:textSize="20sp"
+            android:layout_marginStart="7dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersRecView"
