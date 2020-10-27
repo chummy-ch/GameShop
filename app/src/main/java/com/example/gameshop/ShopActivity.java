@@ -21,9 +21,9 @@ import java.util.ArrayList;
 public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
     public Context context;
+    public Button users;
     public Button addButton;
     public TextView text;
-    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +33,24 @@ public class ShopActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler);
         addButton = findViewById(R.id.addNewGame);
         context = this;
+        users = findViewById(R.id.usersList);
         text = findViewById(R.id.text);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<GameCard> ar = new ArrayList<>();
         recyclerView.setAdapter(new CardViewAdapter(ar, context, recyclerView));
-        LoadDB();
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, GamesDBHelperActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        users.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UsersListActivity.class);
                 startActivity(intent);
             }
         });

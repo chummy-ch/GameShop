@@ -43,12 +43,21 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         }
     };
 
+    View.OnLongClickListener longPress = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            Toast.makeText(context, "Long press", Toast.LENGTH_LONG).show();
+            return false;
+        }
+    };
+
     @NonNull
     @Override
     public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card, parent, false);
         view.setOnClickListener(openCard);
+        view.setOnLongClickListener(longPress);
         return new AdapterViewHolder(view);
     }
 
