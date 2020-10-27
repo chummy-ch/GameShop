@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -78,8 +79,9 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         File imageFile = new File(folder.getPath() + "/" + game.image);
         if(imageFile.exists()){
             Glide.with(context).load(imageFile).into(image);
-        }        genres.setText(game.genres);
-
+        }
+        genres.setText(game.genres);
+        imageUri = game.image;
     }
 
     public void ChooseImage(View view){
@@ -143,7 +145,6 @@ public class GamesDBHelperActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 final Uri imageUri = imageReturnedIntent.getData();
                 this.imageUri = imageUri.getPath();
-                System.out.println(imageUri);
                 Glide.with(context).load(imageUri).into(image);
             }
         }
@@ -187,6 +188,30 @@ public class GamesDBHelperActivity extends AppCompatActivity {
     }
 
     private void EditGame(){
-        Toast.makeText(context, "Editing", Toast.LENGTH_LONG).show();
+        if(imageUri != null){
+            File folder = context.getExternalFilesDir("images");
+            if(!folder.exists()){
+                folder.mkdir();
+            }
+            String imagePath = imageUri.substring(imageUri.indexOf("storage"));
+            copyFileOrDirectory(imagePath, folder.getPath());
+            game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+        }
+        ContentValues cv = new ContentValues();
+        GamesDB gamesDB = new GamesDB(this, this);
+        SQLiteDatabase db = gamesDB.getWritableDatabase();
+        Cursor c = db.query("games", null, null, null, null, null, null);
+        if(!c.moveToFirst()) return;
+        cv.put("game", name.getText().toString());
+        cv.put("price", Integer.parseInt(price.getText().toString()));
+        cv.put("image", imageUri);
+        cv.put("description", desc.getText().toString());
+        cv.put("genres", genres.getText().toString());
+        cv.put("sale", sale.getText().toString());
+        cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
+        /*db.execSQL("UPDATE games SET price = 110 WHERE game = " + "'" + game.name + "'" + ";");*/
+        db.update("games", cv, "game=" + "'" + game.name + "'", null);
+        gamesDB.close();
+        finish();
     }
 }

@@ -58,9 +58,10 @@ public class GameActivity extends AppCompatActivity {
         price.setText(String.valueOf(game.price - game.sale) + "$");
         desc.setText(game.disc);
         File folder = context.getExternalFilesDir("images");
-        File imageFile = new File(folder.getPath() + "/" + game.image);
+        String img = game.image.substring(game.image.lastIndexOf('/') + 1);
+        File imageFile = new File(folder.getPath() + "/" + img);
         if(imageFile.exists()){
-            Glide.with(context).load(imageFile).into(img);
+            Glide.with(context).load(imageFile).into(this.img);
         }
     }
 }
