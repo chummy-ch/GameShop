@@ -64,18 +64,23 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center"
         android:layout_marginTop="10dp">
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="7dp"
+            android:drawableBottom="@android:drawable/ic_menu_edit" />
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="right"
-            android:layout_weight="0.2"
+            android:layout_gravity="center_horizontal|end"
             android:text="BUY"/>
 
         <TextView
@@ -84,10 +89,9 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:layout_gravity="center_vertical|end|center_horizontal"
             android:textColor="#3EB71D"
-            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_weight="0.1"
             android:text="10$"/>
 
     </LinearLayout>
