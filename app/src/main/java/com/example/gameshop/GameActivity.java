@@ -3,7 +3,10 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private GameCard game ;
     private TextView name, genres, price, desc, age;
     private ImageView img;
+    private Button edit;
     private Context context;
 
     @Override
@@ -28,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
         genres = findViewById(R.id.genres);
         price = findViewById(R.id.price);
         age = findViewById(R.id.age);
+        edit = findViewById(R.id.edit);
         desc = findViewById(R.id.desc);
         img = findViewById(R.id.img);
         context = this;
@@ -37,8 +42,16 @@ public class GameActivity extends AppCompatActivity {
         Filler();
     }
 
+    public void EditGame(View view){
+        Intent intent = new Intent(context, GamesDBHelperActivity.class);
+        Gson json = new Gson();
+        String extra = json.toJson(game);
+        intent.putExtra("EditGame", extra);
+        startActivity(intent);
+        finish();
+    }
+
     private void Filler(){
-        System.out.println(game.ageLimit);
         name.setText(game.name);
         age.setText(String.valueOf(game.ageLimit));
         genres.setText(game.genres);

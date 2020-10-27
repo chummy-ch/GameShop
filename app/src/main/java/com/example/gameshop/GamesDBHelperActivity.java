@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +28,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
     private EditText name, price, desc, genres, sale;
     private ImageView image;
     private EditText age;
+    private GameCard game;
     private String imageUri;
     private final int Pick_image = 1;
     private Context context;
@@ -52,6 +54,31 @@ public class GamesDBHelperActivity extends AppCompatActivity {
                 AddGame();
             }
         });
+
+        if(getIntent().hasExtra("EditGame")){
+            Gson json = new Gson();
+            game = json.fromJson(getIntent().getStringExtra("EditGame"), GameCard.class);
+            Filler();
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditGame();
+                }
+            });
+        }
+    }
+
+    private void Filler(){
+        name.setText(game.name);
+        desc.setText(game.disc);
+        price.setText(String.valueOf(game.price));
+        sale.setText(String.valueOf(game.sale));
+        age.setText(String.valueOf(game.ageLimit));
+        File folder = context.getExternalFilesDir("images");
+        File imageFile = new File(folder.getPath() + "/" + game.image);
+        if(imageFile.exists()){
+            Glide.with(context).load(imageFile).into(image);
+        }        genres.setText(game.genres);
 
     }
 
@@ -116,6 +143,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 final Uri imageUri = imageReturnedIntent.getData();
                 this.imageUri = imageUri.getPath();
+                System.out.println(imageUri);
                 Glide.with(context).load(imageUri).into(image);
             }
         }
@@ -156,5 +184,9 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         db.insert("games", null, cv);
         gamesDB.close();
         finish();
+    }
+
+    private void EditGame(){
+        Toast.makeText(context, "Editing", Toast.LENGTH_LONG).show();
     }
 }

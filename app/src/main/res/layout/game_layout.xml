@@ -70,7 +70,9 @@
         android:layout_marginTop="10dp">
 
         <Button
+            android:id="@+id/edit"
             android:layout_width="75dp"
+            android:onClick="EditGame"
             android:layout_height="50dp"
             android:layout_gravity="start"
             android:layout_marginTop="7dp"
