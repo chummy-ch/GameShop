@@ -27,7 +27,10 @@ public class SingIN {
     }
 
     private boolean CheckUser(SQLiteDatabase db, String key, String psw){
+        Cursor c = db.rawQuery("select * from users;", null);
+/*
         Cursor c = db.query("users", null, null, null, null, null, null);
+*/
 
         if(!c.moveToFirst()) return false;
         int keyIndex = c.getColumnIndex("mail");
@@ -42,7 +45,10 @@ public class SingIN {
     }
 
     private boolean Check(SQLiteDatabase db, String key, String column){
+        Cursor c = db.rawQuery("select * from users;", null);
+/*
         Cursor c = db.query("users", null, null, null, null, null, null);
+*/
 
         if(!c.moveToFirst()) return false;
         int columnIndex = c.getColumnIndex(column);

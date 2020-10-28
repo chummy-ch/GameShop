@@ -66,7 +66,10 @@ public class ShopActivity extends AppCompatActivity {
     public void LoadDB(){
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from games;", null);
+/*
         Cursor c = db.query("games", null, null, null, null, null, null);
+*/
         if (c.moveToFirst()) {
 
             // определяем номера столбцов по имени в выборке
@@ -99,6 +102,7 @@ public class ShopActivity extends AppCompatActivity {
                 cardsList.add(card);
             } while (c.moveToNext());
             c.close();
+            db.close();
             CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView);
             recyclerView.setAdapter(adapter);
         }

@@ -209,7 +209,10 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from users;", null);
+/*
         Cursor c = db.query("games", null, null, null, null, null, null);
+*/
         if(!c.moveToFirst()) return;
         cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
