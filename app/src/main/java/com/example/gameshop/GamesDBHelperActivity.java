@@ -77,12 +77,13 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         sale.setText(String.valueOf(game.sale));
         age.setText(String.valueOf(game.ageLimit));
         File folder = context.getExternalFilesDir("images");
-        File imageFile = new File(folder.getPath() + "/" + game.image);
-        if(imageFile.exists()){
-            Glide.with(context).load(imageFile).into(image);
+        String img = game.image.substring(game.image.lastIndexOf('/') + 1);
+        File image = new File(folder.getPath() + "/" + img);
+        if(image.exists()){
+            Glide.with(context).load(image).into(this.image);
         }
         genres.setText(game.genres);
-        imageUri = game.image;
+        imageUri = image.getPath();
     }
 
     public void ChooseImage(View view){
@@ -209,7 +210,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from users;", null);
+        Cursor c = db.rawQuery("select * from games;", null);
 /*
         Cursor c = db.query("games", null, null, null, null, null, null);
 */
