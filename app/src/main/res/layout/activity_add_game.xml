@@ -90,14 +90,33 @@
                 android:inputType="number"
                 android:layout_weight="0.1"/>
 
-            <Button
-                android:id="@+id/saveGame"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_weight="0"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/removeGame"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Remove"
+                    android:onClick="RemoveGame"
+                    android:background="#FF7481"
+                    android:visibility="gone"
+                    android:layout_weight="0"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"/>
+
+                <Button
+                    android:id="@+id/saveGame"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:layout_weight="0"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

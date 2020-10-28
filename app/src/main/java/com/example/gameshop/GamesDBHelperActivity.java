@@ -60,6 +60,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
             Gson json = new Gson();
             game = json.fromJson(getIntent().getStringExtra("EditGame"), GameCard.class);
             Filler();
+            findViewById(R.id.removeGame).setVisibility(View.VISIBLE);
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -148,6 +149,14 @@ public class GamesDBHelperActivity extends AppCompatActivity {
                 Glide.with(context).load(imageUri).into(image);
             }
         }
+    }
+
+    public void RemoveGame(View view){
+        GamesDB gamesDB = new GamesDB(this, this);
+        SQLiteDatabase db = gamesDB.getWritableDatabase();
+        db.execSQL("DELETE FROM games WHERE game = '" + game.name + "'");
+        db.close();
+        finish();
     }
 
     private void AddGame(){
