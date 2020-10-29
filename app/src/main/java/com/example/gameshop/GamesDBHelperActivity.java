@@ -10,10 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -45,7 +47,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         desc = findViewById(R.id.desc);
         age = findViewById(R.id.ageLimit);
-        genres = findViewById(R.id.genres);
+        genres = findViewById(R.id.genre);
         sale = findViewById(R.id.sale);
         Button save = findViewById(R.id.saveGame);
 
@@ -94,7 +96,15 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         startActivityForResult(photoPickerIntent, Pick_image);
     }
 
-    public static void copyFileOrDirectory(String srcDir, String dstDir) {
+    public void AddGenET(View view){
+        LinearLayout ll = findViewById(R.id.genres);
+        EditText text = new EditText(context);
+        text.setLayoutParams(new LinearLayout.LayoutParams(250, ViewGroup.LayoutParams.WRAP_CONTENT));
+        text.setId(ll.getChildCount());
+        ll.addView(text, (int)text.getId() - 1);
+    }
+
+    public void copyFileOrDirectory(String srcDir, String dstDir) {
 
         try {
             File src = new File(srcDir);

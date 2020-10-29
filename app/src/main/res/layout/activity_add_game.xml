@@ -57,12 +57,32 @@
                 android:layout_height="wrap_content"
                 android:hint="Description"/>
 
-            <EditText
+
+            <LinearLayout
                 android:id="@+id/genres"
-                android:layout_width="250dp"
-                android:inputType="text"
+                android:layout_width="255dp"
                 android:layout_height="wrap_content"
-                android:hint="Genres"/>
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/genre"
+                    android:layout_width="250dp"
+                    android:inputType="text"
+                    android:layout_height="wrap_content"
+                    android:hint="Genre"/>
+
+                <Button
+                    android:id="@+id/addgenre"
+                    android:layout_width="25dp"
+                    android:onClick="AddGenET"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:background="@drawable/round_view"
+                    android:backgroundTint="#0CC649"/>
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/sale"
