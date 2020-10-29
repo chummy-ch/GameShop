@@ -99,7 +99,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
     public void AddGenET(View view){
         LinearLayout ll = findViewById(R.id.genres);
         EditText text = new EditText(context);
-        text.setLayoutParams(new LinearLayout.LayoutParams(250, ViewGroup.LayoutParams.WRAP_CONTENT));
+        text.setLayoutParams(genres.getLayoutParams());
         text.setId(ll.getChildCount());
         ll.addView(text, (int)text.getId() - 1);
     }
