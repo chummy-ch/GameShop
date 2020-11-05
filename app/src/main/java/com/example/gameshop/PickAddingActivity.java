@@ -2,15 +2,10 @@ package com.example.gameshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.zip.CheckedOutputStream;
 
 public class PickAddingActivity extends AppCompatActivity {
     private Context context;
@@ -24,7 +19,7 @@ public class PickAddingActivity extends AppCompatActivity {
     }
 
     public void AddGame(View view){
-        Intent intent = new Intent(context, GamesDBHelperActivity.class);
+        Intent intent = new Intent(context, AddGameActivity.class);
         startActivity(intent);
         finish();
     }

@@ -10,9 +10,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,10 +25,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class GamesDBHelperActivity extends AppCompatActivity {
-    private EditText name, price, desc, genres, sale;
+public class AddGameActivity extends AppCompatActivity {
+    private EditText name, price, desc, sale;
+    private AutoCompleteTextView genres;
     private ImageView image;
     private EditText age;
     private GameCard game;
@@ -50,6 +54,9 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         genres = findViewById(R.id.genre);
         sale = findViewById(R.id.sale);
         Button save = findViewById(R.id.saveGame);
+
+        Genres gen = new Genres(context);
+        genres.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, gen.GetGenres()));
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +91,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         if(image.exists()){
             Glide.with(context).load(image).into(this.image);
         }
-        genres.setText(game.genres);
+        /*genres.setText(game.genres);*/
         imageUri = image.getPath();
     }
 
@@ -98,10 +105,12 @@ public class GamesDBHelperActivity extends AppCompatActivity {
 
     public void AddGenET(View view){
         LinearLayout ll = findViewById(R.id.genres);
-        EditText text = new EditText(context);
+        AutoCompleteTextView text = new AutoCompleteTextView(context);
         text.setLayoutParams(genres.getLayoutParams());
         text.setId(ll.getChildCount());
         text.setHint("Genre");
+        Genres gen = new Genres(context);
+        text.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, gen.GetGenres()));
         ll.addView(text, (int)text.getId() - 1);
     }
 
@@ -187,6 +196,19 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         if(!folder.exists()){
             folder.mkdir();
         }
+        LinearLayout ll = findViewById(R.id.genres);
+        String gens = "";
+        Genres genres = new Genres(context);
+        ArrayList<String> genArray = genres.GetGenres();
+        for(int i = 0 ; i < ll.getChildCount() - 1; i++){
+            AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
+            if(!gens.contains(t.getText().toString()) && genArray.contains(t.getText().toString()))
+            gens += t.getText().toString() + ",";
+        }
+        if(gens.trim().replaceAll(",", "").length()< 2){
+            Toast.makeText(context, "There are no such genres in the list", Toast.LENGTH_LONG).show();
+            return;
+        }
         String imagePath = imageUri.substring(imageUri.indexOf("storage"));
         copyFileOrDirectory(imagePath, folder.getPath());
         String imageName = imageUri.substring(imageUri.lastIndexOf('/') + 1);
@@ -194,12 +216,18 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         GamesDB gamesDB = new GamesDB(this, this);
         SQLiteDatabase db = gamesDB.getWritableDatabase();
 
+        Cursor c = db.rawQuery("select * from games where game = " + "'" + name.getText().toString() + "';", null);
+        if(c.moveToFirst()){
+            Toast.makeText(context, "There is already game with the same name", Toast.LENGTH_LONG).show();
+            db.close();
+            return;
+        }
 
         cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", imageName);
         cv.put("description", desc.getText().toString());
-        cv.put("genres", genres.getText().toString());
+        cv.put("genres", gens);
         cv.put("sale", sale.getText().toString());
         cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
 

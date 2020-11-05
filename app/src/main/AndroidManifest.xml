@@ -21,7 +21,7 @@
         <activity android:name=".UsersListActivity" />
         <activity android:name=".UserDBHelperActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".GamesDBHelperActivity" />
+        <activity android:name=".AddGameActivity" />
         <activity android:name=".ShopActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

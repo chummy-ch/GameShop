@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".GamesDBHelperActivity">
+    tools:context=".AddGameActivity">
 
             <EditText
                 android:id="@+id/gameName"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/genre"
                     android:layout_width="250dp"
                     android:inputType="text"

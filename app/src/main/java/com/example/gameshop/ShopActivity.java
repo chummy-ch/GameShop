@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
@@ -98,7 +99,7 @@ public class ShopActivity extends AppCompatActivity {
                 card.image = image;
                 card.disc = desc;
                 card.price = price;
-                card.genres = genres;
+                card.genres = genres.split(",");
                 cardsList.add(card);
             } while (c.moveToNext());
             c.close();

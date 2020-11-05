@@ -9,13 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.io.FileReader;
+import java.util.Arrays;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
@@ -43,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void EditGame(View view){
-        Intent intent = new Intent(context, GamesDBHelperActivity.class);
+        Intent intent = new Intent(context, AddGameActivity.class);
         Gson json = new Gson();
         String extra = json.toJson(game);
         intent.putExtra("EditGame", extra);
@@ -54,7 +53,8 @@ public class GameActivity extends AppCompatActivity {
     private void Filler(){
         name.setText(game.name);
         age.setText(String.valueOf(game.ageLimit));
-        genres.setText(game.genres);
+        String g = Arrays.toString(game.genres).replace("[", "").replace("]", "");
+        genres.setText(g.replaceAll(",", " "));
         price.setText(String.valueOf(game.price - game.sale) + "$");
         desc.setText(game.disc);
         File folder = context.getExternalFilesDir("images");

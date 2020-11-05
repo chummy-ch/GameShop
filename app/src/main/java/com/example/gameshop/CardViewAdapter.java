@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.AdapterViewHolder> {
     private ArrayList<GameCard> games;
@@ -56,7 +57,8 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
     public void onBindViewHolder(@NonNull AdapterViewHolder holder, int position) {
         if(games.size() == 0) return;
         holder.name.setText(games.get(position).name);
-        holder.genres.setText(games.get(position).genres.toString());
+        String g = Arrays.toString(games.get(position).genres).replace("[", "").replace("]", "");
+        holder.genres.setText(g.replaceAll(",", " "));
         holder.price.setText(String.valueOf(games.get(position).price) + "$");
         File folder = context.getExternalFilesDir("images");
         String img = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
