@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GenreActivity"></activity>
+        <activity android:name=".GenresTableActivity"></activity>
+        <activity android:name=".TablePickerActivity" />
+        <activity android:name=".GenreActivity" />
         <activity android:name=".PickAddingActivity" />
         <activity android:name=".UsersListActivity" />
         <activity android:name=".UserDBHelperActivity" />
