@@ -18,6 +18,7 @@ public class Genres {
 
     public Genres(Context context){
         this.context = context;
+        gen = new ArrayList<>();
         LoadGen();
     }
 
