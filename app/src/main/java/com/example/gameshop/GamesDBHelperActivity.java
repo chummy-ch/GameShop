@@ -101,6 +101,7 @@ public class GamesDBHelperActivity extends AppCompatActivity {
         EditText text = new EditText(context);
         text.setLayoutParams(genres.getLayoutParams());
         text.setId(ll.getChildCount());
+        text.setHint("Genre");
         ll.addView(text, (int)text.getId() - 1);
     }
 
