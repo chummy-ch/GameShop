@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/genresPick"
+        android:layout_width="300dp"
+        android:text="Add game"
+        android:textSize="30sp"
+        android:onClick="AddGame"
+        android:gravity="center"
+        android:background="@drawable/round_view"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/gamesPick"
+        android:text="Add genre"
+        android:textSize="30sp"
+        android:onClick="AddGenre"
+        android:gravity="center"
+        android:layout_width="300dp"
+        android:background="@drawable/round_view"
+        android:layout_marginTop="65dp"
+        android:layout_height="50dp"/>
+</LinearLayout>

@@ -42,7 +42,7 @@ public class ShopActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, GamesDBHelperActivity.class);
+                Intent intent = new Intent(context, PickAddingActivity.class);
                 startActivity(intent);
             }
         });

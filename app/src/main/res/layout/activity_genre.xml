@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/genrename"
+        android:hint="Genrel name"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/saveGame"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:onClick="AddGen"
+        android:text="Save"
+        android:background="#74FFA2"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"/>
+
+</LinearLayout>
