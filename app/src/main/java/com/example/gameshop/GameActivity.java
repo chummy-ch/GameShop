@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,8 @@ public class GameActivity extends AppCompatActivity {
         Gson gson = new Gson();
         game = gson.fromJson(getIntent().getStringExtra("game"), GameCard.class);
         Filler();
+
+        HasGame();
     }
 
     public void EditGame(View view){
@@ -66,7 +69,6 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(context, "Null", Toast.LENGTH_SHORT).show();
             return;
         }
-
         int gameColumn = c.getColumnIndex("games");
         String games = c.getString(gameColumn);
         if(games != null && games.contains(name.getText().toString())){
@@ -85,6 +87,22 @@ public class GameActivity extends AppCompatActivity {
         db.close();
         c.close();
         Toast.makeText(context, "The game is bought", Toast.LENGTH_LONG).show();
+    }
+
+    private void HasGame(){
+        UsersDB usersDB = new UsersDB(this, this);
+        SQLiteDatabase db = usersDB.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from users where mail = '" + user + "';", null);
+        c.moveToFirst();
+        int gameColumn = c.getColumnIndex("games");
+        String games = c.getString(gameColumn);
+        if(games != null && games.contains(name.getText().toString())){
+           Button buy = findViewById(R.id.buyButton);
+           buy.setText("Bought");
+           price.setTextColor(Color.GRAY);
+        }
+        c.close();
+        db.close();
     }
 
     private void Filler(){
