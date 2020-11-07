@@ -25,9 +25,11 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
     private ArrayList<GameCard> games;
     private Context context;
     private RecyclerView rec;
+    private String user;
 
-    public CardViewAdapter(ArrayList games, Context context, RecyclerView rec){
+    public CardViewAdapter(ArrayList games, Context context, RecyclerView rec, String user){
         this.context = context;
+        this.user = user;
         this.games = games;
         this.rec = rec;
     }
@@ -40,6 +42,7 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
             Intent intent = new Intent(context, GameActivity.class);
             String jsonGame = new Gson().toJson(game);
             intent.putExtra("game", jsonGame);
+            intent.putExtra("user", user);
             context.startActivity(intent);
         }
     };

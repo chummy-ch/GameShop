@@ -38,7 +38,7 @@ public class ShopActivity extends AppCompatActivity {
         text = findViewById(R.id.text);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<GameCard> ar = new ArrayList<>();
-        recyclerView.setAdapter(new CardViewAdapter(ar, context, recyclerView));
+        recyclerView.setAdapter(new CardViewAdapter(ar, context, recyclerView, getIntent().getStringExtra("user")));
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +104,7 @@ public class ShopActivity extends AppCompatActivity {
             } while (c.moveToNext());
             c.close();
             db.close();
-            CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView);
+            CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView, getIntent().getStringExtra("user"));
             recyclerView.setAdapter(adapter);
         }
     }

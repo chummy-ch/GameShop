@@ -41,7 +41,9 @@ public class SingIN {
         }while (c.moveToNext());
         if(index >= c.getCount()) return false;
         c.moveToPosition(index);
-        return c.getString(c.getColumnIndex("password")).equals(psw);
+        boolean ret = c.getString(c.getColumnIndex("password")).equals(psw);
+        c.close();
+        return ret;
     }
 
     private boolean Check(SQLiteDatabase db, String key, String column){
@@ -53,8 +55,12 @@ public class SingIN {
         if(!c.moveToFirst()) return false;
         int columnIndex = c.getColumnIndex(column);
         do{
-            if(c.getString(columnIndex).equals(key)) return true;
+            if(c.getString(columnIndex).equals(key)) {
+                c.close();
+                return true;
+            }
         }while (c.moveToNext());
+        c.close();
         return false;
     }
 
