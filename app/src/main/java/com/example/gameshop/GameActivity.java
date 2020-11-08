@@ -19,9 +19,13 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.sql.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
@@ -78,15 +82,23 @@ public class GameActivity extends AppCompatActivity {
         }
         String newGames;
         if(games != null && games.length() > 1){
-            List<String> gamesList = Arrays.asList(games.split(","));
+            /*List<String> gamesList = Arrays.asList(games.split(","));
             gamesList.add(name.getText().toString());
-             newGames = gamesList.toString().replace("[", "").replace("]", "");
+            newGames = gamesList.toString().replace("[", "").replace("]", "");*/
+            newGames = games + ", " + name.getText().toString();
         }
         else newGames = name.getText().toString();
         db.execSQL("update users set games = '" + newGames + "' where mail = '" + user + "';");
-        db.close();
-        c.close();
         Toast.makeText(context, "The game is bought", Toast.LENGTH_LONG).show();
+        c.close();
+        TransactionsDB transactionsDB = new TransactionsDB(context);
+        String gameName = name.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy; HH:mm", Locale.getDefault());
+        String date = sdf.format(new Date());
+        db = transactionsDB.getWritableDatabase();
+        db.execSQL("insert into transactions (game, user, price, date) values ('" + game.name + "','" + user + "','" + game.price
+                            + "','" + date + "');");
+        db.close();
     }
 
     private void HasGame(){

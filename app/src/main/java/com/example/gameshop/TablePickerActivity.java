@@ -23,6 +23,12 @@ public class TablePickerActivity extends AppCompatActivity {
         finish();
     }
 
+    public void TransactionsTable(View view){
+        Intent intent = new Intent(context, TransactionsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void GenresTable(View view){
         Intent intent = new Intent(context, GenresTableActivity.class);
         startActivity(intent);

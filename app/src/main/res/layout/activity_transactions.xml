@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UsersListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="30dp"
+            android:text="Id"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_weight="0.1"
+            android:layout_marginStart="7dp"/>
+
+        <TextView
+            android:text="Game"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:text="User"
+            android:layout_width="125dp"
+            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.6"/>
+
+        <TextView
+            android:text="Price"
+            android:layout_width="75dp"
+            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_weight="0.4"/>
+
+        <TextView
+            android:text="Date"
+            android:layout_width="75dp"
+            android:textSize="20sp"
+            android:layout_marginStart="7dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionsRecView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
