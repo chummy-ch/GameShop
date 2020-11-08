@@ -26,56 +26,37 @@ public class SingIN {
         this.activity = activity;
     }
 
-    private boolean CheckUser(SQLiteDatabase db, String key, String psw){
-        Cursor c = db.rawQuery("select * from users;", null);
-/*
-        Cursor c = db.query("users", null, null, null, null, null, null);
-*/
-
-        if(!c.moveToFirst()) return false;
-        int keyIndex = c.getColumnIndex("mail");
-        int index = 0;
-        do{
-            if(c.getString(keyIndex).equals(key)) break;
-            index++;
-        }while (c.moveToNext());
-        if(index >= c.getCount()) return false;
-        c.moveToPosition(index);
-        boolean ret = c.getString(c.getColumnIndex("password")).equals(psw);
+    private boolean DBCheck(SQLiteDatabase db, String user, String psw){
+        Cursor c = db.rawQuery("select * from users where mail = '" + user + "';", null);
+        if(c.getCount() == 0) {
+            c.close();
+            return false;
+        }
+        c.moveToFirst();
+        if(psw == null) {
+            c.close();
+            return true;
+        }
+        int pswIndex = c.getColumnIndex("password");
+        boolean ret = c.getString(pswIndex).equals(psw);
         c.close();
         return ret;
-    }
-
-    private boolean Check(SQLiteDatabase db, String key, String column){
-        Cursor c = db.rawQuery("select * from users;", null);
-/*
-        Cursor c = db.query("users", null, null, null, null, null, null);
-*/
-
-        if(!c.moveToFirst()) return false;
-        int columnIndex = c.getColumnIndex(column);
-        do{
-            if(c.getString(columnIndex).equals(key)) {
-                c.close();
-                return true;
-            }
-        }while (c.moveToNext());
-        c.close();
-        return false;
     }
 
     public boolean Logining(String mail, String psw){
         UsersDB usersDB = new UsersDB(context, activity);
         SQLiteDatabase db = usersDB.getWritableDatabase();
-        return CheckUser(db, mail, psw);
+        return DBCheck(db, mail, psw);
     }
 
     public boolean AddUser(String mail, String psw, String brth){
         ContentValues cv = new ContentValues();
         UsersDB usersDB = new UsersDB(context, activity);
         SQLiteDatabase db = usersDB.getWritableDatabase();
-        if(Check(db, mail, "mail")) return false;
-
+        if(DBCheck(db, mail, null)){
+            db.close();
+            return false;
+        }
         cv.put("mail", mail);
         cv.put("age", brth);
         cv.put("password", psw);
