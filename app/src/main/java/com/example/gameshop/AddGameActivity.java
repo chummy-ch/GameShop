@@ -91,7 +91,13 @@ public class AddGameActivity extends AppCompatActivity {
         if(image.exists()){
             Glide.with(context).load(image).into(this.image);
         }
-        /*genres.setText(game.genres);*/
+        genres.setText(game.genres[0]);
+        LinearLayout ll = findViewById(R.id.genres);
+        for(int i = 1; i < game.genres.length; i++) {
+            AddGenET(genres);
+            EditText text = (EditText) ll.getChildAt(i);
+            text.setText(game.genres[i]);
+        }
         imageUri = image.getPath();
     }
 
@@ -246,24 +252,31 @@ public class AddGameActivity extends AppCompatActivity {
             copyFileOrDirectory(imagePath, folder.getPath());
             game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         }
+        String gens = "";
+        LinearLayout ll = findViewById(R.id.genres);
+        ArrayList<String> gs = new Genres(context).GetGenres();
+        for(int i = 0 ; i < ll.getChildCount() -1; i++){
+            EditText t = (EditText) ll.getChildAt(i);
+            if(gs.contains(t.getText().toString()))
+            if(gens.length() != 0) gens += ", " + t.getText();
+            else gens += t.getText();
+        }
         ContentValues cv = new ContentValues();
         DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from games;", null);
-/*
-        Cursor c = db.query("games", null, null, null, null, null, null);
-*/
         if(!c.moveToFirst()) return;
         cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", imageUri);
         cv.put("description", desc.getText().toString());
-        cv.put("genres", genres.getText().toString());
+        cv.put("genres", gens);
         cv.put("sale", sale.getText().toString());
         cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
         /*db.execSQL("UPDATE games SET price = 110 WHERE game = " + "'" + game.name + "'" + ";");*/
         db.update("games", cv, "game=" + "'" + game.name + "'", null);
         gamesDB.close();
+        c.close();
         finish();
     }
 }

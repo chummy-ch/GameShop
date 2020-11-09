@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void Logining(View view){
         SingIN in = new SingIN(this, this);
-        if(in.Logining(login.getText().toString(), psw.getText().toString())) {
+        if(in.Logining(login.getText().toString().toLowerCase(), psw.getText().toString())) {
             Toast.makeText(context, "You are in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getBaseContext(), ShopActivity.class);
-            intent.putExtra("user", login.getText().toString());
+            intent.putExtra("user", login.getText().toString().toLowerCase());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "Invalid birthday", Toast.LENGTH_LONG).show();
             return;
         }
-        if(!in.AddUser(login.getText().toString(), psw.getText().toString(), age.getText().toString())){
+        if(!in.AddUser(login.getText().toString().toLowerCase(), psw.getText().toString(), age.getText().toString())){
             Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_LONG).show();
             return;
         }

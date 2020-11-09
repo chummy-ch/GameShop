@@ -56,6 +56,15 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
+        Button sql = findViewById(R.id.sqlcode);
+        sql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SqlCodeActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
