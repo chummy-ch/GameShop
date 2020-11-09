@@ -92,12 +92,20 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:background="@drawable/closedeye"
+            android:layout_marginTop="15dp"
+            android:id="@+id/eye"
+            android:onClick="ShowPsw"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
         <Button
             android:id="@+id/sing_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="Logining"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Sing in"/>
 
         <TextView

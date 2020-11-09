@@ -6,9 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.security.identity.DocTypeNotSupportedException;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +49,21 @@ public class MainActivity extends AppCompatActivity {
         age = findViewById(R.id.ageET);
         context = this;
         
+    }
+
+    public void ShowPsw(View view){
+        final ImageView eye = findViewById(R.id.eye);
+        psw.setTransformationMethod(null);
+        eye.setBackgroundResource(R.drawable.openedeye);
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                eye.setBackgroundResource(R.drawable.closedeye);
+                psw.setTransformationMethod(new PasswordTransformationMethod());
+            }
+        }, 3000);
+
     }
 
     public void RegToLogin(View view){
