@@ -44,14 +44,14 @@ public class SingIN {
     }
 
     public boolean Logining(String mail, String psw){
-        UsersDB usersDB = new UsersDB(context, activity);
+        DataBase usersDB = new DataBase(context, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
         return DBCheck(db, mail, psw);
     }
 
     public boolean AddUser(String mail, String psw, String brth){
         ContentValues cv = new ContentValues();
-        UsersDB usersDB = new UsersDB(context, activity);
+        DataBase usersDB = new DataBase(context, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
         if(DBCheck(db, mail, null)){
             db.close();

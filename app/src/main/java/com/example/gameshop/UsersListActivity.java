@@ -37,7 +37,7 @@ public class UsersListActivity extends AppCompatActivity {
     }
 
     public void LoadDB(){
-        UsersDB usersDB = new UsersDB(this, this);
+        DataBase usersDB = new DataBase(this, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
         Cursor c = db.query("users", null, null, null, null, null, null);
         if (c.moveToFirst()) {

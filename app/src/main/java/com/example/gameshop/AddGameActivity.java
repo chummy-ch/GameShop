@@ -173,7 +173,7 @@ public class AddGameActivity extends AppCompatActivity {
     }
 
     public void RemoveGame(View view){
-        GamesDB gamesDB = new GamesDB(this, this);
+        DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
         db.execSQL("DELETE FROM games WHERE game = '" + game.name + "'");
         db.close();
@@ -213,7 +213,7 @@ public class AddGameActivity extends AppCompatActivity {
         copyFileOrDirectory(imagePath, folder.getPath());
         String imageName = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         ContentValues cv = new ContentValues();
-        GamesDB gamesDB = new GamesDB(this, this);
+        DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
 
         Cursor c = db.rawQuery("select * from games where game = " + "'" + name.getText().toString() + "';", null);
@@ -247,7 +247,7 @@ public class AddGameActivity extends AppCompatActivity {
             game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         }
         ContentValues cv = new ContentValues();
-        GamesDB gamesDB = new GamesDB(this, this);
+        DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from games;", null);
 /*

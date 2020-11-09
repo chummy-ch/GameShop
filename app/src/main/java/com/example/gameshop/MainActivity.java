@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
+        
     }
 
     public void RegToLogin(View view){

@@ -65,7 +65,7 @@ public class ShopActivity extends AppCompatActivity {
     }
 
     public void LoadDB(){
-        GamesDB gamesDB = new GamesDB(this, this);
+        DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from games;", null);
 /*

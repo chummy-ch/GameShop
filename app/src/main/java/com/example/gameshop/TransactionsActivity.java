@@ -29,7 +29,7 @@ public class TransactionsActivity extends AppCompatActivity {
     }
 
     private void LoadDB(){
-        TransactionsDB transactionsDB = new TransactionsDB(context);
+        DataBase transactionsDB = new DataBase(context, "transactions");
         SQLiteDatabase db = transactionsDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from transactions;", null);
 

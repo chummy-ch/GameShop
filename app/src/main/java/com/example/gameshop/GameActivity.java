@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void BuyGame(View view){
-        UsersDB usersDB = new UsersDB(this, this);
+        DataBase usersDB = new DataBase(this, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from users where mail = '" + user + "';", null);
         if(!c.moveToFirst()){
@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         db.execSQL("update users set games = '" + newGames + "' where mail = '" + user + "';");
         Toast.makeText(context, "The game is bought", Toast.LENGTH_LONG).show();
         c.close();
-        TransactionsDB transactionsDB = new TransactionsDB(context);
+        DataBase transactionsDB = new DataBase(context, "transactions");
         String gameName = name.getText().toString();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy; HH:mm", Locale.getDefault());
         String date = sdf.format(new Date());
@@ -102,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void HasGame(){
-        UsersDB usersDB = new UsersDB(this, this);
+        DataBase usersDB = new DataBase(this, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
         Cursor c = db.rawQuery("select * from users where mail = '" + user + "';", null);
         c.moveToFirst();
