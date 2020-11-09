@@ -25,10 +25,14 @@
             android:layout_height="wrap_content"/>
 
         <Button
+            android:onClick="Clear"
+            android:text="Clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <Button
+            android:text="Exit"
+            android:onClick="Exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

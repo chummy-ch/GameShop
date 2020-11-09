@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class SqlCodeActivity extends AppCompatActivity {
     private Context context;
     private EditText code;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,12 @@ public class SqlCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sql_code);
         code = findViewById(R.id.code);
         context = this;
+        tv = findViewById(R.id.table);
     }
+
+    public void Clear(View view){ tv.setText("");}
+
+    public void Exit(View view){finish();}
 
     public void Push(View view){
         String sql = code.getText().toString();
@@ -44,7 +50,6 @@ public class SqlCodeActivity extends AppCompatActivity {
     }
 
     public void PrintTable(Cursor c){
-        TextView tv = findViewById(R.id.table);
         tv.setText("");
         if(!c.moveToFirst()){
             tv.setText("Wrong sql code");
