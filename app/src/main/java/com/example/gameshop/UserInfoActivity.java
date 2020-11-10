@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.provider.ContactsContract;
 import android.widget.TextView;
 
@@ -36,7 +37,9 @@ public class UserInfoActivity extends AppCompatActivity {
             name.setText(c.getString(c.getColumnIndex("mail")));
             games.setText(c.getString(c.getColumnIndex("games")));
             birthday.setText(c.getString(c.getColumnIndex("age")));
-            Cursor cc = db.rawQuery("select * from transactions;", null);
+            DataBase d = new DataBase(context, "transactions");
+            SQLiteDatabase db2 = d.getWritableDatabase();
+            Cursor cc = db2.rawQuery("select * from transactions;", null);
             cc.moveToFirst();
             int moneySpent = 0;
             int index = cc.getColumnIndex("user");
@@ -47,7 +50,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 System.out.println(moneyIndex);
                 if(cc.getString(index).equals(user)) moneySpent += cc.getInt(moneyIndex);
             }while(cc.moveToNext());
-            money.setText(String.valueOf(moneySpent));
+            money.setText(String.valueOf(moneySpent) + "$");
             c.close();
             cc.close();
             db.close();
