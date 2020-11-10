@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,15 +35,14 @@ public class TransactionsActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("select * from transactions;", null);
 
         if(!c.moveToFirst()) return;
-
         int idIndex = c.getColumnIndex("id");
         int gameIndex = c.getColumnIndex("game");
         int userIndex = c.getColumnIndex("user");
         int priceIndex = c.getColumnIndex("price");
         int dateIndex = c.getColumnIndex("date");
         ArrayList<Transaction> trans = new ArrayList<>();
-        Transaction t = new Transaction();
         do{
+            Transaction t = new Transaction();
             t.id = c.getInt(idIndex);
             t.game = c.getString(gameIndex);
             t.user = c.getString(userIndex);
