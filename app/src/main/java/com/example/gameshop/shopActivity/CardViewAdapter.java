@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.shopActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,15 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gameshop.GameActivity;
+import com.example.gameshop.R;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;

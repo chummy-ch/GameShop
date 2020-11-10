@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.transactionActivity;
 
 public class Transaction {
 

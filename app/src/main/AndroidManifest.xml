@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT" />
 
     <application
         android:allowBackup="true"
@@ -16,16 +18,16 @@
         android:theme="@style/Theme.AppCompat.DayNight">
         <activity android:name=".UserInfoActivity"></activity>
         <activity android:name=".SqlCodeActivity" />
-        <activity android:name=".TransactionsActivity" />
-        <activity android:name=".GenresTableActivity" />
-        <activity android:name=".TablePickerActivity" />
-        <activity android:name=".GenreActivity" />
+        <activity android:name=".transactionActivity.TransactionsActivity" />
+        <activity android:name=".tables.GenresTableActivity" />
+        <activity android:name=".tables.TablePickerActivity" />
+        <activity android:name=".genrelActivity.GenreActivity" />
         <activity android:name=".PickAddingActivity" />
-        <activity android:name=".UsersListActivity" />
+        <activity android:name=".tables.UsersListActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".AddGameActivity" />
-        <activity android:name=".ShopActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".shopActivity.ShopActivity" />
+        <activity android:name=".authorization.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

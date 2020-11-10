@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.tables;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.gameshop.R;
+import com.example.gameshop.transactionActivity.TransactionsActivity;
 
 public class TablePickerActivity extends AppCompatActivity {
     private Context context;

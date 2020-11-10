@@ -1,10 +1,9 @@
-package com.example.gameshop;
+package com.example.gameshop.shopActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,11 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
+import com.example.gameshop.DataBase;
+import com.example.gameshop.PickAddingActivity;
+import com.example.gameshop.R;
+import com.example.gameshop.SqlCodeActivity;
+import com.example.gameshop.tables.TablePickerActivity;
+import com.example.gameshop.UserInfoActivity;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;

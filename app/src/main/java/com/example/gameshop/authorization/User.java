@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.authorization;
 
 public class User {
     public String user;

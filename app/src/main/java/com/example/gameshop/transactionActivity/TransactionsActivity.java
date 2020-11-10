@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.transactionActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +8,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.example.gameshop.DataBase;
+import com.example.gameshop.R;
 
 import java.util.ArrayList;
 

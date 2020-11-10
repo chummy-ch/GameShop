@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.tables;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.gameshop.DataBase;
+import com.example.gameshop.R;
+import com.example.gameshop.authorization.User;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class UsersListActivity extends AppCompatActivity {
     private RecyclerView rec;

@@ -6,7 +6,7 @@
     android:layout_marginTop="20dp"
     android:layout_height="70dp"
     android:orientation="horizontal"
-    tools:context=".GenresTableActivity">
+    tools:context=".tables.GenresTableActivity">
 
         <TextView
             android:id="@+id/genreId"

@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.genrelActivity;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.widget.Toast;
 
+import com.example.gameshop.DataBase;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;

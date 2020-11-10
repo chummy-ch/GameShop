@@ -1,8 +1,6 @@
-package com.example.gameshop;
+package com.example.gameshop.genrelActivity;
 
 import android.content.Context;
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gameshop.R;
+
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHodler> {
     private ArrayList<String> gens;

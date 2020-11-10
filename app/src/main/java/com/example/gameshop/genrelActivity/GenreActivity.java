@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.genrelActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.gameshop.R;
 
 public class GenreActivity extends AppCompatActivity {
     private Context context;

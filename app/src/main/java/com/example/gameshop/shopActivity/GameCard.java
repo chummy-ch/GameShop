@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.shopActivity;
 
 public class GameCard {
     public String image;

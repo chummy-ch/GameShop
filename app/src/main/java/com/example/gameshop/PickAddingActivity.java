@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.gameshop.genrelActivity.GenreActivity;
+
 public class PickAddingActivity extends AppCompatActivity {
     private Context context;
 

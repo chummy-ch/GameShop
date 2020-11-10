@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.tables;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import com.example.gameshop.R;
+import com.example.gameshop.genrelActivity.GenreAdapter;
+import com.example.gameshop.genrelActivity.Genres;
 
 import java.util.ArrayList;
 

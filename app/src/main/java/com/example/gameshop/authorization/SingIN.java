@@ -1,4 +1,4 @@
-package com.example.gameshop;
+package com.example.gameshop.authorization;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.Settings;
 
+import com.example.gameshop.DataBase;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;

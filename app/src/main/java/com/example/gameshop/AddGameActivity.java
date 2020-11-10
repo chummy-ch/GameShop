@@ -19,16 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gameshop.genrelActivity.Genres;
+import com.example.gameshop.shopActivity.GameCard;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AddGameActivity extends AppCompatActivity {
     private EditText name, price, desc, sale;

@@ -1,15 +1,12 @@
-package com.example.gameshop;
+package com.example.gameshop.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.security.identity.DocTypeNotSupportedException;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import com.example.gameshop.R;
+import com.example.gameshop.shopActivity.ShopActivity;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public EditText login;
@@ -48,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
-        
     }
 
     public void ShowPsw(View view){
