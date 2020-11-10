@@ -24,6 +24,7 @@ public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
     public Context context;
     public Button users;
+    private String user;
     public ImageButton addButton;
     public TextView text;
 
@@ -31,7 +32,7 @@ public class ShopActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-
+        user = getIntent().getStringExtra("user");
         recyclerView = findViewById(R.id.recycler);
         addButton = findViewById(R.id.addNewGame);
         context = this;
@@ -66,6 +67,12 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void Profile(View view){
+        Intent intent = new Intent(context, UserInfoActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
     @Override

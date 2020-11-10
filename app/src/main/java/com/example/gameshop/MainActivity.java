@@ -125,35 +125,35 @@ public class MainActivity extends AppCompatActivity {
     public void Logining(View view){
         SingIN in = new SingIN(this, this);
         if(in.Logining(login.getText().toString().toLowerCase(), psw.getText().toString())) {
-            Toast.makeText(context, "You are in", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "You are in", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getBaseContext(), ShopActivity.class);
             intent.putExtra("user", login.getText().toString().toLowerCase());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         }
-        else Toast.makeText(context, "Wrong login or passwrod", Toast.LENGTH_LONG).show();
+        else Toast.makeText(context, "Wrong login or passwrod", Toast.LENGTH_SHORT).show();
     }
 
     public void Registration(View view){
         SingIN in = new SingIN(this, this);
         if(!isValidEmail(login.getText())){
-            Toast.makeText(context, "Invalid mail", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Invalid mail", Toast.LENGTH_SHORT).show();
             return;
         }
         else if(!isValidPassword(psw.getText())){
-            Toast.makeText(context, "Invalid password", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Invalid password", Toast.LENGTH_SHORT).show();
             return;
         }
         else if(!isValidBirthday(age.getText().toString())){
-            Toast.makeText(context, "Invalid birthday", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Invalid birthday", Toast.LENGTH_SHORT).show();
             return;
         }
         if(!in.AddUser(login.getText().toString().toLowerCase(), psw.getText().toString(), age.getText().toString())){
-            Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(context, "You have been registrated", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "You have been registrated", Toast.LENGTH_SHORT).show();
         RegToLogin(singup);
     }
 }
