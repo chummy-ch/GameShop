@@ -26,8 +26,9 @@ public class GenresTableActivity extends AppCompatActivity {
 
         Genres gens = new Genres(context);
         ar = gens.GetGenres();
-        GenreAdapter adapter = new GenreAdapter(context, ar, recyclerView);
-        recyclerView.setAdapter(adapter);
-
+        if(ar != null){
+            GenreAdapter adapter = new GenreAdapter(context, ar, recyclerView);
+            recyclerView.setAdapter(adapter);
+        }
     }
 }

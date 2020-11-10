@@ -36,6 +36,10 @@ public class DataBase extends SQLiteOpenHelper {
                 + "user text,"
                 + "price int,"
                 + "date text);");
+
+        db.execSQL("create table genres("
+                    +"id integer primary key autoincrement,"
+                    +"genre text);");
     }
 
     @Override

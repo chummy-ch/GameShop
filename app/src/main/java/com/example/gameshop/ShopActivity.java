@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ public class ShopActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
     public Context context;
     public Button users;
-    public Button addButton;
+    public ImageButton addButton;
     public TextView text;
 
     @Override

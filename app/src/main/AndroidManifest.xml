@@ -13,7 +13,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.DayNight">
         <activity android:name=".SqlCodeActivity"></activity>
         <activity android:name=".TransactionsActivity" />
         <activity android:name=".GenresTableActivity" />
@@ -21,7 +21,6 @@
         <activity android:name=".GenreActivity" />
         <activity android:name=".PickAddingActivity" />
         <activity android:name=".UsersListActivity" />
-        <activity android:name=".UserDBHelperActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".AddGameActivity" />
         <activity android:name=".ShopActivity" />
