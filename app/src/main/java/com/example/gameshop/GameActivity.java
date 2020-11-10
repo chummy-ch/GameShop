@@ -99,6 +99,9 @@ public class GameActivity extends AppCompatActivity {
         db.execSQL("insert into transactions (game, user, price, date) values ('" + game.name + "','" + user + "','" + game.price
                             + "','" + date + "');");
         db.close();
+        price.setTextColor(Color.GRAY);
+        Button buy = findViewById(R.id.buyButton);
+        buy.setText("Bought");
     }
 
     private void HasGame(){

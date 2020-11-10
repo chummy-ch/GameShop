@@ -6,6 +6,7 @@
 
     <TextView
         android:id="@+id/user"
+        android:textColor="@color/borders"
         android:layout_width="130dp"
         android:background="@drawable/borders"
         android:layout_height="match_parent"
@@ -16,6 +17,7 @@
 
     <TextView
         android:id="@+id/games"
+        android:textColor="@color/borders"
         android:layout_width="100dp"
         android:background="@drawable/borders"
         android:gravity="center"
@@ -27,6 +29,7 @@
     <TextView
         android:id="@+id/admin"
         android:layout_width="50dp"
+        android:textColor="@color/borders"
         android:background="@drawable/borders"
         android:gravity="center"
         android:layout_height="match_parent"
@@ -37,6 +40,7 @@
         android:id="@+id/age"
         android:layout_width="75dp"
         android:background="@drawable/borders"
+        android:textColor="@color/borders"
         android:textSize="10sp"
         android:gravity="center"
         android:layout_height="match_parent"
@@ -48,6 +52,7 @@
         android:layout_width="75dp"
         android:gravity="center"
         android:background="@drawable/borders"
+        android:textColor="@color/borders"
         android:textSize="10sp"
         android:layout_marginStart="3dp"
         android:layout_height="match_parent"
