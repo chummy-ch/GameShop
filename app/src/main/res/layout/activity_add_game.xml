@@ -71,17 +71,19 @@
                     android:layout_height="wrap_content"
                     android:hint="Genre"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/addgenre"
                     android:layout_width="25dp"
-                    android:onClick="AddGenET"
                     android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center"
-                    android:text="+"
-                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/round_view"
-                    android:backgroundTint="#0CC649"/>
+                    android:backgroundTint="#0CC649"
+                    android:onClick="AddGenET"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:text="+"
+                    android:textSize="20sp" />
+
 
             </LinearLayout>
 
