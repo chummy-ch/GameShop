@@ -97,8 +97,8 @@
             android:layout_marginTop="15dp"
             android:id="@+id/eye"
             android:onClick="ShowPsw"
-            android:layout_width="15dp"
-            android:layout_height="15dp"/>
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
 
         <Button
             android:id="@+id/sing_in"
