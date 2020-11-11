@@ -95,11 +95,13 @@ public class ShopActivity extends AppCompatActivity {
     private void Search(){
         DataBase dataBase = new DataBase(context, "games");
         SQLiteDatabase db = dataBase.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from games where game = '" + searchField.getText().toString().toUpperCase() + "';", null);
-        if(c.moveToFirst())
+        Cursor c = db.rawQuery("select * from games where game like '%" + searchField.getText().toString() + "%';", null);
+        if(c.getCount() != 0)
         CursorToRecycler(c);
-        else c = db.rawQuery("select * from games where genres like '%" + searchField.getText().toString().toUpperCase() + "%';", null);
-        CursorToRecycler(c);
+        else {
+            c = db.rawQuery("select * from games where genres like '%" + searchField.getText().toString().toUpperCase() + "%';", null);
+            CursorToRecycler(c);
+        }
         db.close();
     }
 
