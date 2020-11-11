@@ -103,6 +103,7 @@ public class ShopActivity extends AppCompatActivity {
             ll.setVisibility(View.GONE);
         }
         db.close();
+        c.close();
     }
 
     private void Search(){
