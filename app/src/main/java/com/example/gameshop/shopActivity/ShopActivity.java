@@ -98,7 +98,7 @@ public class ShopActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("select * from games where game = '" + searchField.getText().toString().toUpperCase() + "';", null);
         if(c.moveToFirst())
         CursorToRecycler(c);
-        else c = db.rawQuery("select * from games where genre contains(Column '" + searchField.getText().toString().toUpperCase() + "');", null);
+        else c = db.rawQuery("select * from games where genres like '%" + searchField.getText().toString().toUpperCase() + "%';", null);
         CursorToRecycler(c);
         db.close();
     }
