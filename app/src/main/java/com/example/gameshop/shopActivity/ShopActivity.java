@@ -1,4 +1,4 @@
-package com.example.gameshop.shopActivity;
+    package com.example.gameshop.shopActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

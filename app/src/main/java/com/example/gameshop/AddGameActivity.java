@@ -184,6 +184,7 @@ public class AddGameActivity extends AppCompatActivity {
         db.execSQL("DELETE FROM games WHERE game = '" + game.name + "'");
         db.close();
         finish();
+        DeleteImage(game.image);
     }
 
     private void AddGame(){
@@ -242,6 +243,11 @@ public class AddGameActivity extends AppCompatActivity {
         finish();
     }
 
+    private void DeleteImage(String imgName){
+        File img = context.getExternalFilesDir("images" + "/" + imgName);
+        if(img.exists()) img.delete();
+    }
+
     private void EditGame(){
         if(imageUri != null){
             File folder = context.getExternalFilesDir("images");
@@ -250,6 +256,7 @@ public class AddGameActivity extends AppCompatActivity {
             }
             String imagePath = imageUri.substring(imageUri.indexOf("storage"));
             copyFileOrDirectory(imagePath, folder.getPath());
+            DeleteImage(game.image);
             game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         }
         String gens = "";
