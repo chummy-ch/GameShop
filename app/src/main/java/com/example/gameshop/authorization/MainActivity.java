@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         age = findViewById(R.id.ageET);
         context = this;
 
-
+        Intent intent = new Intent(context, ShopActivity.class);
+        intent.putExtra("user", "chummy.tema@gmail.com");
+        startActivity(intent);
     }
 
     public void ShowPsw(View view){

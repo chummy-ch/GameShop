@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -29,7 +33,10 @@ public class ShopActivity extends AppCompatActivity {
     public Button users;
     private String user;
     public ImageButton addButton;
+    private int priceSort = 0;
+    private int recSort = 0;
     public TextView text;
+    private EditText searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class ShopActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler);
         addButton = findViewById(R.id.addNewGame);
         context = this;
+        searchField = findViewById(R.id.gameSearch);
         users = findViewById(R.id.usersList);
         text = findViewById(R.id.text);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -70,6 +78,63 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
+        View.OnKeyListener enterPress = new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)){
+                    Search();
+                    return true;
+                }
+                return false;
+            }
+        };
+        searchField.setOnKeyListener(enterPress);
+
+    }
+
+    private void Search(){
+        DataBase dataBase = new DataBase(context, "games");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from games where game = '" + searchField.getText().toString().toUpperCase() + "';", null);
+        if(c.moveToFirst())
+        CursorToRecycler(c);
+        else c = db.rawQuery("select * from games where genre contains(Column '" + searchField.getText().toString().toUpperCase() + "');", null);
+        CursorToRecycler(c);
+        db.close();
+    }
+
+    public void SortByPrice(View view){
+        DataBase database = new DataBase(context, "games");
+        SQLiteDatabase db = database.getWritableDatabase();
+        String order;
+        if(priceSort == 0){
+            order = "asc";
+            priceSort = 1;
+        }
+        else {
+            order = "desc";
+            priceSort = 0;
+        }
+        Cursor c = db.rawQuery("select * from games order by price " + order + ";", null);
+        CursorToRecycler(c);
+        db.close();
+    }
+
+    public void SortByRecency(View view){
+        DataBase dataBase = new DataBase(context, "games");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        String order;
+        if(recSort == 0){
+            order = "asc";
+            recSort = 1;
+        }
+        else {
+            order = "desc";
+            recSort = 0;
+        }
+        Cursor c = db.rawQuery("select * from games order by image " + order + ";", null);
+        CursorToRecycler(c);
+        db.close();
     }
 
     public void Profile(View view){
@@ -84,15 +149,8 @@ public class ShopActivity extends AppCompatActivity {
         LoadDB();
     }
 
-    public void LoadDB(){
-        DataBase gamesDB = new DataBase(this, "games");
-        SQLiteDatabase db = gamesDB.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from games;", null);
-/*
-        Cursor c = db.query("games", null, null, null, null, null, null);
-*/
+    private void CursorToRecycler(Cursor c){
         if (c.moveToFirst()) {
-
             // определяем номера столбцов по имени в выборке
             int nameColIndex = c.getColumnIndex("game");
             int priceColIndex = c.getColumnIndex("price");
@@ -112,7 +170,8 @@ public class ShopActivity extends AppCompatActivity {
                 String genres = c.getString(genColIndex);
                 int sale = c.getInt(saleColIndex);
                 int age = c.getInt(ageColIndex);
-                GameCard card = new GameCard();{}
+                GameCard card = new GameCard();
+
                 card.ageLimit = age;
                 card.sale = sale;
                 card.name = name;
@@ -123,9 +182,19 @@ public class ShopActivity extends AppCompatActivity {
                 cardsList.add(card);
             } while (c.moveToNext());
             c.close();
-            db.close();
             CardViewAdapter adapter = new CardViewAdapter(cardsList, context, recyclerView, getIntent().getStringExtra("user"));
             recyclerView.setAdapter(adapter);
         }
+        else {
+            recyclerView.setAdapter(null);
+        }
+    }
+
+    public void LoadDB(){
+        DataBase gamesDB = new DataBase(this, "games");
+        SQLiteDatabase db = gamesDB.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from games;", null);
+        CursorToRecycler(c);
+        db.close();
     }
 }

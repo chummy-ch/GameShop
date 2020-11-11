@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -46,9 +45,8 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         }
     };
 
-    @NonNull
     @Override
-    public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card, parent, false);
         view.setOnClickListener(openCard);
@@ -56,7 +54,7 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterViewHolder holder, int position) {
+    public void onBindViewHolder(AdapterViewHolder holder, int position) {
         if(games.size() == 0) return;
         holder.name.setText(games.get(position).name);
         String g = Arrays.toString(games.get(position).genres).replace("[", "").replace("]", "");
@@ -81,7 +79,7 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         TextView genres;
         TextView price;
 
-        public AdapterViewHolder(@NonNull View itemView){
+        public AdapterViewHolder(View itemView){
             super(itemView);
             image = itemView.findViewById(R.id.icon);
             name = itemView.findViewById(R.id.name);
