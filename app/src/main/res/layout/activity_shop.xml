@@ -7,6 +7,7 @@
     tools:context=".shopActivity.ShopActivity">
 
 <LinearLayout
+    android:id="@+id/adminPanel"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:layout_marginTop="5dp"

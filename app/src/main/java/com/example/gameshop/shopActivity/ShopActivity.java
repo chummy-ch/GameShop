@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gameshop.DataBase;
@@ -89,7 +90,19 @@ public class ShopActivity extends AppCompatActivity {
             }
         };
         searchField.setOnKeyListener(enterPress);
+        AdminCheck();
+    }
 
+    private void AdminCheck(){
+        DataBase dataBase = new DataBase(context, "users");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery("select admin from users where mail = '" + user + "';", null);
+        c.moveToFirst();
+        if(c.getInt(0) == 0){
+            LinearLayout ll = findViewById(R.id.adminPanel);
+            ll.setVisibility(View.GONE);
+        }
+        db.close();
     }
 
     private void Search(){
