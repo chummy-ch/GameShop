@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_marginTop="20dp"
     android:layout_height="70dp"
+    android:divider="@color/borders"
+    android:showDividers="middle"
     android:orientation="horizontal"
     tools:context=".tables.GenresTableActivity">
 

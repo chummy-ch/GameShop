@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gameshop.R;
+import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.shopActivity.ShopActivity;
 
 import java.util.Calendar;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
+
+
     }
 
     public void ShowPsw(View view){
