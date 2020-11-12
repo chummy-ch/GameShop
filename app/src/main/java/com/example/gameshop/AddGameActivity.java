@@ -99,6 +99,7 @@ public class AddGameActivity extends AppCompatActivity {
             text.setText(game.genres[i]);
         }
         imageUri = image.getPath();
+
     }
 
     public void ChooseImage(View view){
@@ -125,7 +126,6 @@ public class AddGameActivity extends AppCompatActivity {
         try {
             File src = new File(srcDir);
             File dst = new File(dstDir, src.getName());
-
             if (src.isDirectory()) {
                 for (String file : src.list()) {
                     String src1 = (new File(src, file).getPath());
@@ -184,7 +184,7 @@ public class AddGameActivity extends AppCompatActivity {
         db.execSQL("DELETE FROM games WHERE game = '" + game.name + "'");
         db.close();
         finish();
-        DeleteImage(game.image);
+        DeleteImage(game.image.substring(game.image.lastIndexOf('/') + 1));
     }
 
     private void AddGame(){
@@ -256,7 +256,7 @@ public class AddGameActivity extends AppCompatActivity {
             }
             String imagePath = imageUri.substring(imageUri.indexOf("storage"));
             copyFileOrDirectory(imagePath, folder.getPath());
-            DeleteImage(game.image);
+            DeleteImage(game.image.substring(game.image.lastIndexOf('/') + 1));
             game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         }
         String gens = "";
