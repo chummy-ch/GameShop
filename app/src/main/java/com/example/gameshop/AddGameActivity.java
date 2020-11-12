@@ -188,17 +188,7 @@ public class AddGameActivity extends AppCompatActivity {
     }
 
     private void AddGame(){
-        EditText[] arr = new EditText[]{name, price, desc, genres, sale};
-        for (EditText et : arr) {
-            if(et.getText().toString().trim().length() < 1) {
-                Toast.makeText(context, "Fill the '" + et.getHint().toString() + "' field", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-        if(imageUri == null){
-            Toast.makeText(context, "Choose an image for  the game", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        if(IsFilled()) return;
         File folder = context.getExternalFilesDir("images");
         if(!folder.exists()){
             folder.mkdir();
@@ -212,7 +202,7 @@ public class AddGameActivity extends AppCompatActivity {
             if(!gens.contains(t.getText().toString()) && genArray.contains(t.getText().toString()))
             gens += t.getText().toString() + ",";
         }
-        if(gens.trim().replaceAll(",", "").length()< 2){
+        if(gens.trim().replaceAll(",", "").length() < 2){
             Toast.makeText(context, "There are no such genres in the list", Toast.LENGTH_LONG).show();
             return;
         }
@@ -248,7 +238,23 @@ public class AddGameActivity extends AppCompatActivity {
         if(img.exists()) img.delete();
     }
 
+    private boolean IsFilled(){
+        EditText[] arr = new EditText[]{name, price, desc, genres, sale};
+        for (EditText et : arr) {
+            if(et.getText().toString().trim().length() < 1) {
+                Toast.makeText(context, "Fill the '" + et.getHint().toString() + "' field", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        }
+        if(imageUri == null){
+            Toast.makeText(context, "Choose an image for  the game", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
     private void EditGame(){
+        if(IsFilled()) return;
         if(imageUri != null){
             File folder = context.getExternalFilesDir("images");
             if(!folder.exists()){
@@ -263,13 +269,19 @@ public class AddGameActivity extends AppCompatActivity {
             }
         }
         String gens = "";
-        LinearLayout ll = findViewById(R.id.genres);
         ArrayList<String> gs = new Genres(context).GetGenres();
-        for(int i = 0 ; i < ll.getChildCount() -1; i++){
-            EditText t = (EditText) ll.getChildAt(i);
-            if(gs.contains(t.getText().toString()))
-            if(gens.length() != 0) gens += ", " + t.getText();
-            else gens += t.getText();
+        LinearLayout ll = findViewById(R.id.genres);
+        for(int i = 0; i < ll.getChildCount() - 1; i++){
+            System.out.println(i);
+            AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
+            if(gs.contains(t.getText().toString())) {
+                if(gens.length() > 0) gens += "," + t.getText().toString();
+                else gens += t.getText().toString();
+            }
+        }
+        if(gens.trim().replaceAll(",", "").length() < 2){
+            Toast.makeText(context, "There are no such genres in the list", Toast.LENGTH_LONG).show();
+            return;
         }
         ContentValues cv = new ContentValues();
         DataBase gamesDB = new DataBase(this, "games");
