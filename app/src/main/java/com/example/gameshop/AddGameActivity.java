@@ -86,6 +86,7 @@ public class AddGameActivity extends AppCompatActivity {
         sale.setText(String.valueOf(game.sale));
         age.setText(String.valueOf(game.ageLimit));
         File folder = context.getExternalFilesDir("images");
+        if(game.image == null) return;
         String img = game.image.substring(game.image.lastIndexOf('/') + 1);
         File image = new File(folder.getPath() + "/" + img);
         if(image.exists()){
@@ -99,7 +100,6 @@ public class AddGameActivity extends AppCompatActivity {
             text.setText(game.genres[i]);
         }
         imageUri = image.getPath();
-
     }
 
     public void ChooseImage(View view){
@@ -256,8 +256,11 @@ public class AddGameActivity extends AppCompatActivity {
             }
             String imagePath = imageUri.substring(imageUri.indexOf("storage"));
             copyFileOrDirectory(imagePath, folder.getPath());
-            DeleteImage(game.image.substring(game.image.lastIndexOf('/') + 1));
-            game.image = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+            imageUri = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+            if(!game.image.equals(imageUri)){
+                DeleteImage(game.image.substring(game.image.lastIndexOf('/') + 1));
+                game.image = imageUri;
+            }
         }
         String gens = "";
         LinearLayout ll = findViewById(R.id.genres);
@@ -275,7 +278,7 @@ public class AddGameActivity extends AppCompatActivity {
         if(!c.moveToFirst()) return;
         cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
-        cv.put("image", imageUri);
+        cv.put("image", game.image);
         cv.put("description", desc.getText().toString());
         cv.put("genres", gens);
         cv.put("sale", sale.getText().toString());

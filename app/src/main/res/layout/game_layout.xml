@@ -97,6 +97,16 @@
             android:layout_marginLeft="10dp"
             android:text="10$"/>
 
+        <TextView
+            android:id="@+id/sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end|center_horizontal"
+            android:layout_marginStart="7dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"/>
+
     </LinearLayout>
 
 </LinearLayout>

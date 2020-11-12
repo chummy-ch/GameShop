@@ -47,8 +47,9 @@
             android:textSize="25sp"
             android:textColor="#3EB71D"
             android:textStyle="italic"
+            android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginStart="20dp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

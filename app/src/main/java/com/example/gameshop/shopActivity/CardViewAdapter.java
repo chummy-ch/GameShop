@@ -2,6 +2,7 @@ package com.example.gameshop.shopActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,12 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         holder.name.setText(games.get(position).name);
         String g = Arrays.toString(games.get(position).genres).replace("[", "").replace("]", "");
         holder.genres.setText(g.replaceAll(",", " "));
-        holder.price.setText(String.valueOf(games.get(position).price) + "$");
+        holder.price.setText(String.valueOf(games.get(position).price - games.get(position).sale) + "$");
+        if(games.get(position).sale > 0) holder.price.setTextColor(Color.RED);
         File folder = context.getExternalFilesDir("images");
-        String img = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
+        if(games.get(position).image == null) return;
+        if(games.get(position).image.contains("/")) games.get(position).image = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);
+        String img = games.get(position).image;
         File image = new File(folder.getPath() + "/" + img);
             if(image.exists()){
                 Glide.with(context).load(image).into(holder.image);

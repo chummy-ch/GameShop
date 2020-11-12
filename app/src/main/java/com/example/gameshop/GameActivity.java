@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
-    private TextView name, genres, price, desc, age;
+    private TextView name, genres, price, desc, age, sale;
     private ImageView img;
     private String user;
     private Button edit;
@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity {
         price = findViewById(R.id.price);
         age = findViewById(R.id.age);
         edit = findViewById(R.id.edit);
+        sale = findViewById(R.id.sale);
         desc = findViewById(R.id.desc);
         img = findViewById(R.id.img);
         context = this;
@@ -132,13 +133,15 @@ public class GameActivity extends AppCompatActivity {
         age.setText(String.valueOf(game.ageLimit));
         String g = Arrays.toString(game.genres).replace("[", "").replace("]", "");
         genres.setText(g.replaceAll(",", " "));
-        price.setText(String.valueOf(game.price - game.sale) + "$");
+        price.setText(String.valueOf(game.price) + "$");
         desc.setText(game.disc);
         File folder = context.getExternalFilesDir("images");
+        if(game.image == null) return;
         String img = game.image.substring(game.image.lastIndexOf('/') + 1);
         File imageFile = new File(folder.getPath() + "/" + img);
         if(imageFile.exists()){
             Glide.with(context).load(imageFile).into(this.img);
         }
+        if(game.sale > 0) sale.setText("- " + game.sale + "$");
     }
 }

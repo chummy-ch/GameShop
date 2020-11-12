@@ -123,15 +123,18 @@ public class ShopActivity extends AppCompatActivity {
         DataBase database = new DataBase(context, "games");
         SQLiteDatabase db = database.getWritableDatabase();
         String order;
+        String order2;
         if(priceSort == 0){
             order = "asc";
+            order2 = "desc";
             priceSort = 1;
         }
         else {
             order = "desc";
+            order2 = "asc";
             priceSort = 0;
         }
-        Cursor c = db.rawQuery("select * from games order by price " + order + ";", null);
+        Cursor c = db.rawQuery("select * from games order by price " + order + ", " + "sale " + order2 + ";", null);
         CursorToRecycler(c);
         db.close();
     }
