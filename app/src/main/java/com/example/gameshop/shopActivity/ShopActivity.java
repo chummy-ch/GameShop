@@ -82,7 +82,7 @@ public class ShopActivity extends AppCompatActivity {
         View.OnKeyListener enterPress = new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)){
+                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)){
                     Search();
                     return true;
                 }
@@ -123,18 +123,15 @@ public class ShopActivity extends AppCompatActivity {
         DataBase database = new DataBase(context, "games");
         SQLiteDatabase db = database.getWritableDatabase();
         String order;
-        String order2;
         if(priceSort == 0){
             order = "asc";
-            order2 = "desc";
             priceSort = 1;
         }
         else {
             order = "desc";
-            order2 = "asc";
             priceSort = 0;
         }
-        Cursor c = db.rawQuery("select * from games order by price " + order + ", " + "sale " + order2 + ";", null);
+        Cursor c = db.rawQuery("select *, price - sale as total from games order by total " + order + ";", null);
         CursorToRecycler(c);
         db.close();
     }
