@@ -8,11 +8,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,19 +35,21 @@ public class SqlCodeActivity extends AppCompatActivity {
         parent = findViewById(R.id.parentInscroll);
         Display display = getWindowManager().getDefaultDisplay();
         code.setLayoutParams(new LinearLayout.LayoutParams(display.getWidth(), display.getHeight() / 8));
+        parent.setLayoutParams(new FrameLayout.LayoutParams(display.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void Clear(View view){ tv.setText("");}
+    public void Clear(View view){ parent.removeViews(0, parent.getChildCount());}
 
     public void Exit(View view){finish();}
 
     public void RunSQL(Cursor c){
         c.moveToFirst();
         if(parent.getChildCount() != 0)
-        parent.removeViews(0, parent.getChildCount() - 1);
+        parent.removeViews(0, parent.getChildCount());
         LinearLayout l = new LinearLayout(context);
         l.setOrientation(LinearLayout.HORIZONTAL);
         l.setId(parent.getChildCount());
+        l.setShowDividers(LinearLayout.SHOW_DIVIDER_END);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         l.setLayoutParams(params);
         LinearLayout p = findViewById(R.id.buttons);
@@ -53,8 +57,8 @@ public class SqlCodeActivity extends AppCompatActivity {
         for(int i = 0; i < c.getColumnCount(); i++){
             String text = c.getColumnName(i);
             TextView view = new TextView(context);
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount(), p.getHeight());
-            params2.setMarginStart(7);
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, p.getHeight());
+            params2.setMarginStart(3);
             view.setLayoutParams(params2);
             view.setText(text);
             view.setGravity(Gravity.CENTER);
@@ -65,16 +69,20 @@ public class SqlCodeActivity extends AppCompatActivity {
             LinearLayout ll = new LinearLayout(context);
             ll.setOrientation(LinearLayout.HORIZONTAL);
             ll.setId(parent.getChildCount());
+            ll.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            ll.setDividerDrawable(getDrawable(R.drawable.borders));
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(param);
             parent.addView(ll);
             for(int i = 0; i < c.getColumnCount(); i++){
                 String text = c.getString(i);
                 TextView view = new TextView(context);
-                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount(), p.getHeight());
-                params1.setMarginStart(7);
+                view.setGravity(Gravity.CENTER);
+                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, p.getHeight());
+                params1.setMarginStart(3);
                 view.setLayoutParams(params1);
                 view.setText(text);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
                 ll.addView(view);
             }
         }while(c.moveToNext());
@@ -86,6 +94,7 @@ public class SqlCodeActivity extends AppCompatActivity {
         if(sql.contains("users")) name = "users";
         else if (sql.contains("games")) name = "games";
         else if (sql.contains("transactions")) name = "transactions";
+        else if(sql.contains("genres")) name = "genres";
         DataBase dataBase = new DataBase(context, name);
         SQLiteDatabase db = dataBase.getWritableDatabase();
         /*Cursor c = db.rawQuery(sql, null);
