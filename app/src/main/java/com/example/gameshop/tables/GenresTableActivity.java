@@ -26,12 +26,12 @@ public class GenresTableActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<String> ar = new ArrayList<>();
-        recyclerView.setAdapter(new GenreAdapter(context, ar, recyclerView));
+        recyclerView.setAdapter(new GenreAdapter(context, ar, recyclerView, this));
 
         Genres gens = new Genres(context);
         ar = gens.GetGenres();
         if(ar != null){
-            GenreAdapter adapter = new GenreAdapter(context, ar, recyclerView);
+            GenreAdapter adapter = new GenreAdapter(context, ar, recyclerView, this);
             recyclerView.setAdapter(adapter);
         }
     }

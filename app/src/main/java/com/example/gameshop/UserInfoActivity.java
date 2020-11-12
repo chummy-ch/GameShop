@@ -45,9 +45,6 @@ public class UserInfoActivity extends AppCompatActivity {
             int index = cc.getColumnIndex("user");
             int moneyIndex = cc.getColumnIndex("price");
             do{
-                System.out.println("USer " + user);
-                System.out.println(cc.getCount());
-                System.out.println(moneyIndex);
                 if(cc.getString(index).equals(user)) moneySpent += cc.getInt(moneyIndex);
             }while(cc.moveToNext());
             money.setText(String.valueOf(moneySpent) + "$");

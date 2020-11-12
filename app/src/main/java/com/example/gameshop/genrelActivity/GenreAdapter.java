@@ -1,9 +1,12 @@
 package com.example.gameshop.genrelActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,20 +19,34 @@ import java.util.ArrayList;
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHodler> {
     private ArrayList<String> gens;
     private Context context;
+    private Activity activity;
     private RecyclerView rec;
 
-    public GenreAdapter(Context context, ArrayList<String> gens, RecyclerView rec){
+    public GenreAdapter(Context context, ArrayList<String> gens, RecyclerView rec, Activity activity){
         this.context = context;
+        this.activity = activity;
         this.gens = gens;
         this.rec = rec;
     }
+
+    private View.OnClickListener edit = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, GenreActivity.class);
+            LinearLayout ll = (LinearLayout) view;
+            TextView text = (TextView) ll.getChildAt(1);
+            intent.putExtra("edit", text.getText().toString());
+            context.startActivity(intent);
+            activity.finish();
+        }
+    };
 
     @NonNull
     @Override
     public ViewHodler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.genre_table_layout, parent, false);
-
+        view.setOnClickListener(edit);
         return new ViewHodler(view);
     }
 

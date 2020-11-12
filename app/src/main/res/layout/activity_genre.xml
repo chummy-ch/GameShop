@@ -11,14 +11,32 @@
         android:layout_width="225dp"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/saveGame"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:onClick="AddGen"
-        android:text="Save"
-        android:background="#74FFA2"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="30dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/removeGenre"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Remove"
+            android:onClick="RemoveGen"
+            android:visibility="gone"
+            android:background="#FF7481"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/saveGenre"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:onClick="AddGen"
+            android:text="Save"
+            android:background="#74FFA2"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -99,7 +99,6 @@ public class SqlCodeActivity extends AppCompatActivity {
             text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             text.setText("wrong code " + e.toString());
             parent.addView(text);
-            System.out.println(e);
         }
         finally {
             db.close();
