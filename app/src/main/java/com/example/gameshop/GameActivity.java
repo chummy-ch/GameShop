@@ -49,8 +49,18 @@ public class GameActivity extends AppCompatActivity {
         Gson gson = new Gson();
         game = gson.fromJson(getIntent().getStringExtra("game"), GameCard.class);
         Filler();
-
+        AdminCheck();
         HasGame();
+    }
+
+    private void AdminCheck(){
+        DataBase dataBase = new DataBase(context, "users");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery("select admin from users where mail = '" + user + "';", null);
+        c.moveToFirst();
+        if(c.getInt(0) == 0) edit.setVisibility(View.GONE);
+        c.close();
+        db.close();
     }
 
     public void EditGame(View view){
