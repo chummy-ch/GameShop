@@ -24,7 +24,6 @@ import org.w3c.dom.Text;
 public class SqlCodeActivity extends AppCompatActivity {
     private Context context;
     private EditText code;
-    private TextView tv;
     private LinearLayout parent;
 
     @Override
@@ -98,8 +97,6 @@ public class SqlCodeActivity extends AppCompatActivity {
         String table = sql.substring(sql.indexOf("from") + 5, sql.substring(sql.indexOf("from") + 5).indexOf(lastIndexOf) + sql.indexOf("from") + 5);
         DataBase dataBase = new DataBase(context, table);
         SQLiteDatabase db = dataBase.getWritableDatabase();
-        /*Cursor c = db.rawQuery(sql, null);
-        RunSQL(c);*/
         try {
             Cursor c = db.rawQuery(sql, null);
             RunSQL(c);
@@ -114,20 +111,4 @@ public class SqlCodeActivity extends AppCompatActivity {
             db.close();
         }
     }
-
-    /*public void PrintTable(Cursor c){
-        tv.setText("");
-        if(!c.moveToFirst()){
-            tv.setText("Wrong sql code");
-            return;
-        }
-        do{
-            for(int i = 0; i < c.getColumnCount(); i++){
-                String text = c.getString(i);
-                if(text.length() > 12) text = text.substring(0, 12);
-                tv.setText(tv.getText().toString() + "    " + text);
-            }
-            tv.setText(tv.getText() + "\n");
-        }while(c.moveToNext());
-    }*/
 }
