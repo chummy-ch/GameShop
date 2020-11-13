@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.example.gameshop.R;
 import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.shopActivity.ShopActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,9 +48,28 @@ public class MainActivity extends AppCompatActivity {
         age = findViewById(R.id.ageET);
         context = this;
 
-        Intent intent = new Intent(context, ShopActivity.class);
-        intent.putExtra("user", "chummy.tema@gmail.com");
-        startActivity(intent);
+        IsSaved();
+    }
+
+    private void IsSaved(){
+        SavedUser saved = new SavedUser(context);
+        if(getIntent().hasExtra("remove")) saved.RemoveUser();
+        ArrayList<String> user = saved.GetSavedUser();
+        if(user == null || user.size() == 0) return;
+        SingIN in = new SingIN(context, this);
+        if(in.Logining(user.get(0), user.get(1))){
+            Toast.makeText(context, "You are in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getBaseContext(), ShopActivity.class);
+            intent.putExtra("user",user.get(0));
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void Check(View view){
+        CheckBox box = findViewById(R.id.savePassword);
+        box.setChecked(!box.isChecked());
     }
 
     public void ShowPsw(View view){
@@ -130,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("user", login.getText().toString().toLowerCase());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            CheckBox box = findViewById(R.id.savePassword);
+            if(box.isChecked()){
+                SavedUser saved = new SavedUser(context);
+                saved.SaveUser(login.getText().toString().toLowerCase(), psw.getText().toString());
+            }
             finish();
         }
         else Toast.makeText(context, "Wrong login or passwrod", Toast.LENGTH_SHORT).show();

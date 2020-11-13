@@ -3,12 +3,17 @@ package com.example.gameshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.TextView;
+
+import com.example.gameshop.authorization.MainActivity;
+import com.sun.mail.imap.protocol.INTERNALDATE;
 
 public class UserInfoActivity extends AppCompatActivity {
     private TextView name, games, birthday, money;
@@ -27,6 +32,13 @@ public class UserInfoActivity extends AppCompatActivity {
         user = getIntent().getStringExtra("user");
 
         Filler();
+    }
+
+    public void Exit(View view){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("remove", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void Filler(){
