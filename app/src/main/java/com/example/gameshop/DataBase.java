@@ -21,7 +21,8 @@ public class DataBase extends SQLiteOpenHelper {
                 + "password text);");
 
         db.execSQL("create table games ("
-                + "game text PRIMARY KEY,"
+                + "id integer PRIMARY KEY AUTOINCREMENT,"
+                + "game text,"
                 + "image text,"
                 + "price int,"
                 + "description text,"
@@ -40,6 +41,10 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL("create table genres("
                     +"id integer primary key autoincrement,"
                     +"genre text);");
+
+        db.execSQL("create table views("
+                    +"game text,"
+                    +"times integer);");
     }
 
     @Override

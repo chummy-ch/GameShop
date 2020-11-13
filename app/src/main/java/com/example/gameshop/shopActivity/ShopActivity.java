@@ -26,6 +26,7 @@ import com.example.gameshop.SqlCodeActivity;
 import com.example.gameshop.tables.TablePickerActivity;
 import com.example.gameshop.UserInfoActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ShopActivity extends AppCompatActivity {
@@ -148,7 +149,7 @@ public class ShopActivity extends AppCompatActivity {
             order = "desc";
             recSort = 0;
         }
-        Cursor c = db.rawQuery("select * from games order by image " + order + ";", null);
+        Cursor c = db.rawQuery("select * from games order by id " + order + ";", null);
         CursorToRecycler(c);
         db.close();
     }
@@ -212,5 +213,6 @@ public class ShopActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("select * from games;", null);
         CursorToRecycler(c);
         db.close();
+
     }
 }
