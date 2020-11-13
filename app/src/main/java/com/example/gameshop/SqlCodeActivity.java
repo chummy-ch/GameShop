@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -90,13 +91,12 @@ public class SqlCodeActivity extends AppCompatActivity {
 
     public void Push(View view){
         String sql = code.getText().toString();
-        String name = "null";
-        if(sql.contains("users")) name = "users";
-        else if (sql.contains("games")) name = "games";
-        else if (sql.contains("transactions")) name = "transactions";
-        else if(sql.contains("genres")) name = "genres";
-        else if(sql.contains("views")) name = "views";
-        DataBase dataBase = new DataBase(context, name);
+        String lastIndexOf = ";";
+        while(sql.substring(sql.lastIndexOf(";") - 1, sql.length() - 1).equals(" "))
+        sql = sql.substring(0, sql.lastIndexOf(" ")) + ";";
+        if(sql.length() - sql.replaceAll(" ", "").length() > 3) lastIndexOf = " ";
+        String table = sql.substring(sql.indexOf("from") + 5, sql.substring(sql.indexOf("from") + 5).indexOf(lastIndexOf) + sql.indexOf("from") + 5);
+        DataBase dataBase = new DataBase(context, table);
         SQLiteDatabase db = dataBase.getWritableDatabase();
         /*Cursor c = db.rawQuery(sql, null);
         RunSQL(c);*/
