@@ -1,19 +1,15 @@
 package com.example.gameshop.authorization;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.method.PasswordTransformationMethod;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +20,6 @@ import com.example.gameshop.R;
 import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.shopActivity.ShopActivity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout additional;
     public EditText age;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,21 +46,9 @@ public class MainActivity extends AppCompatActivity {
         age = findViewById(R.id.ageET);
         context = this;
 
-        IsSaved();
-    }
-
-    public void IsSaved(){
-        SavedUser saved = new SavedUser(context);
-        if(getIntent().hasExtra("remove")) saved.Remove();
-        ArrayList<String> savedUser = saved.GetSavedUser();
-        if(savedUser.size() == 0) return;
-        SingIN in = new SingIN(context, this);
-        if(!in.Logining(savedUser.get(0), savedUser.get(1))) return;
-        Toast.makeText(context, "You are in", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getBaseContext(), ShopActivity.class);
-        intent.putExtra("user", savedUser.get(0));
+        Intent intent = new Intent(context, ShopActivity.class);
+        intent.putExtra("user", "chummy.tema@gmail.com");
         startActivity(intent);
-        finish();
     }
 
     public void ShowPsw(View view){
@@ -147,11 +129,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), ShopActivity.class);
             intent.putExtra("user", login.getText().toString().toLowerCase());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            CheckBox box = findViewById(R.id.savePassword);
-            if(box.isChecked()){
-                SavedUser saved = new SavedUser(context);
-                saved.SaveUser(login.getText().toString().toLowerCase(), psw.getText().toString());
-            }
             startActivity(intent);
             finish();
         }
