@@ -2,21 +2,27 @@ package com.example.gameshop.shopActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.TransitionOptions;
+import com.example.gameshop.DataBase;
 import com.example.gameshop.GameActivity;
 import com.example.gameshop.R;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,6 +49,14 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
             intent.putExtra("game", jsonGame);
             intent.putExtra("user", user);
             context.startActivity(intent);
+            DataBase database = new DataBase(context, "views");
+            SQLiteDatabase db = database.getWritableDatabase();
+            Cursor c = db.rawQuery("select * from views where game = '" + game.name + "';", null);
+            if(c.moveToFirst())
+            db.execSQL("update views set times = times + 1 where game = '" + game.name + "';");
+            else db.execSQL("insert into views (game, times) values ('" + game.name + "', 0)");
+            c.close();
+            db.close();
         }
     };
 

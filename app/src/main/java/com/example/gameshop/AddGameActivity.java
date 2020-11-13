@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -230,6 +231,11 @@ public class AddGameActivity extends AppCompatActivity {
 
         db.insert("games", null, cv);
         gamesDB.close();
+
+        gamesDB = new DataBase(context, "view");
+        db = gamesDB.getWritableDatabase();
+        db.execSQL("insert into views (times) values (0);");
+        db.close();
         finish();
     }
 
@@ -272,7 +278,6 @@ public class AddGameActivity extends AppCompatActivity {
         ArrayList<String> gs = new Genres(context).GetGenres();
         LinearLayout ll = findViewById(R.id.genres);
         for(int i = 0; i < ll.getChildCount() - 1; i++){
-            System.out.println(i);
             AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
             if(gs.contains(t.getText().toString())) {
                 if(gens.length() > 0) gens += "," + t.getText().toString();
@@ -299,6 +304,12 @@ public class AddGameActivity extends AppCompatActivity {
         db.update("games", cv, "game=" + "'" + game.name + "'", null);
         gamesDB.close();
         c.close();
+        if(!name.getText().toString().equals(game.name)){
+            gamesDB = new DataBase(context, "view");
+            db = gamesDB.getWritableDatabase();
+            db.execSQL("update views set game = '" + name.getText().toString() + "' where game = '" + game.name + "';");
+            db.close();
+        }
         finish();
     }
 }

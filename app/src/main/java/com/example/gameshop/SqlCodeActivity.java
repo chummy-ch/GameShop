@@ -95,6 +95,7 @@ public class SqlCodeActivity extends AppCompatActivity {
         else if (sql.contains("games")) name = "games";
         else if (sql.contains("transactions")) name = "transactions";
         else if(sql.contains("genres")) name = "genres";
+        else if(sql.contains("views")) name = "views";
         DataBase dataBase = new DataBase(context, name);
         SQLiteDatabase db = dataBase.getWritableDatabase();
         /*Cursor c = db.rawQuery(sql, null);
