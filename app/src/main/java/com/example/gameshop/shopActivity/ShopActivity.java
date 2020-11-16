@@ -23,6 +23,7 @@ import com.example.gameshop.DataBase;
 import com.example.gameshop.PickAddingActivity;
 import com.example.gameshop.R;
 import com.example.gameshop.SqlCodeActivity;
+import com.example.gameshop.stats.StatsActivity;
 import com.example.gameshop.tables.TablePickerActivity;
 import com.example.gameshop.UserInfoActivity;
 
@@ -92,6 +93,11 @@ public class ShopActivity extends AppCompatActivity {
         };
         searchField.setOnKeyListener(enterPress);
         AdminCheck();
+    }
+
+    public void Stats(View view){
+        Intent intent = new Intent(context, StatsActivity.class);
+        startActivity(intent);
     }
 
     private void AdminCheck(){

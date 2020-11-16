@@ -56,6 +56,7 @@ public class UserInfoActivity extends AppCompatActivity {
             Cursor cc = db2.rawQuery("select sum (price) from transactions where user = '" + user +"';", null);
             if(cc.moveToFirst())
             money.setText(cc.getString(0) + "$");
+            else money.setText(0 + "$");
             cc.close();
             d.close();
     }

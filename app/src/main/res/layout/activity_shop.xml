@@ -22,17 +22,26 @@
         android:layout_weight="0.1"/>
 
     <Button
+        android:id="@+id/stats"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.1"
+        android:text="Stats"
+        android:onClick="Stats"
+        android:layout_marginLeft="10dp"/>
+
+    <Button
         android:id="@+id/sqlcode"
         android:text="SQL"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="70dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="0.1"/>
 
     <ImageButton
         android:id="@+id/addNewGame"
         android:layout_width="40dp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="10dp"
         android:layout_height="40dp"
         android:layout_weight="0.1"
         android:gravity="center"

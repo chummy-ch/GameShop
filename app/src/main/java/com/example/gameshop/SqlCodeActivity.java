@@ -32,7 +32,7 @@ public class SqlCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sql_code);
         code = findViewById(R.id.code);
         context = this;
-        parent = findViewById(R.id.parentInscroll);
+        parent = findViewById(R.id.parentScroll);
         Display display = getWindowManager().getDefaultDisplay();
         code.setLayoutParams(new LinearLayout.LayoutParams(display.getWidth(), display.getHeight() / 8));
         parent.setLayoutParams(new FrameLayout.LayoutParams(display.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -45,7 +45,9 @@ public class SqlCodeActivity extends AppCompatActivity {
     public void RunSQL(Cursor c){
         c.moveToFirst();
         if(parent.getChildCount() != 0)
-        parent.removeViews(0, parent.getChildCount());
+        Clear(parent);
+        LinearLayout.LayoutParams namesParams = new LinearLayout.LayoutParams(parent.getWidth() / c.getColumnCount(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         parent.setDividerDrawable(getDrawable(R.color.borders));
         parent.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         LinearLayout l = new LinearLayout(context);
@@ -53,16 +55,12 @@ public class SqlCodeActivity extends AppCompatActivity {
         l.setId(parent.getChildCount());
         l.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         l.setDividerDrawable(getDrawable(R.color.borders));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        l.setLayoutParams(params);
-        LinearLayout p = findViewById(R.id.buttons);
+        l.setLayoutParams(linearParams);
         parent.addView(l);
         for(int i = 0; i < c.getColumnCount(); i++){
             String text = c.getColumnName(i);
             TextView view = new TextView(context);
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params2.setMarginStart(3);
-            view.setLayoutParams(params2);
+            view.setLayoutParams(namesParams);
             view.setText(text);
             view.setGravity(Gravity.CENTER);
             view.setTextColor(Color.BLACK);
@@ -74,21 +72,19 @@ public class SqlCodeActivity extends AppCompatActivity {
             ll.setId(parent.getChildCount());
             ll.setDividerDrawable(getDrawable(R.color.borders));
             ll.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            ll.setLayoutParams(param);
+            ll.setLayoutParams(linearParams);
             parent.addView(ll);
             for(int i = 0; i < c.getColumnCount(); i++){
                 String text = c.getString(i);
                 TextView view = new TextView(context);
                 view.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params1.setMarginStart(3);
-                view.setLayoutParams(params1);
+                view.setLayoutParams(namesParams);
                 view.setText(text);
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
                 ll.addView(view);
             }
         }while(c.moveToNext());
+        c.close();
     }
 
     public void Push(View view){

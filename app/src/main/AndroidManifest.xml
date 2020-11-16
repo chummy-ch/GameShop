@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".UserInfoActivity"></activity>
+        <activity android:name=".stats.LoadStatsActivity"></activity>
+        <activity android:name=".stats.StatsActivity" />
+        <activity android:name=".UserInfoActivity" />
         <activity android:name=".SqlCodeActivity" />
         <activity android:name=".transactionActivity.TransactionsActivity" />
         <activity android:name=".tables.GenresTableActivity" />
