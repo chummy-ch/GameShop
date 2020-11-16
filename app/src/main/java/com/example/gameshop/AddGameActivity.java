@@ -207,7 +207,9 @@ public class AddGameActivity extends AppCompatActivity {
             Toast.makeText(context, "There are no such genres in the list", Toast.LENGTH_LONG).show();
             return;
         }
-        String imagePath = imageUri.substring(imageUri.indexOf("storage"));
+        String imagePath = "";
+        if(imageUri.contains("storage")) imagePath = imageUri.substring(imageUri.indexOf("storage"));
+        else imagePath = imageUri.substring(imageUri.indexOf("external"));
         copyFileOrDirectory(imagePath, folder.getPath());
         String imageName = imageUri.substring(imageUri.lastIndexOf('/') + 1);
         ContentValues cv = new ContentValues();

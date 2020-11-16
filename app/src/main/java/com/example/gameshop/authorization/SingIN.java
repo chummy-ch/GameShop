@@ -58,6 +58,9 @@ public class SingIN {
             db.close();
             return false;
         }
+
+        if(db.rawQuery("select * from users;", null).getCount() == 0)
+            cv.put("admin", 1);
         cv.put("mail", mail);
         cv.put("age", brth);
         cv.put("password", psw);

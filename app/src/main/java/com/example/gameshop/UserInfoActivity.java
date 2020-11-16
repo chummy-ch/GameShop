@@ -49,19 +49,14 @@ public class UserInfoActivity extends AppCompatActivity {
             name.setText(c.getString(c.getColumnIndex("mail")));
             games.setText(c.getString(c.getColumnIndex("games")));
             birthday.setText(c.getString(c.getColumnIndex("age")));
+            c.close();
+            db.close();
             DataBase d = new DataBase(context, "transactions");
             SQLiteDatabase db2 = d.getWritableDatabase();
-            Cursor cc = db2.rawQuery("select * from transactions;", null);
-            cc.moveToFirst();
-            int moneySpent = 0;
-            int index = cc.getColumnIndex("user");
-            int moneyIndex = cc.getColumnIndex("price");
-            do{
-                if(cc.getString(index).equals(user)) moneySpent += cc.getInt(moneyIndex);
-            }while(cc.moveToNext());
-            money.setText(String.valueOf(moneySpent) + "$");
-            c.close();
+            Cursor cc = db2.rawQuery("select sum (price) from transactions where user = '" + user +"';", null);
+            if(cc.moveToFirst())
+            money.setText(cc.getString(0) + "$");
             cc.close();
-            db.close();
+            d.close();
     }
 }
