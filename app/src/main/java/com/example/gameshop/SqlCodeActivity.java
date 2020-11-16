@@ -46,10 +46,13 @@ public class SqlCodeActivity extends AppCompatActivity {
         c.moveToFirst();
         if(parent.getChildCount() != 0)
         parent.removeViews(0, parent.getChildCount());
+        parent.setDividerDrawable(getDrawable(R.color.borders));
+        parent.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         LinearLayout l = new LinearLayout(context);
         l.setOrientation(LinearLayout.HORIZONTAL);
         l.setId(parent.getChildCount());
-        l.setShowDividers(LinearLayout.SHOW_DIVIDER_END);
+        l.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        l.setDividerDrawable(getDrawable(R.color.borders));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         l.setLayoutParams(params);
         LinearLayout p = findViewById(R.id.buttons);
@@ -57,7 +60,7 @@ public class SqlCodeActivity extends AppCompatActivity {
         for(int i = 0; i < c.getColumnCount(); i++){
             String text = c.getColumnName(i);
             TextView view = new TextView(context);
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, p.getHeight());
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
             params2.setMarginStart(3);
             view.setLayoutParams(params2);
             view.setText(text);
@@ -69,8 +72,8 @@ public class SqlCodeActivity extends AppCompatActivity {
             LinearLayout ll = new LinearLayout(context);
             ll.setOrientation(LinearLayout.HORIZONTAL);
             ll.setId(parent.getChildCount());
+            ll.setDividerDrawable(getDrawable(R.color.borders));
             ll.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            ll.setDividerDrawable(getDrawable(R.drawable.borders));
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(param);
             parent.addView(ll);
@@ -78,7 +81,7 @@ public class SqlCodeActivity extends AppCompatActivity {
                 String text = c.getString(i);
                 TextView view = new TextView(context);
                 view.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, p.getHeight());
+                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams( parent.getWidth() / c.getColumnCount() - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params1.setMarginStart(3);
                 view.setLayoutParams(params1);
                 view.setText(text);
