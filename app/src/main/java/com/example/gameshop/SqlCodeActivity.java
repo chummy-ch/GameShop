@@ -94,6 +94,7 @@ public class SqlCodeActivity extends AppCompatActivity {
     public void Push(View view){
         String sql = code.getText().toString();
         String lastIndexOf = ";";
+        if(!sql.contains(";")) sql += ";";
         while(sql.substring(sql.lastIndexOf(";") - 1, sql.length() - 1).equals(" "))
         sql = sql.substring(0, sql.lastIndexOf(" ")) + ";";
         if(sql.length() - sql.replaceAll(" ", "").length() > 3) lastIndexOf = " ";
