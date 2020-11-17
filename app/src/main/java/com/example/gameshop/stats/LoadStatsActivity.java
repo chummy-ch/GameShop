@@ -8,8 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -27,6 +30,11 @@ import com.example.gameshop.authorization.MainActivity;
 
 import org.w3c.dom.Text;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
 public class LoadStatsActivity extends AppCompatActivity {
     private Context context;
     private LinearLayout parent;
@@ -42,21 +50,32 @@ public class LoadStatsActivity extends AppCompatActivity {
         Chooser();
     }
 
-    private void MakeTable(Cursor c){
+    private void MakeTable(Cursor c, int orientation){
         if(!c.moveToFirst()) return;
+        parent.setOrientation(orientation);
         Display d = getWindowManager().getDefaultDisplay();
         parent.setDividerDrawable(getDrawable(R.color.borders));
         parent.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+
+        Point size = new Point();
+        d.getSize(size);
+        LinearLayout.LayoutParams textParams;
+        LinearLayout.LayoutParams params;
         LinearLayout namesLinear = new LinearLayout(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if(orientation == LinearLayout.VERTICAL){
+            textParams = new LinearLayout.LayoutParams(size.x / c.getColumnCount() , ViewGroup.LayoutParams.WRAP_CONTENT);
+            params =  new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        else {
+            textParams = new LinearLayout.LayoutParams(size.x / c.getColumnCount() / 2 , ViewGroup.LayoutParams.WRAP_CONTENT);
+            params = new LinearLayout.LayoutParams(size.x / c.getColumnCount(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
         namesLinear.setLayoutParams(params);
         namesLinear.setOrientation(LinearLayout.HORIZONTAL);
         namesLinear.setId(parent.getChildCount());
         namesLinear.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         parent.addView(namesLinear);
-        Point size = new Point();
-        d.getSize(size);
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(size.x / c.getColumnCount() , ViewGroup.LayoutParams.WRAP_CONTENT);
+
         for(int i = 0; i < c.getColumnCount(); i ++){
             TextView name = new TextView(context);
             name.setLayoutParams(textParams);
@@ -94,14 +113,25 @@ public class LoadStatsActivity extends AppCompatActivity {
             case "views":
                 LoadViews();
                 break;
+            case "selling":
+              LoadSelling();
+              break;
         }
+    }
+
+    private void LoadSelling(){
+        DataBase dataBase = new DataBase(context, "transactions");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery("select substr(date, 4 , 2) as 'month num' , sum(price) as 'total spent $' from transactions group by substr (date, 4, 2);", null );
+        MakeTable(c, LinearLayout.VERTICAL);
+        db.close();
     }
 
     private void LoadViews(){
         DataBase dataBase = new DataBase(context, "views");
         SQLiteDatabase db = dataBase.getWritableDatabase();
         Cursor c = db.rawQuery("select * from views;", null);
-        MakeTable(c);
+        MakeTable(c, LinearLayout.VERTICAL);
         db.close();
     }
 }

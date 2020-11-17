@@ -26,4 +26,11 @@ public class StatsActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void MonthSelling(View view){
+        Intent intent = new Intent(context, LoadStatsActivity.class);
+        intent.putExtra("stat", "selling");
+        startActivity(intent);
+        finish();
+    }
 }
