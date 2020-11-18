@@ -35,4 +35,14 @@
         android:background="@drawable/round_view"
         android:layout_height="50dp"/>
 
+    <TextView
+        android:layout_width="300dp"
+        android:text="Users ages"
+        android:textSize="30sp"
+        android:onClick="UsersYears"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:background="@drawable/round_view"
+        android:layout_height="50dp"/>
+
 </LinearLayout>

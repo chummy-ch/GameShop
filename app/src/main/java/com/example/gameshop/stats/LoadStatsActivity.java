@@ -99,9 +99,21 @@ public class LoadStatsActivity extends AppCompatActivity {
               LoadSelling();
               break;
             case "bestsellers":
-                BestSellers();
+                LoadBestSellers();
+                break;
+            case "years":
+                LoadYears();
                 break;
         }
+    }
+
+    private void LoadYears(){
+        DataBase dataBase = new DataBase(context, "users");
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery(
+                "select substr(age, 7, 4) as YEAR, count(substr(age, 7, 4)) as users from users group by substr(age, 7, 4) order by users desc", null);
+        MakeTable(c, LinearLayout.VERTICAL);
+        db.close();
     }
 
     private void LoadSelling(){
@@ -112,7 +124,7 @@ public class LoadStatsActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void BestSellers(){
+    private void LoadBestSellers(){
         DataBase dataBase = new DataBase(context, "transactions") ;
         SQLiteDatabase db = dataBase.getWritableDatabase();
         Cursor c = db.rawQuery("select game, sum(price) || '$' as income, count(game) as times from transactions group by game order by times desc;", null);

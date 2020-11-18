@@ -27,6 +27,13 @@ public class StatsActivity extends AppCompatActivity {
         finish();
     }
 
+    public void UsersYears(View view){
+        Intent intent = new Intent(context, LoadStatsActivity.class);
+        intent.putExtra("stat", "years");
+        startActivity(intent);
+        finish();
+    }
+
     public void BestSellers(View view){
         Intent intent = new Intent(context, LoadStatsActivity.class);
         intent.putExtra("stat", "bestsellers");
