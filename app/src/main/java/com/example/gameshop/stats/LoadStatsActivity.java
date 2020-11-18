@@ -1,39 +1,21 @@
 package com.example.gameshop.stats;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.PathInterpolator;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gameshop.DataBase;
 import com.example.gameshop.R;
-import com.example.gameshop.authorization.MainActivity;
-
-import org.w3c.dom.Text;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 
 public class LoadStatsActivity extends AppCompatActivity {
     private Context context;
@@ -116,6 +98,9 @@ public class LoadStatsActivity extends AppCompatActivity {
             case "selling":
               LoadSelling();
               break;
+            case "bestsellers":
+                BestSellers();
+                break;
         }
     }
 
@@ -123,6 +108,14 @@ public class LoadStatsActivity extends AppCompatActivity {
         DataBase dataBase = new DataBase(context, "transactions");
         SQLiteDatabase db = dataBase.getWritableDatabase();
         Cursor c = db.rawQuery("select substr(date, 4 , 2) as 'month num' , sum(price) || '$' as 'total income' from transactions group by substr (date, 4, 2);", null );
+        MakeTable(c, LinearLayout.VERTICAL);
+        db.close();
+    }
+
+    private void BestSellers(){
+        DataBase dataBase = new DataBase(context, "transactions") ;
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+        Cursor c = db.rawQuery("select game, sum(price) || '$' as income, count(game) as times from transactions group by game order by times desc;", null);
         MakeTable(c, LinearLayout.VERTICAL);
         db.close();
     }
