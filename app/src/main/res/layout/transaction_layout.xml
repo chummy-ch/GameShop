@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="85dp"
+    android:background="@drawable/borders"
     android:divider="@color/borders"
     android:showDividers="middle"
     android:orientation="horizontal"
@@ -14,12 +15,14 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:textSize="15sp"
+            android:gravity="center"
             android:layout_weight="0.1"
             android:layout_marginStart="7dp"/>
 
         <TextView
             android:id="@+id/transGame"
             android:layout_width="100dp"
+            android:gravity="center"
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:layout_marginStart="7dp"
@@ -28,6 +31,7 @@
         <TextView
             android:id="@+id/transUser"
             android:layout_width="125dp"
+            android:gravity="center"
             android:textSize="15sp"
             android:layout_height="match_parent"
             android:layout_marginStart="7dp"
@@ -45,6 +49,7 @@
         <TextView
             android:id="@+id/transDate"
             android:layout_width="75dp"
+            android:gravity="center"
             android:textSize="10sp"
             android:layout_marginStart="7dp"
             android:layout_height="match_parent"

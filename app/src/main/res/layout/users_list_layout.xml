@@ -3,8 +3,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="40dp"
     android:divider="@color/borders"
-    android:showDividers="middle"
-    android:layout_marginTop="10dp">
+    android:background="@drawable/borders"
+    android:showDividers="middle">
 
     <TextView
         android:id="@+id/user"
@@ -13,8 +13,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="15sp"
-        android:layout_weight="0.1"
-        android:layout_marginStart="3dp"/>
+        android:layout_weight="0.1"/>
 
     <TextView
         android:id="@+id/games"
@@ -23,7 +22,6 @@
         android:gravity="center"
         android:layout_height="match_parent"
         android:textSize="10sp"
-        android:layout_marginStart="3dp"
         android:layout_weight="0.4"/>
 
     <TextView
@@ -32,7 +30,6 @@
         android:textColor="@color/borders"
         android:gravity="center"
         android:layout_height="match_parent"
-        android:layout_marginStart="3dp"
         android:layout_weight="0.6"/>
 
     <TextView
@@ -42,7 +39,6 @@
         android:textSize="10sp"
         android:gravity="center"
         android:layout_height="match_parent"
-        android:layout_marginStart="3dp"
         android:layout_weight="0.4"/>
 
     <TextView
@@ -51,7 +47,6 @@
         android:gravity="center"
         android:textColor="@color/borders"
         android:textSize="10sp"
-        android:layout_marginStart="3dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"/>
 
