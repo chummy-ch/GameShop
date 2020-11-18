@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/transId"
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:layout_weight="0.1"
@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/transGame"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:layout_marginStart="7dp"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/transUser"
-            android:layout_width="100dp"
+            android:layout_width="125dp"
             android:textSize="15sp"
             android:layout_height="match_parent"
             android:layout_marginStart="7dp"
@@ -35,8 +35,9 @@
 
         <TextView
             android:id="@+id/transPrice"
-            android:layout_width="60dp"
+            android:layout_width="75dp"
             android:textSize="15sp"
+            android:gravity="center"
             android:layout_height="match_parent"
             android:layout_marginStart="7dp"
             android:layout_weight="0.4"/>
@@ -44,7 +45,7 @@
         <TextView
             android:id="@+id/transDate"
             android:layout_width="75dp"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginStart="7dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"/>
