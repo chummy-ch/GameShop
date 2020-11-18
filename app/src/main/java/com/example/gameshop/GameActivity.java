@@ -17,11 +17,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.gameshop.shopActivity.GameCard;
 import com.google.gson.Gson;
+import com.sun.mail.imap.protocol.INTERNALDATE;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.DuplicateFormatFlagsException;
 import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
@@ -73,6 +83,24 @@ public class GameActivity extends AppCompatActivity {
         finish();
     }
 
+    private int CheckAge(String age){
+        String current = new SimpleDateFormat("dd/MM/YYYY").format(new Date());
+        int totalDays = 0;
+        int f = Integer.parseInt(current.substring(0, 2));
+        int s = Integer.parseInt(age.substring(0, 2));
+        if(f > s) totalDays += f - s;
+        else totalDays += s -f;
+        f = Integer.parseInt(current.substring(3, 5));
+        s = Integer.parseInt(age.substring(3, 5));
+        if(f > s) totalDays += (f - s) * 30;
+        else totalDays += (s - f) * 30;
+        f = Integer.parseInt(current.substring(6, 10));
+        s = Integer.parseInt(age.substring(6, 10));
+        if(f > s) totalDays += (f - s) * 365;
+        else totalDays += (s - f) * 365;
+        return totalDays / 365;
+    }
+
     public void BuyGame(View view){
         DataBase usersDB = new DataBase(this, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
@@ -81,6 +109,12 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(context, "Null", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(CheckAge(c.getString(c.getColumnIndex("age"))) < game.ageLimit) {
+            Toast.makeText(context, "Sorry, but you are under " + game.ageLimit, Toast.LENGTH_LONG).show();
+            return ;
+        }
+
         int gameColumn = c.getColumnIndex("games");
         String games = c.getString(gameColumn);
         if(games != null && games.contains(name.getText().toString())){
@@ -90,9 +124,6 @@ public class GameActivity extends AppCompatActivity {
         }
         String newGames;
         if(games != null && games.length() > 1){
-            /*List<String> gamesList = Arrays.asList(games.split(","));
-            gamesList.add(name.getText().toString());
-            newGames = gamesList.toString().replace("[", "").replace("]", "");*/
             newGames = games + ", " + name.getText().toString();
         }
         else newGames = name.getText().toString();
@@ -100,7 +131,6 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(context, "The game is bought", Toast.LENGTH_LONG).show();
         c.close();
         DataBase transactionsDB = new DataBase(context, "transactions");
-        String gameName = name.getText().toString();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy; HH:mm", Locale.getDefault());
         String date = sdf.format(new Date());
         db = transactionsDB.getWritableDatabase();
