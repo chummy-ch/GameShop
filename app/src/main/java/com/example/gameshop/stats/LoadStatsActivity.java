@@ -122,7 +122,7 @@ public class LoadStatsActivity extends AppCompatActivity {
     private void LoadSelling(){
         DataBase dataBase = new DataBase(context, "transactions");
         SQLiteDatabase db = dataBase.getWritableDatabase();
-        Cursor c = db.rawQuery("select substr(date, 4 , 2) as 'month num' , sum(price) as 'total spent $' from transactions group by substr (date, 4, 2);", null );
+        Cursor c = db.rawQuery("select substr(date, 4 , 2) as 'month num' , sum(price) || '$' as 'total income' from transactions group by substr (date, 4, 2);", null );
         MakeTable(c, LinearLayout.VERTICAL);
         db.close();
     }
@@ -130,7 +130,7 @@ public class LoadStatsActivity extends AppCompatActivity {
     private void LoadViews(){
         DataBase dataBase = new DataBase(context, "views");
         SQLiteDatabase db = dataBase.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from views;", null);
+        Cursor c = db.rawQuery("select * from views order by times desc;", null);
         MakeTable(c, LinearLayout.VERTICAL);
         db.close();
     }
