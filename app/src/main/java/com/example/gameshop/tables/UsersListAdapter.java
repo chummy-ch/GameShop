@@ -41,6 +41,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.Adap
         holder.admin.setText(String.valueOf(users.get(position).admin));
         holder.age.setText(users.get(position).birthday);
         holder.psw.setText(users.get(position).password);
+        holder.reg.setText(users.get(position).reg);
     }
 
     @Override
@@ -49,16 +50,16 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.Adap
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
-        private TextView user, games, admin, age, psw;
+        private TextView user, games, admin, age, psw, reg;
 
         public AdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-
             user = itemView.findViewById(R.id.user);
             games = itemView.findViewById(R.id.games);
             admin = itemView.findViewById(R.id.admin);
             age = itemView.findViewById(R.id.age);
             psw = itemView.findViewById(R.id.password);
+            reg = itemView.findViewById(R.id.regday);
         }
     }
 }

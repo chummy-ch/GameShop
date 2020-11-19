@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,10 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gameshop.DataBase;
 import com.example.gameshop.R;
 import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.shopActivity.ShopActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
-
         IsSaved();
     }
 

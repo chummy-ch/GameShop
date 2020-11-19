@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.gameshop.genrelActivity.Genres;
+
+import java.util.function.BooleanSupplier;
+
 public class DataBase extends SQLiteOpenHelper {
     public DataBase(@Nullable Context context, @Nullable String name) {
         super(context, name, null, 1);
@@ -18,7 +22,8 @@ public class DataBase extends SQLiteOpenHelper {
                 + "games text,"
                 + "admin int,"
                 + "age text,"
-                + "password text);");
+                + "password text,"
+                + "regday text);");
 
         db.execSQL("create table games ("
                 + "id integer PRIMARY KEY AUTOINCREMENT,"
@@ -28,7 +33,10 @@ public class DataBase extends SQLiteOpenHelper {
                 + "description text,"
                 + "genres text,"
                 + "sale int,"
-                + "AgeLimit int"
+                + "ageLimit int,"
+                + "addedday text,"
+                + "creater text,"
+                + "addedby text"
                 + ");");
 
         db.execSQL("create table transactions("
@@ -40,11 +48,17 @@ public class DataBase extends SQLiteOpenHelper {
 
         db.execSQL("create table genres("
                     +"id integer primary key autoincrement,"
-                    +"genre text);");
+                    +"genre text,"
+                    +"description text);");
 
         db.execSQL("create table views("
-                    +"game text,"
+                    +"game text primary key,"
                     +"times integer);");
+
+        db.execSQL("create table priceinfo("
+                    + "id int primary key,"
+                    + "fullprice int,"
+                    + "sale int);");
     }
 
     @Override

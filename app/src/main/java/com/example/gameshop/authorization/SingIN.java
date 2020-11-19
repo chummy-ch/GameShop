@@ -15,7 +15,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class SingIN {
@@ -64,7 +66,8 @@ public class SingIN {
         cv.put("mail", mail);
         cv.put("age", brth);
         cv.put("password", psw);
-
+        String regDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        cv.put("regday", regDate);
         db.insert("users", null, cv);
         usersDB.close();
         return true;

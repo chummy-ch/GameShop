@@ -56,6 +56,14 @@
             android:layout_height="match_parent"
             android:layout_weight="0.3"/>
 
+        <TextView
+            android:text="Reg."
+            android:layout_width="75dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

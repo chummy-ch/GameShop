@@ -50,6 +50,7 @@ public class UsersListActivity extends AppCompatActivity {
             int adminIndex = c.getColumnIndex("admin");
             int ageIndex = c.getColumnIndex("age");
             int pswIndex = c.getColumnIndex("password");
+            int regIndex = c.getColumnIndex("regday");
 
             ArrayList<User> cardsList = new ArrayList<>();
 
@@ -60,9 +61,11 @@ public class UsersListActivity extends AppCompatActivity {
                 user.admin = c.getInt(adminIndex);
                 user.birthday = c.getString(ageIndex);
                 user.password = c.getString(pswIndex);
+                user.reg = c.getString(regIndex);
                 cardsList.add(user);
             } while (c.moveToNext());
             c.close();
+            db.close();
             UsersListAdapter adapter = new UsersListAdapter(context, cardsList, rec);
             rec.setAdapter(adapter);
         }

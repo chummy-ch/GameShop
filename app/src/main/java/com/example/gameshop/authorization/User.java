@@ -6,4 +6,5 @@ public class User {
     public int admin;
     public String birthday;
     public String password;
+    public String reg;
 }
