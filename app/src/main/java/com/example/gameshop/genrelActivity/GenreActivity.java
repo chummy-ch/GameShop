@@ -36,7 +36,7 @@ public class GenreActivity extends AppCompatActivity {
     }
 
     public void AddGen(View view){
-        if(gen.getText().toString().length() < 2 && desc.getText().toString().length() < 8){
+        if(gen.getText().toString().length() < 2 || desc.getText().toString().length() < 8){
             Toast.makeText(context, "Plz fill all the fields", Toast.LENGTH_LONG).show();
             return;
         }
