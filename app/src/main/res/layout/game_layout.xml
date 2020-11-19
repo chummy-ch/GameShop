@@ -28,6 +28,16 @@
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/creatorTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ABA4A2"
+        android:text="RPG ONLINE"
+        android:layout_marginTop="10dp"
+        android:textSize="10sp"
+        android:layout_gravity="center"/>
+
+    <TextView
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

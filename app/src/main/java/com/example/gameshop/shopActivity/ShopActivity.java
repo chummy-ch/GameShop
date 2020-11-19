@@ -181,7 +181,7 @@ public class ShopActivity extends AppCompatActivity {
             int descColIndex = c.getColumnIndex("description");
             int genColIndex = c.getColumnIndex("genres");
             int saleColIndex = c.getColumnIndex("sale");
-            int ageColIndex = c.getColumnIndex("AgeLimit");
+            int ageColIndex = c.getColumnIndex("ageLimit");
 
             ArrayList<GameCard> cardsList = new ArrayList<>();
 
@@ -194,7 +194,7 @@ public class ShopActivity extends AppCompatActivity {
                 int sale = c.getInt(saleColIndex);
                 int age = c.getInt(ageColIndex);
                 GameCard card = new GameCard();
-
+                card.creator = c.getString(c.getColumnIndex("creator"));
                 card.ageLimit = age;
                 card.sale = sale;
                 card.name = name;

@@ -35,7 +35,7 @@ public class DataBase extends SQLiteOpenHelper {
                 + "sale int,"
                 + "ageLimit int,"
                 + "addedday text,"
-                + "creater text,"
+                + "creator text,"
                 + "addedby text"
                 + ");");
 

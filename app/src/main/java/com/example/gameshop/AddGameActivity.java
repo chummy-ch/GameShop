@@ -63,7 +63,9 @@ public class AddGameActivity extends AppCompatActivity {
         creator = findViewById(R.id.creator);
 
         Genres gen = new Genres(context);
-        genres.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, gen.GetGenres()));
+        ArrayList<String> genString = new ArrayList<>();
+        for(Genre g : gen.GetGenres()) genString.add(g.gen);
+        genres.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, genString));
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +91,7 @@ public class AddGameActivity extends AppCompatActivity {
     private void Filler(){
         name.setText(game.name);
         desc.setText(game.disc);
+        creator.setText(game.creator);
         price.setText(String.valueOf(game.price));
         sale.setText(String.valueOf(game.sale));
         age.setText(String.valueOf(game.ageLimit));
@@ -124,7 +127,9 @@ public class AddGameActivity extends AppCompatActivity {
         text.setId(ll.getChildCount());
         text.setHint("Genre");
         Genres gen = new Genres(context);
-        text.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, gen.GetGenres()));
+        ArrayList<String> genString = new ArrayList<>();
+        for(Genre g : gen.GetGenres()) genString.add(g.gen);
+        text.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, genString));
         ll.addView(text, (int)text.getId() - 1);
     }
 
@@ -208,7 +213,7 @@ public class AddGameActivity extends AppCompatActivity {
         for(int i = 0; i < genArray.size(); i++){ g.add(genArray.get(i).gen); }
         for(int i = 0 ; i < ll.getChildCount() - 1; i++){
             AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
-            if(!g.contains(t.getText().toString()) && g.contains(t.getText().toString()))
+            if(!gens.contains(t.getText().toString()) && g.contains(t.getText().toString()))
             gens += t.getText().toString() + ",";
         }
         if(gens.trim().replaceAll(",", "").length() < 2){

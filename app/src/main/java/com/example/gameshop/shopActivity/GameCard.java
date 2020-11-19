@@ -7,5 +7,6 @@ public class GameCard {
     public int price;
     public int ageLimit;
     public int sale;
+    public String creator;
     public String disc;
 }

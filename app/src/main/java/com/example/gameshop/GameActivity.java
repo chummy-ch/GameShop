@@ -36,7 +36,7 @@ import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
-    private TextView name, genres, price, desc, age, sale;
+    private TextView name, genres, price, desc, age, sale, creator;
     private ImageView img;
     private String user;
     private Button edit;
@@ -50,6 +50,7 @@ public class GameActivity extends AppCompatActivity {
         genres = findViewById(R.id.genres);
         price = findViewById(R.id.price);
         age = findViewById(R.id.age);
+        creator = findViewById(R.id.creatorTV);
         edit = findViewById(R.id.edit);
         sale = findViewById(R.id.sale);
         desc = findViewById(R.id.desc);
@@ -164,6 +165,7 @@ public class GameActivity extends AppCompatActivity {
         String g = Arrays.toString(game.genres).replace("[", "").replace("]", "");
         genres.setText(g.replaceAll(",", " "));
         price.setText(String.valueOf(game.price) + "$");
+        creator.setText(game.creator);
         desc.setText(game.disc);
         File folder = context.getExternalFilesDir("images");
         if(game.image == null) return;

@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         regTV = findViewById(R.id.reg);
         age = findViewById(R.id.ageET);
         context = this;
+
+        /*SQLiteDatabase db = new DataBase(context, "games").getWritableDatabase();
+        new File(db.getPath()).delete();*/
         IsSaved();
     }
 
