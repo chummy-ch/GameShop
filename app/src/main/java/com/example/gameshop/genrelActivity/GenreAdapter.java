@@ -17,12 +17,12 @@ import com.example.gameshop.R;
 import java.util.ArrayList;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHodler> {
-    private ArrayList<String> gens;
+    private ArrayList<Genre> gens;
     private Context context;
     private Activity activity;
     private RecyclerView rec;
 
-    public GenreAdapter(Context context, ArrayList<String> gens, RecyclerView rec, Activity activity){
+    public GenreAdapter(Context context, ArrayList<Genre> gens, RecyclerView rec, Activity activity){
         this.context = context;
         this.activity = activity;
         this.gens = gens;
@@ -54,7 +54,8 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHodler> 
     public void onBindViewHolder(@NonNull ViewHodler holder, int position) {
         if(gens.size() == 0) return;
         holder.id.setText(String.valueOf(position));
-        holder.name.setText(gens.get(position));
+        holder.name.setText(gens.get(position).gen);
+        holder.desc.setText(gens.get(position).desc);
     }
 
     @Override
@@ -65,11 +66,13 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHodler> 
     public class ViewHodler extends RecyclerView.ViewHolder {
         public TextView id;
         public TextView name;
+        public TextView desc;
 
         public ViewHodler(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.genreId);
             name = itemView.findViewById(R.id.genreName);
+            desc = itemView.findViewById(R.id.genreDesc);
         }
     }
 }

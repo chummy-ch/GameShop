@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.example.gameshop.R;
+import com.example.gameshop.genrelActivity.Genre;
 import com.example.gameshop.genrelActivity.GenreAdapter;
 import com.example.gameshop.genrelActivity.Genres;
 
@@ -25,7 +26,7 @@ public class GenresTableActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recViewGenre);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ArrayList<String> ar = new ArrayList<>();
+        ArrayList<Genre> ar = new ArrayList<>();
         recyclerView.setAdapter(new GenreAdapter(context, ar, recyclerView, this));
 
         Genres gens = new Genres(context);

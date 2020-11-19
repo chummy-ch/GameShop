@@ -51,6 +51,14 @@
                 android:importantForAutofill="no" />
 
             <EditText
+                android:id="@+id/creator"
+                android:layout_width="250dp"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:hint="Creator"
+                android:importantForAutofill="no" />
+
+            <EditText
                 android:id="@+id/desc"
                 android:layout_width="250dp"
                 android:inputType="text"

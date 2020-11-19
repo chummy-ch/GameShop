@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gameshop.genrelActivity.Genre;
 import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.shopActivity.GameCard;
 import com.google.gson.Gson;
@@ -29,13 +30,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddGameActivity extends AppCompatActivity {
-    private EditText name, price, desc, sale;
+    private EditText name, price, desc, sale, creator;
     private AutoCompleteTextView genres;
     private ImageView image;
     private EditText age;
+    private String user;
     private GameCard game;
     private String imageUri;
     private final int Pick_image = 1;
@@ -55,6 +59,8 @@ public class AddGameActivity extends AppCompatActivity {
         genres = findViewById(R.id.genre);
         sale = findViewById(R.id.sale);
         Button save = findViewById(R.id.saveGame);
+        user = getIntent().getStringExtra("user");
+        creator = findViewById(R.id.creator);
 
         Genres gen = new Genres(context);
         genres.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, gen.GetGenres()));
@@ -197,10 +203,12 @@ public class AddGameActivity extends AppCompatActivity {
         LinearLayout ll = findViewById(R.id.genres);
         String gens = "";
         Genres genres = new Genres(context);
-        ArrayList<String> genArray = genres.GetGenres();
+        ArrayList<Genre> genArray = genres.GetGenres();
+        ArrayList<String> g = new ArrayList<>();
+        for(int i = 0; i < genArray.size(); i++){ g.add(genArray.get(i).gen); }
         for(int i = 0 ; i < ll.getChildCount() - 1; i++){
             AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
-            if(!gens.contains(t.getText().toString()) && genArray.contains(t.getText().toString()))
+            if(!g.contains(t.getText().toString()) && g.contains(t.getText().toString()))
             gens += t.getText().toString() + ",";
         }
         if(gens.trim().replaceAll(",", "").length() < 2){
@@ -229,7 +237,10 @@ public class AddGameActivity extends AppCompatActivity {
         cv.put("description", desc.getText().toString());
         cv.put("genres", gens);
         cv.put("sale", sale.getText().toString());
-        cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
+        cv.put("ageLimit", Integer.valueOf(age.getText().toString()));
+        cv.put("addedday", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        cv.put("addedby", user);
+        cv.put("creator",creator.getText().toString());
 
         db.insert("games", null, cv);
         gamesDB.close();
@@ -277,11 +288,13 @@ public class AddGameActivity extends AppCompatActivity {
             }
         }
         String gens = "";
-        ArrayList<String> gs = new Genres(context).GetGenres();
+        ArrayList<Genre> gs = new Genres(context).GetGenres();
+        ArrayList<String> g = new ArrayList<>();
+        for(int i = 0; i < gs.size(); i++){ g.add(gs.get(i).gen); }
         LinearLayout ll = findViewById(R.id.genres);
         for(int i = 0; i < ll.getChildCount() - 1; i++){
             AutoCompleteTextView t = (AutoCompleteTextView) ll.getChildAt(i);
-            if(gs.contains(t.getText().toString())) {
+            if(g.contains(t.getText().toString())) {
                 if(gens.length() > 0) gens += "," + t.getText().toString();
                 else gens += t.getText().toString();
             }
@@ -293,19 +306,17 @@ public class AddGameActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         DataBase gamesDB = new DataBase(this, "games");
         SQLiteDatabase db = gamesDB.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from games;", null);
-        if(!c.moveToFirst()) return;
         cv.put("game", name.getText().toString());
         cv.put("price", Integer.parseInt(price.getText().toString()));
         cv.put("image", game.image);
         cv.put("description", desc.getText().toString());
         cv.put("genres", gens);
         cv.put("sale", sale.getText().toString());
-        cv.put("AgeLimit", Integer.valueOf(age.getText().toString()));
+        cv.put("ageLimit", Integer.valueOf(age.getText().toString()));
+        cv.put("creator",creator.getText().toString());
         /*db.execSQL("UPDATE games SET price = 110 WHERE game = " + "'" + game.name + "'" + ";");*/
         db.update("games", cv, "game=" + "'" + game.name + "'", null);
         gamesDB.close();
-        c.close();
         if(!name.getText().toString().equals(game.name)){
             gamesDB = new DataBase(context, "view");
             db = gamesDB.getWritableDatabase();
