@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/gens"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"/>
         </LinearLayout>
