@@ -29,7 +29,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.Adap
     @Override
     public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.users_list_layout, parent, false);
+        View view = inflater.inflate(R.layout.user_card_layout, parent, false);
         return new AdapterViewHolder(view);
     }
 
@@ -54,12 +54,12 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.Adap
 
         public AdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            user = itemView.findViewById(R.id.user);
-            games = itemView.findViewById(R.id.games);
-            admin = itemView.findViewById(R.id.admin);
-            age = itemView.findViewById(R.id.age);
-            psw = itemView.findViewById(R.id.password);
-            reg = itemView.findViewById(R.id.regday);
+            user = itemView.findViewById(R.id.usernameview);
+            games = itemView.findViewById(R.id.gamesview);
+            admin = itemView.findViewById(R.id.adminview);
+            age = itemView.findViewById(R.id.birthdayview);
+            psw = itemView.findViewById(R.id.pswview);
+            reg = itemView.findViewById(R.id.regdayview);
         }
     }
 }
