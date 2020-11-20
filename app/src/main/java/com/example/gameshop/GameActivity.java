@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -161,7 +162,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void Filler(){
         name.setText(game.name);
-        age.setText(String.valueOf(game.ageLimit));
+        age.setText(String.valueOf(game.ageLimit) + "+");
         String g = Arrays.toString(game.genres).replace("[", "").replace("]", "");
         genres.setText(g.replaceAll(",", " "));
         price.setText(String.valueOf(game.price) + "$");
@@ -174,6 +175,9 @@ public class GameActivity extends AppCompatActivity {
         if(imageFile.exists()){
             Glide.with(context).load(imageFile).into(this.img);
         }
-        if(game.sale > 0) sale.setText("- " + game.sale + "$");
+        if(game.sale > 0) {
+            sale.setText(game.price - game.sale + "$");
+            price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
     }
 }

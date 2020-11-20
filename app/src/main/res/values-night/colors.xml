@@ -2,4 +2,5 @@
 <resources>
     <color name="borders">#858585</color>
     <color name="red">#FF0000</color>
+    <color name="saleprice">#76FF36</color>
 </resources>

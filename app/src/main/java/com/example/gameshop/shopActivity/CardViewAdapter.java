@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,11 @@ public class CardViewAdapter extends  RecyclerView.Adapter<CardViewAdapter.Adapt
         holder.name.setText(games.get(position).name);
         String g = Arrays.toString(games.get(position).genres).replace("[", "").replace("]", "");
         holder.genres.setText(g.replaceAll(",", " "));
-        holder.price.setText(String.valueOf(games.get(position).price - games.get(position).sale) + "$");
-        if(games.get(position).sale > 0) holder.price.setTextColor(Color.RED);
+        holder.price.setText(String.valueOf(games.get(position).price) + "$");
+        if(games.get(position).sale > 0) {
+            holder.price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.price.setTextColor(context.getColor(R.color.saleprice));
+        }
         File folder = context.getExternalFilesDir("images");
         if(games.get(position).image == null) return;
         if(games.get(position).image.contains("/")) games.get(position).image = games.get(position).image.substring(games.get(position).image.lastIndexOf('/') + 1);

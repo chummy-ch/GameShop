@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="borders">#000000</color>
     <color name="red">#FF0000</color>
+    <color name="saleprice">#76FF36</color>
 </resources>
