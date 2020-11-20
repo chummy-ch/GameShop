@@ -2,7 +2,9 @@ package com.example.gameshop.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ import com.example.gameshop.shopActivity.ShopActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     public EditText login;
@@ -184,7 +189,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "There is already user with the same email", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(context, "You have been registrated", Toast.LENGTH_SHORT).show();
-        RegToLogin(singup);
+       /* Toast.makeText(context, "You have been registrated", Toast.LENGTH_SHORT).show();
+        RegToLogin(singup);*/
+
+
     }
 }

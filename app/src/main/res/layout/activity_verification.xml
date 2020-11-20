@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".authorization.VerificationActivity">
+
+    <TextView
+        android:id="@+id/wrongmail"
+        android:layout_width="300dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#F1A607"
+        android:text="If you have not received the mail yet you should press the cancel button, check if you have input your mail correctly and try again"/>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/secretcode"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Secret code"
+        android:inputType="text"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@drawable/round_view"/>
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:onClick="Cancel"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:background="@drawable/round_view"/>
+
+        <Button
+            android:onClick="Ok"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:background="@drawable/round_view"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
