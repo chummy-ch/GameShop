@@ -62,9 +62,6 @@ public class ReportsActivity extends AppCompatActivity {
     }
 
     private void CreateFile(String name){
-            /*FileWriter file = new FileWriter(filepath);
-            file.write(new ReportFormation(context).GetSalesReport());
-            file.close();*/
         File folder = context.getExternalFilesDir("reports");
         String reportName = "(" + name + ")" + new Date().toString();
         String path = folder.getPath() + "/" + reportName + ".txt";
@@ -74,7 +71,7 @@ public class ReportsActivity extends AppCompatActivity {
             report = new FileWriter(path);
             report.write(new ReportFormation(context).GetSalesReport());
             report.close();
-            SendMail send = new SendMail(context, user, "Report", "Here is your report", path);
+            SendMail send = new SendMail(context, user, "Here is your report of " + new Date().toString(), "", path);
             send.execute();
         } catch (IOException e) {
             e.printStackTrace();
