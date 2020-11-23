@@ -159,7 +159,7 @@ public class GameActivity extends AppCompatActivity {
         FileWriter report = null;
         try {
             report = new FileWriter(path);
-            report.write(new ReportFormation(context).GetCheck(id));
+            report.write(new ReportFormation(context).GetCheck(id, user));
             report.close();
             SendMail send = new SendMail(context, user, "Here is your report of " + new Date().toString(), "", path);
             send.execute();

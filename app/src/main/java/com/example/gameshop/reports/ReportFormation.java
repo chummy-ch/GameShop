@@ -16,9 +16,10 @@ public class ReportFormation {
         this.context = context;
     }
 
-    public String GetCheck(String id){
+    public String GetCheck(String id, String user){
         StringBuilder rep = new StringBuilder();
-        rep.append(String.format(" %30s%n", "Чек"));
+        rep.append(String.format(" %30s%n", "Чек №" + id));
+        rep.append(String.format(" %30s%n", user));
         rep.append(String.format(" %30s%n", new Date().toString()));
         rep.append(String.format("%5s %19s %13s%n", "Название", "Количество", "Цена"));
         rep.append(String.format(" %-20s %-20s %-20s%n", "--------------", "--------------", "--------------"));
@@ -31,8 +32,10 @@ public class ReportFormation {
         }while(c.moveToNext());
         db.close();
         c.close();
+
         rep.append(String.format(" %-20s %-20s %-20s%n", "--------------", "--------------", "--------------"));
-        rep.append("Thank you for choosing our shop. See you soon");
+        rep.append("Спасибо за покупку в нашем магазине. Будем рады вам снова!");
+        rep.append("\n\t\t ©DETAGamesMarket");
         return rep.toString();
     }
 
