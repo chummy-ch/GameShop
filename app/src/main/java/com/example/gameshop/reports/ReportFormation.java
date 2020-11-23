@@ -3,14 +3,37 @@ package com.example.gameshop.reports;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.example.gameshop.DataBase;
+
+import java.util.Date;
 
 public class ReportFormation {
     private Context context;
 
     public ReportFormation(Context context){
         this.context = context;
+    }
+
+    public String GetCheck(String id){
+        StringBuilder rep = new StringBuilder();
+        rep.append(String.format(" %30s%n", "Чек"));
+        rep.append(String.format(" %30s%n", new Date().toString()));
+        rep.append(String.format("%5s %19s %13s%n", "Название", "Количество", "Цена"));
+        rep.append(String.format(" %-20s %-20s %-20s%n", "--------------", "--------------", "--------------"));
+        SQLiteDatabase db = new DataBase(context, "transactions").getWritableDatabase();
+        Cursor c = db.rawQuery("select game, price from transactions where id = '" + id + "';", null);
+        c.moveToFirst();
+        do{
+            rep.append(String.format(" %5s %15s %20s%n", c.getString(0), 1,
+                    c.getString(1) + "$"));
+        }while(c.moveToNext());
+        db.close();
+        c.close();
+        rep.append(String.format(" %-20s %-20s %-20s%n", "--------------", "--------------", "--------------"));
+        rep.append("Thank you for choosing our shop. See you soon");
+        return rep.toString();
     }
 
     public String GetSalesReport(){

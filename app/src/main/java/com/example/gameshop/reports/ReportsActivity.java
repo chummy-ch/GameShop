@@ -76,7 +76,6 @@ public class ReportsActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void MonthReport(View view){

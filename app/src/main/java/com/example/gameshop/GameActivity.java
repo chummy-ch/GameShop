@@ -16,11 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gameshop.mailsender.SendMail;
+import com.example.gameshop.reports.ReportFormation;
 import com.example.gameshop.shopActivity.GameCard;
 import com.google.gson.Gson;
 import com.sun.mail.imap.protocol.INTERNALDATE;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -138,10 +142,30 @@ public class GameActivity extends AppCompatActivity {
         db = transactionsDB.getWritableDatabase();
         db.execSQL("insert into transactions (game, user, price, date) values ('" + game.name + "','" + user + "','" + game.price
                             + "','" + date + "');");
+        c = db.rawQuery("SELECT last_insert_rowid();", null);
+        c.moveToFirst();
+        SendReport(c.getString(0));
         db.close();
         price.setTextColor(Color.GRAY);
         Button buy = findViewById(R.id.buyButton);
         buy.setText("Bought");
+    }
+
+    private void SendReport(String id){
+        File folder = context.getExternalFilesDir("reports");
+        String reportName = "(Чек)" + new Date().toString();
+        String path = folder.getPath() + "/" + reportName + ".txt";
+        if(!folder.exists()) folder.mkdir();
+        FileWriter report = null;
+        try {
+            report = new FileWriter(path);
+            report.write(new ReportFormation(context).GetCheck(id));
+            report.close();
+            SendMail send = new SendMail(context, user, "Here is your report of " + new Date().toString(), "", path);
+            send.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void HasGame(){
