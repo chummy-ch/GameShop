@@ -226,6 +226,5 @@ public class ShopActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("select * from games;", null);
         CursorToRecycler(c);
         db.close();
-
     }
 }

@@ -24,6 +24,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.spi.FileTypeDetector;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public class ReportsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreateFile();
+                CreateFile("Income");
             }
         });
         parent.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -60,21 +61,20 @@ public class ReportsActivity extends AppCompatActivity {
         return tv;
     }
 
-    private void CreateFile(){
+    private void CreateFile(String name){
             /*FileWriter file = new FileWriter(filepath);
             file.write(new ReportFormation(context).GetSalesReport());
             file.close();*/
         File folder = context.getExternalFilesDir("reports");
-        Random rn = new Random();
-        int ran = rn.nextInt();
-        String path = folder.getPath() + "/" + ran + ".txt";
+        String reportName = "(" + name + ")" + new Date().toString();
+        String path = folder.getPath() + "/" + reportName + ".txt";
         if(!folder.exists()) folder.mkdir();
         FileWriter report = null;
         try {
-            report = new FileWriter(folder.getPath() + "/" + ran + ".txt");
+            report = new FileWriter(path);
             report.write(new ReportFormation(context).GetSalesReport());
             report.close();
-            SendMail send = new SendMail(context, user, "Report", "Here is your report", folder.getPath() + "/" + ran + ".txt");
+            SendMail send = new SendMail(context, user, "Report", "Here is your report", path);
             send.execute();
         } catch (IOException e) {
             e.printStackTrace();
