@@ -51,7 +51,7 @@ public class ReportsActivity extends AppCompatActivity {
             }
         });
         parent.setGravity(Gravity.CENTER_HORIZONTAL);
-        parent.removeViews(1,2);
+        parent.removeViews(1,parent.getChildCount() - 1);
         user = getIntent().getStringExtra("user");
         TextView tv = new TextView(context);
         tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
