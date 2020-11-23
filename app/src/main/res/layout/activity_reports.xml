@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:id="@+id/reportparent"
+    tools:context=".reports.ReportsActivity">
+
+    <ImageButton
+        android:id="@+id/downloadreport"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/download"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:text="Month report"
+        android:textSize="30sp"
+        android:onClick="MonthReport"
+        android:gravity="center"
+        android:background="@drawable/round_view"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="300dp"
+        android:text="Games views"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="@drawable/round_view"
+        android:layout_height="50dp"/>
+
+
+
+</LinearLayout>

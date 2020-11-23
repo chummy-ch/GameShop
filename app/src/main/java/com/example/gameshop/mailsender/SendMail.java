@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -14,6 +16,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.sql.DataSource;
 
 public class SendMail extends AsyncTask<Void, Void, Void> {
     private Context context;
@@ -21,10 +24,12 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
     private String email;
     private String subject;
     private String message;
+    private String filepath;
     private ProgressDialog progressDialog;
-    public SendMail(Context context, String email, String subject, String message){
+    public SendMail(Context context, String email, String subject, String message, String filepath){
         this.context = context;
         this.email = email;
+        this.filepath = filepath;
         this.subject = subject;
         this.message = message;
     }
@@ -62,6 +67,11 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
             mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             mm.setSubject(subject);
             mm.setText(message);
+            if(filepath != null){
+                FileDataSource sourse = (FileDataSource) new FileDataSource(filepath);
+                mm.setDataHandler(new DataHandler((javax.activation.DataSource) sourse));
+                mm.setFileName(filepath.substring(filepath.lastIndexOf('/') + 1));
+            }
             Transport.send(mm);
         }
         catch (MessagingException e) {

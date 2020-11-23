@@ -2,11 +2,8 @@ package com.example.gameshop.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,17 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gameshop.DataBase;
 import com.example.gameshop.R;
-import com.example.gameshop.genrelActivity.Genres;
+import com.example.gameshop.reports.ReportFormation;
 import com.example.gameshop.shopActivity.ShopActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     public EditText login;
@@ -59,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         /*SQLiteDatabase db = new DataBase(context, "games").getWritableDatabase();
         new File(db.getPath()).delete();*/
         IsSaved();
+        System.out.println(new ReportFormation(context).GetSalesReport());
+
     }
 
     private void IsSaved(){

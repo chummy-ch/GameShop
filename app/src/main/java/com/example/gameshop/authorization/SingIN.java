@@ -73,7 +73,7 @@ public class SingIN {
         db.close();
 
         String code =  String.valueOf(getRandomNumber());
-        SendMail send = new SendMail(context, mail, "Secret code", "Please enter this code in the app :" + code);
+        SendMail send = new SendMail(context, mail, "Secret code", "Please enter this code in the app :" + code, null);
         send.execute();
         Intent intent = new Intent(context, VerificationActivity.class);
         intent.putExtra("mail", mail).putExtra("psw", psw).putExtra("brth", brth)
