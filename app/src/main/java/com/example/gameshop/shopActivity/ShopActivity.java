@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,6 +25,8 @@ import com.example.gameshop.DataBase;
 import com.example.gameshop.PickAddingActivity;
 import com.example.gameshop.R;
 import com.example.gameshop.SqlCodeActivity;
+import com.example.gameshop.genrelActivity.Genre;
+import com.example.gameshop.genrelActivity.Genres;
 import com.example.gameshop.reports.ReportsActivity;
 import com.example.gameshop.stats.StatsActivity;
 import com.example.gameshop.tables.TablePickerActivity;
@@ -40,7 +44,7 @@ public class ShopActivity extends AppCompatActivity {
     private int priceSort = 0;
     private int recSort = 0;
     public TextView text;
-    private EditText searchField;
+    private AutoCompleteTextView searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,10 @@ public class ShopActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Genres gen = new Genres(context);
+        ArrayList<String> genString = new ArrayList<>();
+        for(Genre g : gen.GetGenres()) genString.add(g.gen);
+        searchField.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, genString));
 
         Button sql = findViewById(R.id.sqlcode);
         sql.setOnClickListener(new View.OnClickListener() {
@@ -124,8 +132,7 @@ public class ShopActivity extends AppCompatActivity {
         DataBase dataBase = new DataBase(context, "games");
         SQLiteDatabase db = dataBase.getWritableDatabase();
         Cursor c = db.rawQuery("select * from games where game like '%" + searchField.getText().toString() + "%';", null);
-        if(c.getCount() != 0)
-        CursorToRecycler(c);
+        if(c.getCount() != 0) CursorToRecycler(c);
         else {
             c = db.rawQuery("select * from games where genres like '%" + searchField.getText().toString().toUpperCase() + "%';", null);
             CursorToRecycler(c);

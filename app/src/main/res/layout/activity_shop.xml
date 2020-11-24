@@ -70,7 +70,7 @@
             android:layout_marginStart="5dp"
             android:layout_height="35dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/gameSearch"
             android:inputType="text"
             android:hint="Search"
