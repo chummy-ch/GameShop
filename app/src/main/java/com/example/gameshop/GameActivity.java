@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +27,8 @@ import com.sun.mail.imap.protocol.INTERNALDATE;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.Provider;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -38,6 +42,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.DuplicateFormatFlagsException;
 import java.util.Locale;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
     private GameCard game ;
@@ -107,6 +112,30 @@ public class GameActivity extends AppCompatActivity {
         return totalDays / 365;
     }
 
+    private void informUser(int sale){
+        Toast.makeText(context, "You got a " + sale + "% sale for this game", Toast.LENGTH_LONG).show();
+        Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vib.vibrate(2000);
+    }
+
+    private int getAutoSale(){
+        SQLiteDatabase db = new DataBase(context, "users").getWritableDatabase();
+        String sql = "select games from users where mail = '" + user + "';";
+        Cursor c = db.rawQuery(sql, null);
+        if(!c.moveToFirst()){
+            return 0;
+        }
+        String[] games = c.getString(0).split(",");
+        if(games.length > 2){
+            Random rn = new Random();
+            int sale = rn.nextInt(25);
+            informUser(sale);
+            return sale;
+        }else{
+            return 0;
+        }
+    }
+
     public void BuyGame(View view){
         DataBase usersDB = new DataBase(this, "users");
         SQLiteDatabase db = usersDB.getWritableDatabase();
@@ -133,6 +162,11 @@ public class GameActivity extends AppCompatActivity {
             newGames = games + ", " + name.getText().toString();
         }
         else newGames = name.getText().toString();
+
+        float autoSale = Float.valueOf(String.valueOf(getAutoSale())) / 100;
+        float pr = Float.valueOf(String.valueOf(game.price));
+        float newPrice = pr - (game.price * autoSale);
+       
         db.execSQL("update users set games = '" + newGames + "' where mail = '" + user + "';");
         Toast.makeText(context, "The game is bought", Toast.LENGTH_LONG).show();
         c.close();
@@ -140,7 +174,8 @@ public class GameActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy; HH:mm", Locale.getDefault());
         String date = sdf.format(new Date());
         db = transactionsDB.getWritableDatabase();
-        db.execSQL("insert into transactions (game, user, price, date) values ('" + game.name + "','" + user + "','" + game.price
+        db.execSQL("insert into transactions (game, user, price" +
+                ", date) values ('" + game.name + "','" + user + "','" + newPrice
                             + "','" + date + "');");
         c = db.rawQuery("SELECT last_insert_rowid();", null);
         c.moveToFirst();
