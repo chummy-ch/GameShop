@@ -1,4 +1,4 @@
-package com.example.gameshop;
+    package com.example.gameshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 

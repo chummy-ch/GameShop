@@ -12,12 +12,13 @@
         android:textSize="30sp"
         android:onClick="GamesViews"
         android:gravity="center"
+        android:elevation="50dp"
         android:background="@drawable/round_view"
         android:layout_height="50dp"/>
 
     <TextView
         android:layout_width="300dp"
-        android:text="Sold for current month"
+        android:text="Sold per month"
         android:textSize="30sp"
         android:layout_marginTop="25dp"
         android:onClick="MonthSelling"
